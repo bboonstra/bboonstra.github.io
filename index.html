@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal website of Ben Boonstra. Code Cool Stuff!">
+    <title>Ben Boonstra - Developer Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1 id="big-name">Ben Boonstra</h1>
+            <hr class="white-rule"/>
+            <ul class="profile-link-container">
+                <li><a class="profile-link" href="https://www.linkedin.com/in/ben-boonstra-38b96a262/" target="_blank"><img class="linkedin" src="https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png"/>bboonstra</a></li>
+                <li><a class="profile-link" href="https://bboonstra.itch.io/" target="_blank"><img class="itch" src="https://static-00.iconduck.com/assets.00/itch-io-icon-256x256-0aig5hor.png"/>bboonstra</a></li>
+                <li><a class="profile-link" href="https://github.com/bboonstra/" target="_blank"><img class="github" src="github-mark-white.png"/>bboonstra</a></li>
+            </ul>      
+            <hr class="white-rule"/>
+        </div>
+    </header>    
+    <nav class="sticky-nav">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- 
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Welcome to My Website</h2>
+            <p>Exploring creativity through code.</p>
+            <a href="#projects" class="btn">View Projects</a>
+        </div>
+    </section>
+    -->
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Hi, I'm Ben, a full-stack developer! I do all sorts of things in the CS sphere, like: </p>
+        <div class="gallery">
+            <div class="gallery-item" data-description="Creating fun and engaging games." data-anchor="#deepdive">Video Games</div>
+            <div class="gallery-item" data-description="Developing packages to make coding easier." data-anchor="#guanaco">Python Packages</div>
+            <div class="gallery-item" data-description="Competing in cybersecurity challenges.">Cybersecurity Competitions</div>
+            <div class="gallery-item" data-description="Building responsive and interactive web applications." data-anchor="#pixelpuzzlebox">Web Development</div>
+        </div>
+        <div id="item-description" class="item-description"></div>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="project-grid">
+            <div class="project-item" id="deepdive">
+                <h3>Deep Dive</h3>
+                <award class="first">
+                    <div class="text-container initial">
+                        1st
+                    </div>
+                    <div class="text-container description">
+                        Won the Text-Based Jam 2022
+                    </div>
+                </award>
+                
+                <p>A short description of this project.</p>
+                <iframe id="dd-embed" src="https://replit.com/@IceFire03/Deep-Dive?embed=true" width="600" height="400"></iframe>
+            </div>
+            <div class="project-item" id="ragnarok">
+                <h3>Ragnarok Robotics</h3>
+                <p>A short description of this project.</p>
+                <div class="github-card" data-github="24358-Ragnarok" data-width="400" data-height="" data-theme="default"></div>
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+            </div>
+            <div class="project-item" id="guanaco">
+                <h3>Guanaco Trade</h3>
+                <p>A short description of this project.</p>
+                <div class="github-card" data-github="bboonstra/guanaco-trade" data-width="400" data-height="" data-theme="default"></div>
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+            </div>
+            <div class="project-item" id="pixelpuzzlebox">
+                <h3>Coming Soon...</h3>
+                <p>???</p>
+                <iframe hidden frameborder="0" src="https://itch.io/embed/2954893?linkback=true&amp;bg_color=333&amp;fg_color=fff" width="552" height="167"><a href="https://bboonstra.itch.io/pixel-puzzlebox">Pixel Puzzlebox by bboonstra</a></iframe>            </div>
+
+            </div>
+            <div class="project-item" id="unknownuniverse">
+                <h3>Coming Soon...</h3>
+                <p>???</p>
+                <iframe hidden frameborder="0" src="https://itch.io/embed/2954893?linkback=true&amp;bg_color=333&amp;fg_color=fff" width="552" height="167"><a href="https://bboonstra.itch.io/pixel-puzzlebox">Pixel Puzzlebox by bboonstra</a></iframe>            </div>
+
+            </div>
+    </section>
+
+    <section id="proficiencies">
+        <h2>Languages</h2>
+        <div class="bubble-container">
+            <div class="bubble" data-anchor="#guanaco">Python</div>
+            <div class="bubble" data-anchor="#unknownuniverse">GDScript</div>
+            <div class="bubble" data-anchor="#pixelpuzzlebox">HTML</div>
+            <div class="bubble" data-anchor="#pixelpuzzlebox">CSS</div>
+            <div class="bubble" data-anchor="#pixelpuzzlebox">JS</div>
+            <div class="bubble" data-anchor="#ragnarok">Java</div>
+        </div>
+    </section>    
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <h5>bboonstra26@gmail.com</h5>
+    </section>
+
+    <footer>
+        <p>code cool stuff • <span class="copyright">©</span> 2024 bboonstra • all rights reserved</p>
+    </footer>
+<script src="script.js"></script>
+</body>
+</html>
