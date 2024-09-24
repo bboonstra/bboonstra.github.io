@@ -89,7 +89,7 @@ nav.sticky-nav ul li {
     margin: 0 15px;
 }
 
-nav.sticky-nav ul li a {
+nav.sticky-nav ul li {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
@@ -111,6 +111,10 @@ nav.sticky-nav ul li a {
     gap: 8px; /* Spacing between icon and text */
     text-decoration: none; /* Remove underline from links */
     color: #fff; /* Make sure the text is white like the header */
+}
+
+.github {
+    border-radius: 10px;
 }
 
 .profile-link img {
@@ -218,7 +222,7 @@ section {
 
 .bubble {
     background: radial-gradient(circle at 30% 30%, #81c3f3, #e0e0e0); /* Light blue gradient for the bubble */
-    border-radius: 50%; /* Perfectly round */
+    border-radius: 100%; /* Perfectly round */
     padding: 1rem 2rem;
     margin: 10px;
     text-align: center;
@@ -280,12 +284,14 @@ footer {
 }
     
 .section-highlight {
-    background-color: rgba(255, 239, 183, 0.5); /* Soft yellow highlight */
+    background-color: rgba(255, 239, 183, 0.742); /* Soft yellow highlight */
+    border-radius: inherit;
     transition: background-color 0.5s ease-in-out; /* Smooth transition */
 }
 
 .section-dehighlight {
-    background-color: rgb(255, 255, 255);
+    background-color: parent;
+    border-radius: inherit;
     transition: background-color 0.5s ease-in-out;
 }
 
@@ -383,4 +389,47 @@ award.second {
 
 award.third {
   background-color: #cd7f32; /* Color for 3rd place */
+}
+
+#contact {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.contact-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-btn::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background-color: rgba(255, 255, 255, 0.15);
+    transition: width 0.4s ease, height 0.4s ease, top 0.4s ease, left 0.4s ease;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.contact-btn:hover::before {
+    width: 0;
+    height: 0;
+    top: 50%;
+    left: 50%;
+}
+
+.contact-btn:hover {
+    background-color: #f39c12;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }

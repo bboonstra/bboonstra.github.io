@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Personal website of Ben Boonstra. Code Cool Stuff!">
-    <title>Ben Boonstra - Developer Portfolio</title>
+    <title>bboonstra - portfolio</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,19 +13,19 @@
             <h1 id="big-name">Ben Boonstra</h1>
             <hr class="white-rule"/>
             <ul class="profile-link-container">
-                <li><a class="profile-link" href="https://www.linkedin.com/in/ben-boonstra-38b96a262/" target="_blank"><img class="linkedin" src="https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png"/>bboonstra</a></li>
-                <li><a class="profile-link" href="https://bboonstra.itch.io/" target="_blank"><img class="itch" src="https://static-00.iconduck.com/assets.00/itch-io-icon-256x256-0aig5hor.png"/>bboonstra</a></li>
-                <li><a class="profile-link" href="https://github.com/bboonstra/" target="_blank"><img class="github" src="github-mark-white.png"/>bboonstra</a></li>
+                <li><a class="profile-link linkedin" href="https://www.linkedin.com/in/ben-boonstra-38b96a262/" target="_blank"><img class="linkedin" src="https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png"/>bboonstra</a></li>
+                <li><a class="profile-link itch" href="https://bboonstra.itch.io/" target="_blank"><img class="itch" src="https://static-00.iconduck.com/assets.00/itch-io-icon-256x256-0aig5hor.png"/>bboonstra</a></li>
+                <li><a class="profile-link github" href="https://github.com/bboonstra/" target="_blank"><img class="github" src="github-mark-white.png"/>bboonstra</a></li>
             </ul>      
             <hr class="white-rule"/>
         </div>
     </header>    
     <nav class="sticky-nav">
         <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li onclick="goToAndHighlight('#about')">About</li>
+            <li onclick="goToAndHighlight('#projects')">Projects</li>
+            <li onclick="goToAndHighlight('#skills')">Skills</li>
+            <li onclick="goToAndHighlight('#contact')">Contact</li>
         </ul>
     </nav>
 
@@ -41,12 +41,12 @@
 
     <section id="about">
         <h2>About Me</h2>
-        <p>Hi, I'm Ben, a full-stack developer! I do all sorts of things in the CS sphere, like: </p>
+        <p>I'm Ben, a full-stack developer! I do all sorts of things in the CS sphere, like: </p>
         <div class="gallery">
-            <div class="gallery-item" data-description="Creating fun and engaging games." data-anchor="#deepdive">Video Games</div>
-            <div class="gallery-item" data-description="Developing packages to make coding easier." data-anchor="#guanaco">Python Packages</div>
-            <div class="gallery-item" data-description="Competing in cybersecurity challenges.">Cybersecurity Competitions</div>
-            <div class="gallery-item" data-description="Building responsive and interactive web applications." data-anchor="#pixelpuzzlebox">Web Development</div>
+            <div class="gallery-item" data-description="I've created multiple award-winning games for Game Jams." data-anchor="#deepdive">Video Games</div>
+            <div class="gallery-item" data-description="I made the Guanaco Trade python package, which predicts the stock market with AI." data-anchor="#guanaco">Python Packages</div>
+            <div class="gallery-item" data-description="I've placed top 10 in the Iowa State University High School CDC.">Cybersecurity Competitions</div>
+            <div class="gallery-item" data-description="I have professional experience from my time working with APEX to create response web design, like this website." data-anchor="#pixelpuzzlebox">Web Development</div>
         </div>
         <div id="item-description" class="item-description"></div>
     </section>
@@ -92,24 +92,39 @@
                 <iframe hidden frameborder="0" src="https://itch.io/embed/2954893?linkback=true&amp;bg_color=333&amp;fg_color=fff" width="552" height="167"><a href="https://bboonstra.itch.io/pixel-puzzlebox">Pixel Puzzlebox by bboonstra</a></iframe>            </div>
 
             </div>
+            <div class="project-item" id="doniowa">
+                <h3>Coming Soon...</h3>
+                <p>???</p>
+                <iframe hidden frameborder="0" src="https://doniowa.com/embed" width="552" height="167"></iframe>
+            </div>
     </section>
 
-    <section id="proficiencies">
-        <h2>Languages</h2>
+    <section id="skills">
+        <h2>Skills</h2>
         <div class="bubble-container">
             <div class="bubble" data-anchor="#guanaco">Python</div>
-            <div class="bubble" data-anchor="#unknownuniverse">GDScript</div>
+            <div class="bubble" data-anchor="#guanaco">PyPI</div>
+            <div class="bubble" data-anchor="#guanaco">Data Analysis</div>
+            <div class="bubble" data-anchor="#guanaco">Generative AI</div>
+            <div class="bubble" data-anchor="#guanaco">Machine Learning</div>
+            <div class="bubble" data-anchor="#unknownuniverse">Godot</div>
+            <div class="bubble" data-anchor="#unknownuniverse">Game Design</div>
             <div class="bubble" data-anchor="#pixelpuzzlebox">HTML</div>
             <div class="bubble" data-anchor="#pixelpuzzlebox">CSS</div>
             <div class="bubble" data-anchor="#pixelpuzzlebox">JS</div>
-            <div class="bubble" data-anchor="#ragnarok">Java</div>
+            <div class="bubble" data-anchor="#doniowa">Databases</div>
+            <div class="bubble" data-anchor="#doniowa">Backend</div>
+            <div class="bubble" data-anchor="#doniowa">Frontend</div>
+            <div class="bubble" data-anchor="#doniowa">WordPress</div>
+            <div class="bubble" data-anchor="#ragnarok">OOP</div>
+            <div class="bubble" data-anchor=".github">Git</div>
         </div>
     </section>    
 
     <section id="contact">
         <h2>Contact Me</h2>
-        <h5>bboonstra26@gmail.com</h5>
-    </section>
+        <a href="mailto:bboonstra26@gmail.com" class="contact-btn">Get In Touch</a>
+    </section>    
 
     <footer>
         <p>code cool stuff • <span class="copyright">©</span> 2024 bboonstra • all rights reserved</p>
