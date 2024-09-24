@@ -1,10 +1,10 @@
 /* Basic styles for layout and design */
 body {
-    margin: 0;
-    background-color: #f4f4f4;
+    margin: 10px;
+    background-color: #121212; /* Dark background */
     font-family: 'CarvingSoft', sans-serif;
     font-size: 1rem;
-    color: #333;
+    color: #e0e0e0; /* Light text color for contrast */
     text-align: center;
     align-items: center;
 }
@@ -25,7 +25,6 @@ body {
     font-style: normal;
 }
 
-
 /* Header content (use PantonBlack for titles) */
 header h1 {
     font-family: 'PantonBlack', sans-serif;
@@ -42,6 +41,7 @@ h2, h3 {
 /* Paragraphs, forms, and other body content */
 p, form input, form textarea, form button {
     font-family: 'CarvingSoft', sans-serif;
+    color: #e0e0e0; /* Light text for body content */
 }
 
 ul {
@@ -49,7 +49,7 @@ ul {
 }
 
 header {
-    background: #333;
+    background: #1e1e1e; /* Dark header background */
     color: #fff;
     text-align: center;
     padding: 1rem 0px 0.2rem 0px;
@@ -63,19 +63,19 @@ header {
 .white-rule {
     width: 20%; /* 10% wider than #big-name */
     border: 0;
-    border-top: 3px solid #fff; /* Line style and color */
+    border-top: 3px solid #fff; /* White line style */
 }
-
 
 nav.sticky-nav {
     position: sticky;
     top: 0;
-    z-index: 1000; /* Ensures it stays above other content */
-    background: #333; /* Matches the header */
+    z-index: 50; /* Ensures it stays above other content */
+    background: #1e1e1e; /* Matches the header */
     padding: 1.2rem 0;
     width: 100%;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow to separate it from content */
+    margin: 0;
+    box-shadow: 0 6px 4px rgba(0, 0, 0, 0.5); /* Darker shadow */
 }
 
 nav.sticky-nav ul {
@@ -161,9 +161,9 @@ section {
 }
 
 .gallery-item {
-    background-color: #fff;
+    background-color: #1e1e1e; /* Dark background for gallery items */
     padding: 1rem;
-    border: 1px solid #ddd;
+    border: 1px solid #444; /* Darker border */
     border-radius: 5px;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -172,15 +172,14 @@ section {
 }
 
 .gallery-item:hover {
-    transform: scale(1.05); /* Scale up slightly */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Adjust shadow for better visibility */
+    transform: scale(1.025); /* Scale up slightly */
+    box-shadow: 0 6px 20px #0000ee17; /* Light shadow for better visibility */
 }
-
 
 .item-description {
     margin-top: 1rem;
     font-style: italic;
-    color: #555;
+    color: #bbb; /* Lighter description color */
     font-weight: bolder;
 }
 
@@ -191,25 +190,56 @@ section {
 .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-    gap: 20px;
-    row-gap: 20px;
     column-gap: 20px;
 }
 
 .project-item {
-    background: #fff;
+    background: #1e1e1e; /* Dark background for project items */
     padding: 1.5rem;
     width: auto;
     height: auto;
-    border: 1px solid #ddd;
+    border: 1px solid #444; /* Darker border */
     margin-top: 20px;
     position: relative; /* Make sure the parent has relative positioning for the ribbon */
+    display: none; /* Hide all project items by default */
+    opacity: 0; /* Start with opacity 0 for fade effect */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transition for fade effect */
 }
 
+.project-item.show {
+    display: block; /* Show the project item */
+    opacity: 1; /* Fully opaque when shown */
+}
+
+#load-more {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transition for button hover effect */
+}
+
+#load-more:hover {
+    background-color: #1a1a4a; /* Darker background on hover */
+}
+
+
 #dd-embed {
-    width: 100%;
+    width: 80%;
     height: auto;
-    background-color: #333;
+    background-color: #121212; /* Dark background */
+    border-radius: 10px;
+    border-style: outset;
+    border-color: gray;
+    padding: 10px;
+}
+
+.repo-card {
+    width: 80%;
+    height: auto;
+    margin: auto;
 }
 
 .bubble-container {
@@ -221,25 +251,25 @@ section {
 }
 
 .bubble {
-    background: radial-gradient(circle at 30% 30%, #81c3f3, #e0e0e0); /* Light blue gradient for the bubble */
+    background: radial-gradient(circle at 30% 30%, #81c3f3, #444); /* Darker gradient for the bubble */
     border-radius: 100%; /* Perfectly round */
     padding: 1rem 2rem;
     margin: 10px;
     text-align: center;
+    text-wrap: wrap;
     font-weight: bold;
     position: absolute; /* Allow positioning */
     transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Darker shadow */
     opacity: 0.9; /* Slight transparency */
-    color: #333; /* Dark text color for contrast */
+    color: #e0e0e0; /* Light text color for contrast */
 }
-
 
 .bubble::before {
     content: '';
     position: absolute; /* Position absolutely to cover the bubble */
     inset: 0; /* Cover entire parent dimensions */
-    background: radial-gradient(circle at 30% 30%, #81c3f3, #e0e0e0); /* Light blue gradient for the bubble */
+    background: radial-gradient(circle at 30% 30%, #81c3f3, #444); /* Darker gradient for the bubble */
     border-radius: 50%; /* Perfectly round */
     opacity: 0.9; /* Slight transparency */
     filter: blur(10px); /* Slight blur for a bubble effect */
@@ -249,14 +279,13 @@ section {
 
 .bubble:hover {
     transform: scale(1.1); /* Slightly enlarge on hover */
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7); /* Enhance shadow on hover */
 }
 
 .bubble.pop {
     transform: scale(0); /* Scale down to simulate popping */
     transition: transform 0.2s ease-in-out; /* Smooth transition */
 }
-
 
 /* Floating animation */
 @keyframes float {
@@ -268,33 +297,32 @@ section {
     }
 }
 
-
 footer {
-    background: #333;
+    background: #1e1e1e; /* Dark footer background */
     color: #fff;
     text-align: center;
     padding: 1rem;
     font-family: "PantonBlack";
     font-size: 1rem;
     vertical-align: middle; 
+    margin: 0;
 }
 
 .copyright {
     font-size: 0.7rem;
 }
-    
-.section-highlight {
-    background-color: rgba(255, 239, 183, 0.742); /* Soft yellow highlight */
+
+.highlight {
+    background-color: #3c3ce833; /* Light yellow highlight */
     border-radius: inherit;
     transition: background-color 0.5s ease-in-out; /* Smooth transition */
 }
 
-.section-dehighlight {
-    background-color: parent;
+.dehighlight {
+    background-color: #1e1e1e; /* Maintain original dark background */
     border-radius: inherit;
-    transition: background-color 0.5s ease-in-out;
+    transition: all 0.5s ease; /* Smooth transition */
 }
-
 
 /* Central diamond-shaped part of the ribbon */
 award {
@@ -310,26 +338,28 @@ award {
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 100%;
     text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     z-index: 10;
     white-space: nowrap; /* Prevent text from wrapping initially */
     text-align: center;
-    transition: all 0.5s ease; /* Smooth transition for hover effect */
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
     overflow: hidden;
+    padding: 5px;
+    color: #333;
 }
 
 /* Inner text container to keep text upright */
 award .text-container {
-    transform: rotate(-45deg); /* Rotate the text back to normal */
+    transform: rotate(-45deg) scale(1); /* Default state */
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100%;
-    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth opacity and scale transition */
+    transition: opacity 0.3s ease, transform 0.3s ease-in-out; /* Smooth opacity and scale transition */
 }
 
 /* Fade-out effect for initial text */
@@ -339,16 +369,23 @@ award .text-container.initial {
 
 /* Fade-in effect for the new description text */
 award .text-container.description {
-    opacity: 0; /* Initially hidden */
-    transform: scale(0.0); /* Scale down */
-    visibility: hidden; /* Prevent interaction */
-    display: none;
-    transition: opacity 0.5s ease, transform 0.5s ease-in-out; /* Smooth opacity and scale transition */
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0); /* Start scaled down */
+    position: absolute; /* Remove it from the document flow */
+    top: 50%; /* Center it vertically within the award */
+    left: 50%; /* Center it horizontally */
+    transform: translate(-50%, -50%) scale(0); /* Translate for centering */
+    transition: opacity 0.5s ease;
+    text-wrap: wrap;
+    transition-delay: 0.25s;
+    width: fit-content;
+    font-size: 12px;
 }
 
 /* Hover state: Rotate to square, enlarge, and change text */
 award:hover {
-    transform: rotate(0deg) scale(1.5); /* Rotate back to a square and enlarge */
+    transform: rotate(0deg) scale(1.5) translate(-15px, 15px); /* Rotate back to a square and enlarge */
     width: 100px; /* Optional: Adjust width */
     height: 100px; /* Optional: Adjust height */
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Increase shadow */
@@ -361,15 +398,15 @@ award:hover .text-container {
 
 /* Change the text on hover and handle visibility */
 award:hover .text-container.initial {
-    opacity: 0; /* Fade out initial text */
-    display: none; /* Remove it from layout */
+    opacity: 0;
+    
 }
 
 award:hover .text-container.description {
-    opacity: 1; /* Fade in description text */
-    display:flex; /* Make it visible as flex */
-    visibility: visible;
-    transform: scale(1); /* Scale the description text in */
+    opacity: 1; 
+    visibility: visible; /* Show the description */
+    transform: translate(-50%, -50%) scale(1); /* Scale up smoothly */
+    text-wrap: wrap;
 }
 
 /* Change the text to a longer description on hover */
@@ -377,7 +414,6 @@ award:hover .text-container.description::before {
     display: block; /* Ensure the text behaves like a block element for wrapping */
     text-align: center; /* Center the text */
 }
-
 
 award.first {
   background-color: #f39c12; /* Color for 1st place */
@@ -389,6 +425,10 @@ award.second {
 
 award.third {
   background-color: #cd7f32; /* Color for 3rd place */
+}
+
+award.co-captain {
+    background-color: #ffeb29; /* Color for 3rd place */
 }
 
 #contact {
@@ -432,4 +472,20 @@ award.third {
 .contact-btn:hover {
     background-color: #f39c12;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    body {
+        font-size: 0.8rem; /* Slightly smaller text on smaller screens */
+    }
+
+    nav.sticky-nav ul li {
+        margin: 0 10px; /* Adjust margin for smaller screens */
+    }
+
+    .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Smaller gallery items on smaller screens */
+    }
 }

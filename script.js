@@ -3,17 +3,17 @@ function goToAndHighlight(anchor) {
     const targetSection = document.querySelector(anchor);
     if (targetSection) {
         targetSection.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth', alignToTop: false });
-        targetSection.classList.add('section-highlight');
+        targetSection.classList.add('highlight');
         
         // Remove highlight after 1 second and add dehighlight class
         setTimeout(() => {
-            targetSection.classList.remove('section-highlight');
-            targetSection.classList.add('section-dehighlight');
+            targetSection.classList.remove('highlight');
+            targetSection.classList.add('dehighlight');
         }, 1000);
 
         // Remove dehighlight class after another second
         setTimeout(() => {
-            targetSection.classList.remove('section-dehighlight');
+            targetSection.classList.remove('dehighlight');
         }, 2000);
     }
 }
@@ -115,4 +115,38 @@ bubbles.forEach(bubble => {
             randomPosition(); // Reset position
         }, 10000 + Math.random() * 10000); // Random delay between 10 and 20 seconds
     });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const projects = document.querySelectorAll(".project-item");
+    const loadMoreButton = document.getElementById("load-more");
+    const projectsToLoad = 4; // Number of projects to load at a time
+    let currentIndex = 0; // To keep track of the current index of loaded projects
+
+    // Function to load the next set of projects
+    function loadProjects() {
+        const endIndex = currentIndex + projectsToLoad;
+
+        // Show the next set of project items
+        for (let i = currentIndex; i < endIndex && i < projects.length; i++) {
+            projects[i].style.display = "block"; // Make the element available for animation
+            // Use a timeout to allow the display change to take effect
+            setTimeout(() => {
+                projects[i].classList.add("show"); // Add the show class to animate the fade-in
+            }, 10); // Slight delay for the animation to trigger
+        }
+
+        currentIndex += projectsToLoad; // Update the current index
+
+        // Hide the button if all projects are loaded
+        if (currentIndex >= projects.length) {
+            loadMoreButton.style.display = "none"; // Hide the button
+        }
+    }
+
+    // Load the initial set of projects (first 4)
+    loadProjects();
+
+    // Add event listener to the "Load More" button
+    loadMoreButton.addEventListener("click", loadProjects);
 });
