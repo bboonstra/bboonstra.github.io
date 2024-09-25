@@ -3,11 +3,10 @@ function goToAndHighlight(anchor) {
     const targetSection = document.querySelector(anchor);
     if (targetSection) {
         // Ensure the section is visible
-        if (!targetSection.style.display) {
+        if (getComputedStyle(targetSection).display === 'none') {
             targetSection.style.display = 'block';
             targetSection.classList.add("show");
-        }
-        
+        }        
         
         // Scroll to the target section smoothly
         targetSection.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
