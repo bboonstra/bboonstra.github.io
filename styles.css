@@ -87,13 +87,11 @@ nav.sticky-nav ul {
 nav.sticky-nav ul li {
     display: inline-block;
     margin: 0 15px;
-}
-
-nav.sticky-nav ul li {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
     padding: 10px 20px;
+    cursor: pointer;
 }
 
 .profile-link-container {
