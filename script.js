@@ -85,24 +85,17 @@ function moveBubble(bubble, speedX, speedY) {
     let y = parseFloat(bubble.style.top);
 
     function animate() {
-        var gold = 0;
         x += speedX;
         y += speedY;
 
         // Bounce off the edges of the container
-        if (x < 0 || x + bubble.width > containerWidth) {
+        if (x < 0 || x + bubble.offsetWidth > containerWidth) {
             speedX *= -1; // Reverse horizontal direction
-            gold += 1;
         }
         if (y < 0 || y + bubble.offsetHeight > containerHeight) {
             speedY *= -1; // Reverse vertical direction
-            gold += 1;
         }
 
-        if (gold >= 2) {
-            bubble.style.boxShadow = `0 4px 15px gold`;
-            bubble.style.color = 'gold';
-        }
         bubble.style.left = `${x}px`;
         bubble.style.top = `${y}px`;
 

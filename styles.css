@@ -267,7 +267,7 @@ section {
 .bubble {
     display: block;
     background: linear-gradient(145deg, #1f1f1f, #444); /* Sleek metallic gradient */
-    border-radius: 5%;
+    border-radius: 3%;
     padding: 0.75rem 1.5rem;
     text-align: center;
     font-weight: bold;
@@ -279,9 +279,7 @@ section {
     opacity: 0.95;
     font-family: 'Courier New', Courier, monospace; /* Monospace font for tech look */
     box-sizing: border-box;
-    flex-shrink: 0;
-    flex-grow: 0;
-    white-space: nowrap; /* Prevent text from wrapping */
+    white-space: nowrap;
 }
 
 .bubble:hover {
