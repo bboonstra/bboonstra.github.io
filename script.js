@@ -41,6 +41,10 @@ items.forEach(item => {
         descriptionBox.textContent = '';
     });
 
+    item.addEventListener('touchstart', () => {
+        descriptionBox.textContent = item.getAttribute('data-description');
+    });
+
     item.addEventListener('click', () => {
         const anchor = item.getAttribute('data-anchor');
         if (anchor) {
