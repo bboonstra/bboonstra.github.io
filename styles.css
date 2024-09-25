@@ -284,6 +284,7 @@ section {
     font-family: 'Courier New', Courier, monospace; /* Monospace font for tech look */
     box-sizing: border-box;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 .bubble:hover {
@@ -387,6 +388,7 @@ award {
     overflow: hidden;
     padding: 5px;
     color: #333;
+    cursor: default;
 }
 
 /* Inner text container to keep text upright */
