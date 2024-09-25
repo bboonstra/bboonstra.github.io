@@ -261,8 +261,12 @@ section {
     position: relative;
     height: 60vh;
     width: 90vw;
-    background: #1a1a1a; /* Dark background to enhance contrast */
+    background: radial-gradient(circle, #000000, #121212); /* Dark background to enhance contrast */
+    margin: 0 auto;
+    box-shadow: 0 0 40px 20px rgba(0, 0, 0, 0.6); /* Blurred shadow for border effect */
+    border-radius: 20px; /* Optional: for rounded edges */
 }
+
 
 .bubble {
     display: block;
@@ -306,7 +310,6 @@ section {
     transform: translate(-50%, -50%);
     width: 120%;
     height: 120%;
-    background: radial-gradient(circle, rgba(0, 255, 255, 0.1), transparent);
     filter: blur(60px); /* Glow surrounding the entire bubble container */
     z-index: -2;
 }
