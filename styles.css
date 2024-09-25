@@ -255,40 +255,64 @@ section {
 }
 
 .bubble-container {
-    display: flexbox;
+    display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    height: 40vh; /* Set a height for the container */
+    height: 60vh;
     width: 90vw;
+    background: #1a1a1a; /* Dark background to enhance contrast */
 }
 
 .bubble {
-    background: radial-gradient(circle at 30% 30%, #81c3f3, #444); /* Darker gradient for the bubble */
-    border-radius: 100%; /* Perfectly round */
-    padding: 1rem 2rem;
-    margin: 10px;
+    display: block;
+    background: linear-gradient(145deg, #1f1f1f, #444); /* Sleek metallic gradient */
+    border-radius: 5%;
+    padding: 0.75rem 1.5rem;
     text-align: center;
-    text-wrap: wrap;
     font-weight: bold;
-    position: absolute; /* Allow positioning */
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Darker shadow */
-    opacity: 0.9; /* Slight transparency */
-    color: #e0e0e0; /* Light text color for contrast */
+    position: absolute;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: 0 8px 20px rgba(0, 255, 255, 0.6), 0 4px 10px rgba(0, 0, 0, 0.8); /* Neon outer glow */
+    color: #00e0e0; /* Neon cyan text */
+    letter-spacing: 0.1rem; /* More spaced out letters */
+    opacity: 0.95;
+    font-family: 'Courier New', Courier, monospace; /* Monospace font for tech look */
+    box-sizing: border-box;
+    flex-shrink: 0;
+    flex-grow: 0;
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.bubble:hover {
+    transform: scale(1.05); /* Slight zoom on hover for interactivity */
+    box-shadow: 0 10px 25px rgba(0, 255, 255, 0.8), 0 6px 12px rgba(0, 0, 0, 0.9); /* Stronger glow on hover */
 }
 
 .bubble::before {
     content: '';
-    position: absolute; /* Position absolutely to cover the bubble */
-    inset: 0; /* Cover entire parent dimensions */
-    background: radial-gradient(circle at 30% 30%, #81c3f3, #444); /* Darker gradient for the bubble */
-    border-radius: 50%; /* Perfectly round */
-    opacity: 0.9; /* Slight transparency */
-    filter: blur(10px); /* Slight blur for a bubble effect */
-    z-index: -1; /* Send it to the back */
-    transition: box-shadow 0.2s;
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(0, 255, 255, 0.3), transparent 60%);
+    border-radius: 50%;
+    opacity: 1;
+    filter: blur(15px); /* Softer blur for a glowing, high-tech effect */
+    z-index: -1;
 }
+
+.bubble-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(0, 255, 255, 0.1), transparent);
+    filter: blur(60px); /* Glow surrounding the entire bubble container */
+    z-index: -2;
+}
+
 
 .bubble:hover {
     transform: scale(1.1); /* Slightly enlarge on hover */

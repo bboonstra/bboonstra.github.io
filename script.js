@@ -85,17 +85,24 @@ function moveBubble(bubble, speedX, speedY) {
     let y = parseFloat(bubble.style.top);
 
     function animate() {
+        var gold = 0;
         x += speedX;
         y += speedY;
 
         // Bounce off the edges of the container
-        if (x < 0 || x + bubble.offsetWidth > containerWidth) {
+        if (x < 0 || x + bubble.width > containerWidth) {
             speedX *= -1; // Reverse horizontal direction
+            gold += 1;
         }
         if (y < 0 || y + bubble.offsetHeight > containerHeight) {
             speedY *= -1; // Reverse vertical direction
+            gold += 1;
         }
 
+        if (gold >= 2) {
+            bubble.style.boxShadow = `0 4px 15px gold`;
+            bubble.style.color = 'gold';
+        }
         bubble.style.left = `${x}px`;
         bubble.style.top = `${y}px`;
 
@@ -126,7 +133,6 @@ bubbles.forEach(bubble => {
         setTimeout(() => {
             bubble.style.display = 'block'; // Show the bubble again
             bubble.classList.remove('pop'); // Remove the pop class
-            randomPosition(); // Reset position
         }, 10000 + Math.random() * 10000); // Random delay between 10 and 20 seconds
     });
 });
