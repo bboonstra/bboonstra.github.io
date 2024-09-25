@@ -392,16 +392,17 @@ award .text-container.description {
     transition: opacity 0.5s ease;
     text-wrap: wrap;
     transition-delay: 0.25s;
-    width: fit-content;
-    font-size: 70%;
+    font-size: 80%;
 }
 
 /* Hover state: Rotate to square, enlarge, and change text */
 award:hover {
-    transform: rotate(0deg) scale(1.5) translate(-15px, 15px); /* Rotate back to a square and enlarge */
-    width: 100px; /* Optional: Adjust width */
-    height: 100px; /* Optional: Adjust height */
+    transform: rotate(0deg) scale(1.5) translate(-13px, 13px); /* Rotate back to a square and enlarge */
+    width: 75px; /* Optional: Adjust width */
+    height: 75px; /* Optional: Adjust height */
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Increase shadow */
+    padding: 20px;
+    opacity: 0.9;
 }
 
 award:hover .text-container {
