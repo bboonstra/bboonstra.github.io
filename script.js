@@ -2,21 +2,32 @@
 function goToAndHighlight(anchor) {
     const targetSection = document.querySelector(anchor);
     if (targetSection) {
-        targetSection.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth', alignToTop: false });
+        // Ensure the section is visible
+        if (!targetSection.style.display) {
+            targetSection.style.display = 'block';
+            targetSection.classList.add("show");
+        }
+        
+        
+        // Scroll to the target section smoothly
+        targetSection.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+        
+        // Add the highlight class
         targetSection.classList.add('highlight');
         
-        // Remove highlight after 1 second and add dehighlight class
+        // Remove the highlight after 1 second and add dehighlight class
         setTimeout(() => {
             targetSection.classList.remove('highlight');
             targetSection.classList.add('dehighlight');
         }, 1000);
 
-        // Remove dehighlight class after another second
+        // Remove the dehighlight class after another second
         setTimeout(() => {
             targetSection.classList.remove('dehighlight');
         }, 2000);
     }
 }
+
 
 // Event listeners for gallery items
 const items = document.querySelectorAll('.gallery-item');

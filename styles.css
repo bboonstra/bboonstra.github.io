@@ -161,14 +161,20 @@ section {
 }
 
 .gallery-item {
-    background-color: #1e1e1e; /* Dark background for gallery items */
-    padding: 1rem;
-    border: 1px solid #444; /* Darker border */
+    background-color: #1e1e1e;
+    padding: 5px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border: 1px solid #444;
     border-radius: 5px;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
     position: relative;
     overflow: hidden;
+    display: flex;
+    justify-content: center; /* Centers content horizontally */
+    align-items: center;     /* Centers content vertically */
+    text-align: center;
 }
 
 .gallery-item:hover {
@@ -189,9 +195,16 @@ section {
 
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     column-gap: 20px;
 }
+
+@media (max-width: 400px) {
+    .project-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80vw, 1fr));
+    }
+}
+
 
 .project-item {
     background: #1e1e1e; /* Dark background for project items */
@@ -214,7 +227,8 @@ section {
 #load-more {
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #444;
+    background-color: #333;
+    border-radius: 3px;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -243,11 +257,12 @@ section {
 }
 
 .bubble-container {
-    display: flex;
+    display: flexbox;
     justify-content: center;
     align-items: center;
     position: relative;
-    height: 300px; /* Set a height for the container */
+    height: 40vh; /* Set a height for the container */
+    width: 90vw;
 }
 
 .bubble {
@@ -380,7 +395,7 @@ award .text-container.description {
     text-wrap: wrap;
     transition-delay: 0.25s;
     width: fit-content;
-    font-size: 12px;
+    font-size: 70%;
 }
 
 /* Hover state: Rotate to square, enlarge, and change text */
