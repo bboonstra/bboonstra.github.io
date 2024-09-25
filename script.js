@@ -9,7 +9,7 @@ function goToAndHighlight(anchor) {
         }        
         
         // Scroll to the target section smoothly
-        targetSection.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+        targetSection.scrollIntoView({ block: 'center', behavior: 'smooth' });
         
         // Add the highlight class
         targetSection.classList.add('highlight');
@@ -18,12 +18,12 @@ function goToAndHighlight(anchor) {
         setTimeout(() => {
             targetSection.classList.remove('highlight');
             targetSection.classList.add('dehighlight');
-        }, 1000);
+        }, 2000);
 
         // Remove the dehighlight class after another second
         setTimeout(() => {
             targetSection.classList.remove('dehighlight');
-        }, 2000);
+        }, 3000);
     }
 }
 
