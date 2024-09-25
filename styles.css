@@ -1,10 +1,10 @@
-html, body {
+body {
     overflow-x: hidden;
 }
 
 /* Basic styles for layout and design */
 body {
-    margin: 10px;
+    margin: 0px 10px 0px 10px;
     background-color: #121212; /* Dark background */
     font-family: 'CarvingSoft', sans-serif;
     font-size: 1rem;
@@ -51,7 +51,7 @@ p, form input, form textarea, form button {
 
 .about-content p {
     flex: 1 1 60%;
-    margin-right: 20px;
+    margin: 20px;
     animation: fadeIn 0.8s ease-in-out;
 }
 
@@ -172,14 +172,18 @@ ul {
 @keyframes yZoom {
     0% {
         transform: scaleY(0);
+        transform-origin: top; /* Scale from the top */
     }
-    66% {
+    80% {
         transform: scaleY(0);
+        transform-origin: top; /* Keep scaling from the top */
     }
     100% {
         transform: scaleY(1);
+        transform-origin: top; /* End scaling from the top */
     }
 }
+
 
 @keyframes fadeIn {
     0% {
@@ -197,7 +201,7 @@ header {
     background: #121212; /* Gradient background for more depth */
     color: #fff;
     text-align: center;
-    padding: 1rem 0px 0.2rem 0px;
+    padding: 1rem 0px 0px 0px;
     overflow: hidden; /* Hide overflow for animations that go outside */
     position: relative;
     perspective: 1000px; /* 3D space for 3D effects */
@@ -233,6 +237,7 @@ header:before, header:after {
 }
 
 header h1 {
+    margin: 0 auto;
     font-family: 'PantonBlack', sans-serif;
     font-size: 3rem;
     font-weight: bold;
@@ -248,14 +253,15 @@ header h1 {
 }
 
 nav.sticky-nav {
+    margin: 0 auto;
     position: sticky;
     top: 0;
     z-index: 50; /* Ensures it stays above other content */
     background: #1e1e1e; /* Matches the header */
     padding: 1.2rem 0;
-    width: 100%;
     text-align: center;
     margin: 0;
+    width: 100%;
     box-shadow: 0 6px 4px rgba(0, 0, 0, 0.5); /* Darker shadow */
     animation: yZoom 4s, xZoom 4s;
 }
@@ -316,6 +322,7 @@ nav.sticky-nav ul li {
 section {
     padding: 0.5rem;
     text-align: center;
+    transition: opacity 0.5s; /* Smooth transition for opacity change */
 }
 
 #item-description {
@@ -550,7 +557,7 @@ award .text-container.description {
     transition: opacity 0.5s ease;
     text-wrap: wrap;
     transition-delay: 0.25s;
-    font-size: 80%;
+    font-size: 70%;
 }
 
 /* Hover state: Rotate to square, enlarge, and change text */
