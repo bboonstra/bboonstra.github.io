@@ -120,22 +120,6 @@ nav.sticky-nav ul li {
     height: 24px;
 }
 
-/* Hero section */
-.hero {
-    background: url('background.jpg') no-repeat center center/cover;
-    height: 80vh;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.hero-content {
-    max-width: 80%;
-    margin: 0 auto;
-}
-
 .btn {
     background: #ff6b6b;
     color: #fff;
