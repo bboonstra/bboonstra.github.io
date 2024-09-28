@@ -54,13 +54,12 @@
     }
 }
 
-
 @keyframes xZoom {
     0% {
-        transform: scaleX(0.3);
+        transform: scaleX(0);
     }
     66% {
-        transform: scaleX(0.3);
+        transform: scaleX(0);
     }
     100% {
         transform: scaleX(1);
@@ -82,7 +81,6 @@
     }
 }
 
-
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -101,5 +99,14 @@
     }
     50% {
         transform: translateY(-15px); /* Move up */
+    }
+}
+
+@keyframes fillIn {
+    0% { 
+        background-position: 0%; 
+    }
+    100% {
+        background-position: 100%;
     }
 }

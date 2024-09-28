@@ -29,25 +29,37 @@
     </nav>
 
     <section id="about">
-        <h2>About Me</h2>
         <div class="about-content">
-            <p>
-                Hi! I'm Ben Boonstra, a passionate full-stack developer with a love for solving complex problems through code. From building award-winning games during Game Jams to crafting Python packages that utilize AI for stock market predictions, my work spans across many exciting fields. My experiences in web development, cybersecurity, robotics, and backend systems have taught me the importance of adaptability, creativity, and collaboration. Take a look at some of my work!
-            </p>
+            <div class="text-content">
+                <h1><span id="dynamic-text" class="dynamic-text"></span></h1>
+                <div id="additional-text" class="additional-text" style="display: none;">
+                    <p>I live by my motto: code cool stuff. 
+                        I've built websites for nonprofits, programmed algorithms for robots, and coded video games (just because). 
+                        But it's not all about my knowledge -- I have also managed projects, teams, and systems; 
+                        I have deep industry experience and the catalogue to show for it.
+                        Check out my work below!</p>
+                </div>
+                <div class="button-container"> <!-- Wrap the button here -->
+                    <button id="read-more-btn" class="read-more-button">Click me if you like reading</button>
+                </div>
+            </div>
             <img src="bboonstra.jpg" alt="Ben Boonstra" class="about-photo">
         </div>
-        <div class="gallery">
-            <div class="gallery-item" data-description="I've created multiple award-winning games for Game Jams." data-anchor="#deepdive">Video Games</div>
-            <div class="gallery-item" data-description="I made the Guanaco Trade python package, which predicts the stock market with AI." data-anchor="#guanaco">Python Packages</div>
+        <div class="gallery" id="work-highlights">
+            <div class="gallery-item" data-description="I've created multiple award-winning games for Game Jams.">Video Games</div>
+            <div class="gallery-item" data-description="I made the Guanaco Trade python package, which predicts the stock market with AI.">Python Packages</div>
             <div class="gallery-item" data-description="I've placed top 10 in the Iowa State University High School CDC.">Cybersecurity Competitions</div>
-            <div class="gallery-item" data-description="I have professional experience from my time working with APEX to create response web design, like this website." data-anchor="#pixelpuzzlebox">Web Development</div>
-            <div class="gallery-item" data-description="I have been the Programming Lead and Co-Captain at Ragnarok Robotics for multiple years." data-anchor="#ragnarok">Robotics</div>
-            <div class="gallery-item" data-description="I have worked on routes, databases, and other website/server infrastructure over many projects." data-anchor="#doniowa">Backend</div>
+            <div class="gallery-item" data-description="I have professional experience from working on the Waukee APEX Web-Based Technologies team.">Web Development</div>
+            <div class="gallery-item" data-description="I have been the Programming Lead and Co-Captain at Ragnarok Robotics for multiple years.">Robotics</div>
+            <div class="gallery-item" data-description="I have worked on routes, databases, and other website/server infrastructure over many projects.">Backend</div>
         </div>
         <div id="item-description" class="item-description"></div>
-    </section>    
+    </section>
+    
+    <hr class="section-rule"/>
 
     <section id="projects">
+        <br/>
         <h2>Projects</h2>
         <div class="project-grid">
             <div class="project-item" id="ragnarok">
@@ -102,6 +114,8 @@
         <button id="load-more">Load More</button>
     </section>
 
+    <hr class="section-rule"/>
+    
     <section id="skills">
         <h2>Skills</h2>
         <div class="bubble-container">
@@ -123,6 +137,8 @@
             <div class="bubble" data-anchor=".github">Git</div>
         </div>
     </section>    
+
+    <hr class="section-rule"/>
 
     <section id="contact">
         <h2>Contact Me</h2>
