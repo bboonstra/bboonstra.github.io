@@ -328,6 +328,7 @@ section {
 .project-item {
     background: var(--body2);
     padding: 1rem;
+    padding-bottom: 2rem;
     width: auto;
     height: auto;
     border: 1px solid var(--border);
@@ -341,6 +342,44 @@ section {
 .project-item.show {
     display: block; /* js shows the project item */
     opacity: 1;
+}
+
+.project-attributes {
+    display: flex;
+    align-items: center; /* Vertically align items */
+    flex-wrap: wrap;
+    position: absolute;
+    bottom: 5px; /* Position at the bottom */
+    left: 5px;
+    color: gray;
+    font-size: 90%;
+}
+
+.pattr {
+    margin: 0 5px;
+}
+
+.pattr-lang-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.pattr-lang-icon-wide {
+    width: 30px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+/* Add bullet after lang-text and teamsize */
+.pattr-lang-text::after,
+.pattr-teamsize::after {
+    content: ' •'; /* Bullet character with a space */
+    margin-left: 5px; /* Space between the text and the bullet */
+}
+
+.pattr-dates::after {
+    content: ''; /* No bullet after the last element */
 }
 
 /* individual project css */
@@ -385,6 +424,7 @@ award {
     padding: 5px;
     color: var(--body2);
     cursor: default;
+    border-radius: 3px;
 }
 
 /* inner text container to keep text upright */
