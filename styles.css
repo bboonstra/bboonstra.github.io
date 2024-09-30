@@ -389,6 +389,25 @@ section {
     margin: auto;
 }
 
+.pipembed-container {
+    position: relative;
+}
+
+.loading-message {
+    font-size: 1.2em;
+    color: var(--border); /* Change color to match your theme */
+    text-align: center;
+    background-color: var(--body2); /* Dark background */
+    border-radius: 4px;
+    margin: 0 auto;
+}
+
+.pipembed {
+    border: 0;
+    width: 90%;
+    margin: 0 auto;
+}
+
 #dd-embed {
     width: 95%;
     height: auto;
@@ -463,7 +482,6 @@ award:hover {
     height: 60px;
     width: 60px;
     padding: 30px;
-    opacity: 0.9;
 }
 
 award:hover .text-container {
