@@ -21,6 +21,9 @@ const texts = [
     "Raspberry Pi lover",
     "MacBook master",
     "Academic letter...er",
+    "API engineer",
+    "Unit tester",
+    "Command-line interfacer",
     "code cool stuff",
     "okay thats it",
 ];
