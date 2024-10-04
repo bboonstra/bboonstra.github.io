@@ -78,7 +78,7 @@ document.getElementById('read-more-btn').addEventListener('click', function() {
         document.getElementById('read-more-btn').innerText = 'Click me if you hate reading';
         
         // Adjust font size based on screen size
-        if (window.matchMedia("(max-width: 768px)").matches) { // Change this value according to your breakpoint
+        if (window.matchMedia("(max-width: 768px)").matches) {
             document.getElementById('dynamic-text').style.fontSize = '5vw'; // Mobile size
         } else {
             document.getElementById('dynamic-text').style.fontSize = '3.5vw'; // Desktop size
@@ -86,13 +86,11 @@ document.getElementById('read-more-btn').addEventListener('click', function() {
     } else {
         additionalText.style.height = '0px'; // Animate height to 0
         additionalText.style.opacity = '0'; // Fade out
-        setTimeout(() => {
-            additionalText.style.display = 'none'; // Hide after the fade-out animation
-        }, 300); // Match this duration with the transition time
+
         document.getElementById('read-more-btn').innerText = 'Click me if you like reading';
 
         // Adjust font size based on screen size
-        if (window.matchMedia("(max-width: 768px)").matches) { // Change this value according to your breakpoint
+        if (window.matchMedia("(max-width: 768px)").matches) {
             document.getElementById('dynamic-text').style.fontSize = '7vw'; // Mobile size
         } else {
             document.getElementById('dynamic-text').style.fontSize = '6vw'; // Desktop size

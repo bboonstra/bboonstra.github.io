@@ -221,7 +221,6 @@ section {
 }
 
 .read-more-button {
-    max-width: 80%;
     margin: 0 auto;
     padding: 10px 20px; /* Button padding */
     font-size: 100%; /* Button font size */
@@ -230,6 +229,7 @@ section {
     color: gray; /* Button text color */
     border: none; /* Remove default border */
     border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 0 5px 1px black;
     transition: background-color 0.3s; /* Smooth background color transition */
 }
 
@@ -246,7 +246,7 @@ section {
 }
 
 .additional-text.show {
-    height: auto; /* Allow it to grow to its full height */
+    height: 100%; /* Allow it to grow to its full height */
     opacity: 1; /* Show with fade in */
 }
 
