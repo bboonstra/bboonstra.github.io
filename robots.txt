@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+User-agent: DarthVader
+Disallow: /sand
+
+Sitemap: https://bboonstra.github.io/sitemap.xml
