@@ -1,451 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-            name="description"
-            content="Ben Boonstra's portfolio of coding projects - from award-winning video games to AI-powered stock trading algorithms. Discover a passionate full-stack developer who loves to code cool stuff across various technologies."
-        />
-        <title>bboonstra - portfolio</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ben Boonstra's portfolio of coding projects - from award-winning video games to AI-powered stock trading algorithms. Discover a passionate full-stack developer who loves to code cool stuff across various technologies.">
+    <title>bboonstra - portfolio</title>
+    
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://bboonstra.github.io">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Ben Boonstra - Portfolio">
+    <meta property="og:description" content="Not just a full stack developer">
+    <meta property="og:image" content="preview.png">
+    <meta property="og:url" content="https://bboonstra.github.io">
+    <meta property="og:type" content="website">
 
-        <!-- Canonical Link -->
-        <link rel="canonical" href="https://bboonstra.github.io" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1 id="big-name">Ben Boonstra</h1>
+            <hr class="white-rule"/>
+            <ul class="profile-link-container">
+                <li><a class="profile-link linkedin" href="https://www.linkedin.com/in/ben-boonstra-38b96a262/" target="_blank"><img class="linkedin" src="https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png" alt="LinkedIn"/>bboonstra</a></li>
+                <li><a class="profile-link itch" href="https://bboonstra.itch.io/" target="_blank"><img class="itch" src="https://static-00.iconduck.com/assets.00/itch-io-icon-256x256-0aig5hor.png" alt="Itch.io"/>bboonstra</a></li>
+                <li><a class="profile-link github" href="https://github.com/bboonstra/" target="_blank"><img class="github" src="github-mark-white.png" alt="GitHub"/>bboonstra</a></li>
+            </ul>      
+            <hr class="white-rule"/>
+        </div>
+    </header>    
+    <nav class="sticky-nav">
+        <ul>
+            <li onclick="goToAndHighlight('#projects')">Projects</li>
+            <li onclick="goToAndHighlight('#skills')">Skills</li>
+            <li onclick="goToAndHighlight('#contact')">Contact</li>
+        </ul>
+    </nav>
 
-        <!-- Open Graph Meta Tags -->
-        <meta property="og:title" content="Ben Boonstra - Portfolio" />
-        <meta
-            property="og:description"
-            content="Not just a full stack developer"
-        />
-        <meta property="og:image" content="preview.png" />
-        <meta property="og:url" content="https://bboonstra.github.io" />
-        <meta property="og:type" content="website" />
-
-        <link rel="stylesheet" href="styles.css" />
-    </head>
-    <body>
-        <header>
-            <div class="header-content">
-                <h1 id="big-name">Ben Boonstra</h1>
-                <hr class="white-rule" />
-                <ul class="profile-link-container">
-                    <li>
-                        <a
-                            class="profile-link linkedin"
-                            href="https://www.linkedin.com/in/ben-boonstra-38b96a262/"
-                            target="_blank"
-                            ><img
-                                class="linkedin"
-                                src="https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png"
-                                alt="LinkedIn"
-                            />bboonstra</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            class="profile-link itch"
-                            href="https://bboonstra.itch.io/"
-                            target="_blank"
-                            ><img
-                                class="itch"
-                                src="https://static-00.iconduck.com/assets.00/itch-io-icon-256x256-0aig5hor.png"
-                                alt="Itch.io"
-                            />bboonstra</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            class="profile-link github"
-                            href="https://github.com/bboonstra/"
-                            target="_blank"
-                            ><img
-                                class="github"
-                                src="github-mark-white.png"
-                                alt="GitHub"
-                            />bboonstra</a
-                        >
-                    </li>
-                </ul>
-                <hr class="white-rule" />
-            </div>
-        </header>
-        <nav class="sticky-nav">
-            <ul>
-                <li onclick="goToAndHighlight('#projects')">Projects</li>
-                <li onclick="goToAndHighlight('#skills')">Skills</li>
-                <li onclick="goToAndHighlight('#contact')">Contact</li>
-            </ul>
-        </nav>
-
-        <section id="about">
-            <div class="about-content">
-                <div class="text-content">
-                    <h2>
-                        <span id="dynamic-text" class="dynamic-text"></span>
-                    </h2>
-                    <div id="additional-text" class="additional-text">
-                        <p>
-                            You probably want to know what I specialize in. I
-                            hate to break it to you, but the answer is..
-                            nothing! Coding is too much fun to not try
-                            everything. I've built websites for nonprofits,
-                            programmed algorithms for robots, and coded video
-                            games (just because). Check out my work below!
-                        </p>
-                    </div>
-                    <div class="button-container">
-                        <!-- Wrap the button here -->
-                        <button id="read-more-btn" class="read-more-button">
-                            Click me if you like reading
-                        </button>
-                    </div>
+    <section id="about">
+        <div class="about-content">
+            <div class="text-content">
+                <h2><span id="dynamic-text" class="dynamic-text"></span></h2>
+                <div id="additional-text" class="additional-text">
+                    <p>You probably want to know what I specialize in. I hate to break it to you, but the answer is.. nothing! Coding is too much fun to not try everything. I've built websites for nonprofits, programmed algorithms for robots, and coded video games (just because). Check out my work below!</p>
                 </div>
-                <img
-                    src="bboonstra.jpg"
-                    alt="Ben Boonstra"
-                    class="about-photo"
-                />
-            </div>
-            <div class="gallery" id="work-highlights">
-                <div
-                    class="gallery-item"
-                    data-description="I've created multiple award-winning games for Game Jams."
-                >
-                    Video Games
-                </div>
-                <div
-                    class="gallery-item"
-                    data-description="I made the Guanaco Trade python package, which predicts the stock market with AI."
-                >
-                    Python Packages
-                </div>
-                <div
-                    class="gallery-item"
-                    data-description="I've placed top 10 in the Iowa State University High School CDC."
-                >
-                    Cybersecurity Competitions
-                </div>
-                <div
-                    class="gallery-item"
-                    data-description="I have professional experience from working on the Waukee APEX Web-Based Technologies team."
-                >
-                    Web Development
-                </div>
-                <div
-                    class="gallery-item"
-                    data-description="I have been the Programming Lead and Co-Captain at Ragnarok Robotics for multiple years."
-                >
-                    Robotics
-                </div>
-                <div
-                    class="gallery-item"
-                    data-description="I have worked on routes, databases, and other website/server infrastructure over many projects."
-                >
-                    Backend
+                <div class="button-container"> <!-- Wrap the button here -->
+                    <button id="read-more-btn" class="read-more-button">Click me if you like reading</button>
                 </div>
             </div>
-            <div id="item-description" class="item-description"></div>
-        </section>
+            <img src="bboonstra.jpg" alt="Ben Boonstra" class="about-photo">
+        </div>
+        <div class="gallery" id="work-highlights">
+            <div class="gallery-item" data-description="I've created multiple award-winning games for Game Jams.">Video Games</div>
+            <div class="gallery-item" data-description="I made the Guanaco Trade python package, which predicts the stock market with AI.">Python Packages</div>
+            <div class="gallery-item" data-description="I've placed top 10 in the Iowa State University High School CDC.">Cybersecurity Competitions</div>
+            <div class="gallery-item" data-description="I have professional experience from working on the Waukee APEX Web-Based Technologies team.">Web Development</div>
+            <div class="gallery-item" data-description="I have been the Programming Lead and Co-Captain at Ragnarok Robotics for multiple years.">Robotics</div>
+            <div class="gallery-item" data-description="I have worked on routes, databases, and other website/server infrastructure over many projects.">Backend</div>
+        </div>
+        <div id="item-description" class="item-description"></div>
+    </section>
+    
+    <hr class="section-rule"/>
 
-        <hr class="section-rule" />
-
-        <section id="projects">
-            <br />
-            <h2>Projects</h2>
-            <div class="project-grid">
-                <div class="project-item" id="idlegame">
-                    <h3>Idlegame</h3>
-                    <award class="new">
-                        <div class="text-container initial">New</div>
-                        <div class="text-container description">
-                            Latest Project
-                        </div>
-                    </award>
-
-                    <p>
-                        A python package with two missions: entertain you and
-                        teach you. idlegame is ran from the command line, and
-                        uses only real zsh commands to play. You can create
-                        Nanobots with the nano command, which will run tasks you
-                        program them to do.
-                    </p>
-
-                    <div class="pipembed-container">
-                        <div class="loading-message">
-                            Pipembeds may have long load times due to Render's
-                            free version spinning down idle servers. Please
-                            wait...
-                        </div>
-                        <iframe
-                            class="pipembed"
-                            src="https://pipembeds.onrender.com/html/idlegame/?theme=dark&text_color=%23fff&border_color=%23444&background_color=%231E1E1E"
-                            onload="this.previousElementSibling.style.display='none'; this.style.display='block';"
-                            style="display: none"
-                        ></iframe>
+    <section id="projects">
+        <br/>
+        <h2>Projects</h2>
+        <div class="project-grid">
+            <div class="project-item" id="idlegame">
+                <h3>Idlegame</h3>
+                <award class="new">
+                    <div class="text-container initial">
+                        New
                     </div>
-
-                    <div class="project-attributes">
-                        <img
-                            class="pattr pattr-lang-icon"
-                            src="https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png"
-                            alt="Python"
-                        />
-                        <p class="pattr pattr-lang-text">python</p>
-                        <p class="pattr pattr-teamsize">solo</p>
-                        <p class="pattr pattr-dates">fall 2024</p>
+                    <div class="text-container description">
+                        Latest Project
                     </div>
+                </award>
+                
+                <p>A python package with two missions: entertain you and teach you. idlegame is ran from the command line, and uses only real zsh commands to play. You can create Nanobots with the nano command, which will run tasks you program them to do.</p>
+
+                <div class="pipembed-container">
+                    <div class="loading-message">Pipembeds may have long load times due to Render's free version spinning down idle servers. Please wait...</div>
+                    <iframe class="pipembed" src="https://pipembeds.onrender.com/html/idlegame/?theme=dark&text_color=%23fff&border_color=%23444&background_color=%231E1E1E" onload="this.previousElementSibling.style.display='none'; this.style.display='block';" style="display: none;"></iframe>
                 </div>
 
-                <div class="project-item" id="pipembed">
-                    <h3>PipEmbeds</h3>
-
-                    <p>
-                        A Django API I wrote in a day on a whim because I
-                        couldn't find an API I wanted. Gets PyPi Python package
-                        data and formats it into human-readable and stylish
-                        preview cards.
-                    </p>
-
-                    <div
-                        class="repo-card"
-                        data-repo="bboonstra/pipembeds"
-                        data-theme="dark-theme"
-                    ></div>
-                    <button
-                        class="btn"
-                        id="popen"
-                        onclick="window.open('https://pipembeds.onrender.com', '_blank');"
-                    >
-                        Open PipEmbeds
-                    </button>
-
-                    <div class="project-attributes">
-                        <img
-                            class="pattr pattr-lang-icon"
-                            src="https://goldeneagle.ai/static/images/technology/django.png"
-                            alt="Django"
-                        />
-                        <p class="pattr pattr-lang-text">full-stack / django</p>
-                        <p class="pattr pattr-teamsize">solo</p>
-                        <p class="pattr pattr-dates">fall 2024</p>
-                    </div>
+                <div class="project-attributes">
+                    <img class="pattr pattr-lang-icon" src="https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png" alt="Python"/>
+                    <p class="pattr pattr-lang-text">python</p>
+                    <p class="pattr pattr-teamsize">solo</p>
+                    <p class="pattr pattr-dates">fall 2024</p>
                 </div>
-
-                <div class="project-item" id="ragnarok">
-                    <award class="co-captain">
-                        <div class="text-container initial">Head</div>
-                        <div class="text-container description">
-                            Co-Captain and Head of Programming
-                        </div>
-                    </award>
-                    <h3>Ragnarok Robotics</h3>
-                    <p>
-                        I've been the head of the Waukee Northwest Robotics
-                        team's programming department through many years of FTC,
-                        placing for the Control (programming) Award.
-                    </p>
-                    <div
-                        class="repo-card"
-                        data-repo="24358-Ragnarok/IntoTheDeep"
-                        data-theme="dark-theme"
-                    ></div>
-                    <div class="project-attributes">
-                        <img
-                            class="pattr pattr-lang-icon"
-                            src="https://static-00.iconduck.com/assets.00/java-icon-1511x2048-6ikx8301.png"
-                            alt="Java"
-                        />
-                        <p class="pattr pattr-lang-text">java</p>
-                        <p class="pattr pattr-teamsize">team</p>
-                        <p class="pattr pattr-dates">2023-2025</p>
-                    </div>
-                </div>
-                <div class="project-item" id="guanaco">
-                    <h3>Guanaco Trade</h3>
-                    <p>
-                        A Python package that uses generative and predictive AI
-                        to make trades in the stock market. Produced a 30%
-                        growth in capital during a 3-month testing period in
-                        which the S&P increased 10%.
-                    </p>
-                    <div
-                        class="repo-card"
-                        data-repo="bboonstra/guanaco-trade"
-                        data-theme="dark-theme"
-                    ></div>
-                    <div class="project-attributes">
-                        <img
-                            class="pattr pattr-lang-icon"
-                            src="https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png"
-                            alt="Python"
-                        />
-                        <p class="pattr pattr-lang-text">python</p>
-                        <p class="pattr pattr-teamsize">solo</p>
-                        <p class="pattr pattr-dates">spring 2024</p>
-                    </div>
-                </div>
-                <div class="project-item" id="deepdive">
-                    <h3>Deep Dive</h3>
-                    <award class="first">
-                        <div class="text-container initial">1st</div>
-                        <div class="text-container description">
-                            Winner: Text Based Game Jam 2022
-                        </div>
-                    </award>
-
-                    <p>
-                        One of my earliest projects, for the first Game Jam I
-                        ever entered. Tells an immersive
-                        choose-your-own-adventure through purely the Python
-                        terminal.
-                    </p>
-                    <iframe
-                        id="dd-embed"
-                        src="https://replit.com/@IceFire03/Deep-Dive?embed=true"
-                        width="auto"
-                        height="600"
-                    ></iframe>
-                    <div class="project-attributes">
-                        <img
-                            class="pattr pattr-lang-icon"
-                            src="https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png"
-                            alt="Python"
-                        />
-                        <p class="pattr pattr-lang-text">python</p>
-                        <p class="pattr pattr-teamsize">duo w/ @styxcolor</p>
-                        <p class="pattr pattr-dates">summer 2022</p>
-                    </div>
-                </div>
-                <div class="project-item" id="pixelpuzzlebox">
-                    <h3>Pixel Puzzlebox</h3>
-                    <p>Coming Soon...</p>
-                    <iframe
-                        hidden
-                        frameborder="0"
-                        src="https://itch.io/embed/2954893?linkback=true&amp;bg_color=333&amp;fg_color=fff"
-                        width="552"
-                        height="167"
-                        ><a href="https://bboonstra.itch.io/pixel-puzzlebox"
-                            >Pixel Puzzlebox by bboonstra</a
-                        ></iframe
-                    >
-                    <div class="project-attributes">
-                        <img
-                            class="pattr pattr-lang-icon-wide"
-                            src="https://user-images.githubusercontent.com/30186107/29488525-f55a69d0-84da-11e7-8a39-5476f663b5eb.png"
-                            alt="Frontend"
-                        />
-                        <p class="pattr pattr-lang-text">frontend</p>
-                        <p class="pattr pattr-teamsize">duo w/ @Ann-MarieDev</p>
-                        <p class="pattr pattr-dates">fall 2024</p>
-                    </div>
-                </div>
-                <div class="project-item" id="unknownuniverse">
-                    <h3>Unknown Universe</h3>
-                    <p>Coming Soon...</p>
-                    <iframe
-                        hidden
-                        frameborder="0"
-                        src="https://itch.io/embed/2954893?linkback=true&amp;bg_color=333&amp;fg_color=fff"
-                        width="552"
-                        height="167"
-                        ><a href="https://bboonstra.itch.io/pixel-puzzlebox"
-                            >Pixel Puzzlebox by bboonstra</a
-                        ></iframe
-                    >
-                    <div class="project-attributes">
-                        <img
-                            class="pattr pattr-lang-icon"
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Godot_icon.svg/2048px-Godot_icon.svg.png"
-                            alt="Godot"
-                        />
-                        <p class="pattr pattr-lang-text">godot</p>
-                        <p class="pattr pattr-teamsize">duo w/ @tbd</p>
-                        <p class="pattr pattr-dates">fall 2024</p>
-                    </div>
-                </div>
-                <div class="project-item" id="doniowa">
-                    <h3>Daughters of Norway Iowa</h3>
-                    <p>Coming Soon...</p>
-                    <iframe
-                        hidden
-                        frameborder="0"
-                        src="https://doniowa.com/embed"
-                    ></iframe>
-                    <div class="project-attributes">
-                        <img
-                            class="pattr pattr-lang-icon"
-                            src="https://woz-u.com/wp-content/uploads/2019/09/full-stack-program-icon-300x293.png"
-                            alt="Full Stack"
-                        />
-                        <p class="pattr pattr-lang-text">full-stack</p>
-                        <p class="pattr pattr-teamsize">duo w/ @Ann-MarieDev</p>
-                        <p class="pattr pattr-dates">fall 2024</p>
-                    </div>
-                </div>
-                <button id="load-more">Load More</button>
             </div>
-        </section>
+            
+            <div class="project-item" id="pipembed">
+                <h3>PipEmbeds</h3>
+                
+                <p>A Django API I wrote in a day on a whim because I couldn't find an API I wanted. Gets PyPi Python package data and formats it into human-readable and stylish preview cards.</p>
 
-        <hr class="section-rule" />
+                <div class="repo-card" data-repo="bboonstra/pipembeds" data-theme="dark-theme"></div>
+                <button class="btn" id="popen" onclick="window.open('https://pipembeds.onrender.com', '_blank');">Open PipEmbeds</button>
 
-        <section id="skills">
-            <h2>Skills</h2>
-            <div class="bubble-container">
-                <div class="bubble" data-anchor="#guanaco">Python</div>
-                <div class="bubble" data-anchor="#guanaco">PyPI</div>
-                <div class="bubble" data-anchor="#guanaco">Data Analysis</div>
-                <div class="bubble" data-anchor="#guanaco">Generative AI</div>
-                <div class="bubble" data-anchor="#guanaco">
-                    Machine Learning
+                <div class="project-attributes">
+                    <img class="pattr pattr-lang-icon" src="https://goldeneagle.ai/static/images/technology/django.png" alt="Django"/>
+                    <p class="pattr pattr-lang-text">full-stack / django</p>
+                    <p class="pattr pattr-teamsize">solo</p>
+                    <p class="pattr pattr-dates">fall 2024</p>
                 </div>
-                <div class="bubble" data-anchor="#unknownuniverse">Godot</div>
-                <div class="bubble" data-anchor="#unknownuniverse">
-                    Game Design
-                </div>
-                <div class="bubble" data-anchor="#pixelpuzzlebox">HTML</div>
-                <div class="bubble" data-anchor="#pixelpuzzlebox">CSS</div>
-                <div class="bubble" data-anchor="#pixelpuzzlebox">JS</div>
-                <div class="bubble" data-anchor="#doniowa">Databases</div>
-                <div class="bubble" data-anchor="#doniowa">Backend</div>
-                <div class="bubble" data-anchor="#doniowa">Frontend</div>
-                <div class="bubble" data-anchor="#doniowa">
-                    Automatic Deployment
-                </div>
-                <div class="bubble" data-anchor="#ragnarok">OOP</div>
-                <div class="bubble" data-anchor=".github">Git</div>
-                <div class="bubble" data-anchor=".github">VCS</div>
-                <div class="bubble" data-anchor="#idlegame">
-                    CLI Development
-                </div>
-                <div class="bubble" data-anchor="#idlegame">
-                    Persistent States
-                </div>
-                <div class="bubble" data-anchor="#idlegame">Bash</div>
-                <div class="bubble" data-anchor="#idlegame">Unit Tests</div>
-                <div class="bubble" data-anchor="#pipembed">
-                    API Development
-                </div>
-                <div class="bubble" data-anchor="#pipembed">Django</div>
-                <div class="bubble" data-anchor="#pipembed">Full Stack</div>
             </div>
-        </section>
 
-        <hr class="section-rule" />
+            <div class="project-item" id="ragnarok">
+                <award class="co-captain">
+                    <div class="text-container initial">
+                        Head
+                    </div>
+                    <div class="text-container description">
+                        Co-Captain and Head of Programming
+                    </div>
+                </award>
+                <h3>Ragnarok Robotics</h3>
+                <p>I've been the head of the Waukee Northwest Robotics team's programming department through many years of FTC, placing for the Control (programming) Award.</p>
+                <div class="repo-card" data-repo="24358-Ragnarok/IntoTheDeep" data-theme="dark-theme"></div>
+                <div class="project-attributes">
+                    <img class="pattr pattr-lang-icon" src="https://static-00.iconduck.com/assets.00/java-icon-1511x2048-6ikx8301.png" alt="Java"/>
+                    <p class="pattr pattr-lang-text">java</p>
+                    <p class="pattr pattr-teamsize">team</p>
+                    <p class="pattr pattr-dates">2023-2025</p>
+                </div>
+            </div>
+            <div class="project-item" id="guanaco">
+                <h3>Guanaco Trade</h3>
+                <p>A Python package that uses generative and predictive AI to make trades in the stock market. Produced a 30% growth in capital during a 3-month testing period in which the S&P increased 10%.</p>
+                <div class="repo-card" data-repo="bboonstra/guanaco-trade" data-theme="dark-theme"></div>
+                <div class="project-attributes">
+                    <img class="pattr pattr-lang-icon" src="https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png" alt="Python"/>
+                    <p class="pattr pattr-lang-text">python</p>
+                    <p class="pattr pattr-teamsize">solo</p>
+                    <p class="pattr pattr-dates">spring 2024</p>
+                </div>
+            </div>
+            <div class="project-item" id="deepdive">
+                <h3>Deep Dive</h3>
+                <award class="first">
+                    <div class="text-container initial">
+                        1st
+                    </div>
+                    <div class="text-container description">
+                        Winner: Text Based Game Jam 2022
+                    </div>
+                </award>
+                
+                <p>One of my earliest projects, for the first Game Jam I ever entered. 
+                    Tells an immersive choose-your-own-adventure through purely the Python terminal.</p>
+                <iframe id="dd-embed" src="https://replit.com/@IceFire03/Deep-Dive?embed=true" width="auto" height="600"></iframe>
+                <div class="project-attributes">
+                    <img class="pattr pattr-lang-icon" src="https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png" alt="Python"/>
+                    <p class="pattr pattr-lang-text">python</p>
+                    <p class="pattr pattr-teamsize">duo w/ @styxcolor</p>
+                    <p class="pattr pattr-dates">summer 2022</p>
+                </div>
+            </div>
+            <div class="project-item" id="pixelpuzzlebox">
+                <h3>Pixel Puzzlebox</h3>
+                <p>Coming Soon...</p>
+                <iframe hidden frameborder="0" src="https://itch.io/embed/2954893?linkback=true&amp;bg_color=333&amp;fg_color=fff" width="552" height="167"><a href="https://bboonstra.itch.io/pixel-puzzlebox">Pixel Puzzlebox by bboonstra</a></iframe>
+                <div class="project-attributes">
+                    <img class="pattr pattr-lang-icon-wide" src="https://user-images.githubusercontent.com/30186107/29488525-f55a69d0-84da-11e7-8a39-5476f663b5eb.png" alt="Frontend"/>
+                    <p class="pattr pattr-lang-text">frontend</p>
+                    <p class="pattr pattr-teamsize">duo w/ @Ann-MarieDev</p>
+                    <p class="pattr pattr-dates">fall 2024</p>
+                </div>
+            </div>
+            <div class="project-item" id="unknownuniverse">
+                <h3>Unknown Universe</h3>
+                <p>Coming Soon...</p>
+                <iframe hidden frameborder="0" src="https://itch.io/embed/2954893?linkback=true&amp;bg_color=333&amp;fg_color=fff" width="552" height="167"><a href="https://bboonstra.itch.io/pixel-puzzlebox">Pixel Puzzlebox by bboonstra</a></iframe>
+                <div class="project-attributes">
+                    <img class="pattr pattr-lang-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Godot_icon.svg/2048px-Godot_icon.svg.png" alt="Godot"/>
+                    <p class="pattr pattr-lang-text">godot</p>
+                    <p class="pattr pattr-teamsize">duo w/ @tbd</p>
+                    <p class="pattr pattr-dates">fall 2024</p>
+                </div>
+            </div>
+            <div class="project-item" id="doniowa">
+                <h3>Daughters of Norway Iowa</h3>
+                <p>Coming Soon...</p>
+                <iframe hidden frameborder="0" src="https://doniowa.com/embed"></iframe>
+                <div class="project-attributes">
+                    <img class="pattr pattr-lang-icon" src="https://woz-u.com/wp-content/uploads/2019/09/full-stack-program-icon-300x293.png" alt="Full Stack"/>
+                    <p class="pattr pattr-lang-text">full-stack</p>
+                    <p class="pattr pattr-teamsize">duo w/ @Ann-MarieDev</p>
+                    <p class="pattr pattr-dates">fall 2024</p>
+                </div>
+            </div>
+        <button id="load-more">Load More</button>
+        </div>
+    </section>
 
-        <section id="contact">
-            <h2>Contact Me</h2>
-            <a href="mailto:bboonstra26@gmail.com" class="btn">Get In Touch</a>
-        </section>
+    <hr class="section-rule"/>
+    
+    <section id="skills">
+        <h2>Skills</h2>
+        <div class="bubble-container">
+            <div class="bubble" data-anchor="#guanaco">Python</div>
+            <div class="bubble" data-anchor="#guanaco">PyPI</div>
+            <div class="bubble" data-anchor="#guanaco">Data Analysis</div>
+            <div class="bubble" data-anchor="#guanaco">Generative AI</div>
+            <div class="bubble" data-anchor="#guanaco">Machine Learning</div>
+            <div class="bubble" data-anchor="#unknownuniverse">Godot</div>
+            <div class="bubble" data-anchor="#unknownuniverse">Game Design</div>
+            <div class="bubble" data-anchor="#pixelpuzzlebox">HTML</div>
+            <div class="bubble" data-anchor="#pixelpuzzlebox">CSS</div>
+            <div class="bubble" data-anchor="#pixelpuzzlebox">JS</div>
+            <div class="bubble" data-anchor="#doniowa">Databases</div>
+            <div class="bubble" data-anchor="#doniowa">Backend</div>
+            <div class="bubble" data-anchor="#doniowa">Frontend</div>
+            <div class="bubble" data-anchor="#doniowa">Automatic Deployment</div>
+            <div class="bubble" data-anchor="#ragnarok">OOP</div>
+            <div class="bubble" data-anchor=".github">Git</div>
+            <div class="bubble" data-anchor=".github">VCS</div>
+            <div class="bubble" data-anchor="#idlegame">CLI Development</div>
+            <div class="bubble" data-anchor="#idlegame">Persistent States</div>
+            <div class="bubble" data-anchor="#idlegame">Bash</div>
+            <div class="bubble" data-anchor="#idlegame">Unit Tests</div>
+            <div class="bubble" data-anchor="#pipembed">API Development</div>
+            <div class="bubble" data-anchor="#pipembed">Django</div>
+            <div class="bubble" data-anchor="#pipembed">Full Stack</div>
+        </div>
+    </section>    
 
-        <footer>
-            <p>
-                code cool stuff • <span class="copyright">©</span> 2024
-                bboonstra • all rights reserved
-            </p>
-        </footer>
-        <script src="script.js"></script>
-        <script src="https://tarptaeya.github.io/repo-card/repo-card.js"></script>
-    </body>
+    <hr class="section-rule"/>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <a href="mailto:bboonstra26@gmail.com" class="btn">Get In Touch</a>
+    </section>    
+
+    <footer>
+        <p>code cool stuff • <span class="copyright">©</span> 2024 bboonstra • all rights reserved</p>
+    </footer>
+<script src="script.js"></script>
+<script src="https://tarptaeya.github.io/repo-card/repo-card.js"></script>
+</body>
 </html>
