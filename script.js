@@ -29,13 +29,13 @@ const texts = [
 ];
 
 let currentIndex = 0;
-const dynamicTextElement = document.getElementById('dynamic-text');
+const dynamicTextElement = document.getElementById("dynamic-text");
 
 /* best. anim. ever. */
 async function typeText() {
     const text = texts[currentIndex];
     let index = 0;
-    dynamicTextElement.textContent = ''
+    dynamicTextElement.textContent = "";
 
     // Typing the text
     async function typeCharacter() {
@@ -51,7 +51,8 @@ async function typeText() {
     // Deleting the text
     async function deleteCharacter() {
         if (index > 0) {
-            dynamicTextElement.textContent = dynamicTextElement.textContent.slice(0, -1);
+            dynamicTextElement.textContent =
+                dynamicTextElement.textContent.slice(0, -1);
             index--;
             setTimeout(deleteCharacter, 35);
         } else {
@@ -60,40 +61,45 @@ async function typeText() {
             setTimeout(typeText, 200);
         }
     }
-    
+
     typeCharacter();
 }
 setTimeout(typeText, 5000); // wait for the initial anim first
 
-document.getElementById('read-more-btn').addEventListener('click', function() {
-    const additionalText = document.getElementById('additional-text');
+document.getElementById("read-more-btn").addEventListener("click", function () {
+    const additionalText = document.getElementById("additional-text");
 
     // Toggle visibility
-    if (additionalText.style.height === '0px' || additionalText.style.height === '') {
-        additionalText.style.display = 'block'; // Show the content
+    if (
+        additionalText.style.height === "0px" ||
+        additionalText.style.height === ""
+    ) {
+        additionalText.style.display = "block"; // Show the content
         setTimeout(() => {
-            additionalText.style.height = additionalText.scrollHeight + 'px'; // Set height to full content height
-            additionalText.style.opacity = '1'; // Make it visible
+            additionalText.style.height = additionalText.scrollHeight + "px"; // Set height to full content height
+            additionalText.style.opacity = "1"; // Make it visible
         }, 10); // Timeout to ensure display is set before animation
-        document.getElementById('read-more-btn').innerText = 'Click me if you hate reading';
-        
+        document.getElementById("read-more-btn").innerText =
+            "Click me if you hate reading";
+
         // Adjust font size based on screen size
         if (window.matchMedia("(max-width: 768px)").matches) {
-            document.getElementById('dynamic-text').style.fontSize = '5vw'; // Mobile size
+            document.getElementById("dynamic-text").style.fontSize = "5vw"; // Mobile size
         } else {
-            document.getElementById('dynamic-text').style.fontSize = '3.5vw'; // Desktop size
+            document.getElementById("dynamic-text").style.fontSize = "3.5vw"; // Desktop size
         }
     } else {
-        additionalText.style.height = '0px'; // Animate height to 0
-        additionalText.style.opacity = '0'; // Fade out
+        additionalText.style.height = "0px"; // Animate height to 0
+        additionalText.style.opacity = "0"; // Fade out
 
-        document.getElementById('read-more-btn').innerText = 'Click me if you like reading';
+        document.getElementById("read-more-btn").innerText =
+            "Click me if you like reading";
 
         // Adjust font size based on screen size
         if (window.matchMedia("(max-width: 768px)").matches) {
-            document.getElementById('dynamic-text').style.fontSize = '7vw'; // Mobile size
+            document.getElementById("dynamic-text").style.fontSize = "7vw"; // Mobile size
         } else {
-            document.getElementById('dynamic-text').style.fontSize = '6vw'; // Desktop size
+            document.getElementById("dynamic-text").style.fontSize = "6vw"; // Desktop size
         }
     }
 });
@@ -101,48 +107,48 @@ document.getElementById('read-more-btn').addEventListener('click', function() {
 function goToAndHighlight(anchor) {
     const targetSection = document.querySelector(anchor);
     if (targetSection) {
-        if (getComputedStyle(targetSection).display === 'none') {
-            targetSection.style.display = 'block';
+        if (getComputedStyle(targetSection).display === "none") {
+            targetSection.style.display = "block";
             targetSection.classList.add("show");
-        }        
-        targetSection.scrollIntoView({ block: 'center', behavior: 'smooth' });
-        targetSection.classList.add('highlight');
+        }
+        targetSection.scrollIntoView({ block: "center", behavior: "smooth" });
+        targetSection.classList.add("highlight");
         setTimeout(() => {
-            targetSection.classList.remove('highlight');
-            targetSection.classList.add('dehighlight');
+            targetSection.classList.remove("highlight");
+            targetSection.classList.add("dehighlight");
         }, 2000);
         setTimeout(() => {
-            targetSection.classList.remove('dehighlight');
+            targetSection.classList.remove("dehighlight");
         }, 3000);
     }
 }
 
-const items = document.querySelectorAll('.gallery-item');
-const descriptionBox = document.getElementById('item-description');
+const items = document.querySelectorAll(".gallery-item");
+const descriptionBox = document.getElementById("item-description");
 
-items.forEach(item => {
-    item.addEventListener('mouseenter', () => {
-        descriptionBox.textContent = item.getAttribute('data-description');
+items.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+        descriptionBox.textContent = item.getAttribute("data-description");
     });
-    item.addEventListener('mouseleave', () => {
-        descriptionBox.textContent = '';
+    item.addEventListener("mouseleave", () => {
+        descriptionBox.textContent = "";
     });
 
-    item.addEventListener('click', () => {
-        const anchor = item.getAttribute('data-anchor');
+    item.addEventListener("click", () => {
+        const anchor = item.getAttribute("data-anchor");
         if (anchor) {
             goToAndHighlight(anchor);
         }
     });
 });
 
-const bubbles = document.querySelectorAll('.bubble');
-const container = document.querySelector('.bubble-container');
+const bubbles = document.querySelectorAll(".bubble");
+const container = document.querySelector(".bubble-container");
 const containerWidth = container.clientWidth;
 const containerHeight = container.clientHeight;
 
 function randomPosition() {
-    bubbles.forEach(bubble => {
+    bubbles.forEach((bubble) => {
         const bubbleWidth = bubble.offsetWidth;
         const bubbleHeight = bubble.offsetHeight;
         const x = Math.random() * (containerWidth - bubbleWidth);
@@ -158,7 +164,7 @@ function randomPosition() {
 function moveBubble(bubble, speedX, speedY) {
     let x = parseFloat(bubble.style.left);
     let y = parseFloat(bubble.style.top);
-    
+
     function animate() {
         x += speedX;
         y += speedY;
@@ -172,24 +178,24 @@ function moveBubble(bubble, speedX, speedY) {
         bubble.style.top = `${y}px`;
         requestAnimationFrame(animate);
     }
-    
+
     animate();
 }
 
 randomPosition();
 
-bubbles.forEach(bubble => {
-    bubble.addEventListener('click', () => {
-        bubble.classList.add('pop');
+bubbles.forEach((bubble) => {
+    bubble.addEventListener("click", () => {
+        bubble.classList.add("pop");
         setTimeout(() => {
-            const anchor = bubble.getAttribute('data-anchor');
+            const anchor = bubble.getAttribute("data-anchor");
             if (anchor) {
                 goToAndHighlight(anchor);
             }
         }, 200);
         setTimeout(() => {
-            bubble.style.display = 'block';
-            bubble.classList.remove('pop');
+            bubble.style.display = "block";
+            bubble.classList.remove("pop");
         }, 10000 + Math.random() * 10000);
     });
 });
