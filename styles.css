@@ -361,6 +361,15 @@ section {
     font-size: 90%;
 }
 
+.credit {
+    text-decoration: none;
+    color: rgb(167, 167, 167);
+}
+
+.credit:hover {
+    text-decoration: underline;
+}
+
 .pattr {
     margin: 0 5px;
 }
