@@ -389,6 +389,45 @@ section {
 }
 
 /* individual project css */
+.guardio-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 15px;
+}
+
+.guardio-badge {
+    width: 100%;
+    height: auto;
+    margin: 0;
+}
+
+.guardio-badge-cta {
+    scale: 1.05;
+    margin-top: auto;
+}
+
+.download-badge-container {
+    margin-top: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.download-badge-container .guardio-badge-cta {
+    width: 100%;
+    height: auto;
+    scale: 1.15;
+    font-weight: bolder;
+    transition: transform 0.3s ease;
+}
+
+.download-badge-container .guardio-badge-cta:hover {
+    transform: scale(1.2);
+}
+
 .repo-card {
     width: 80%;
     height: auto;
