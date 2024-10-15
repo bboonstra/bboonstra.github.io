@@ -145,38 +145,75 @@ items.forEach((item) => {
         }
     });
 });
-
-const bubbles = document.querySelectorAll(".bubble");
+const allBubbles = Array.from(document.querySelectorAll(".bubble"));
 const container = document.querySelector(".bubble-container");
 const containerWidth = container.clientWidth;
 const containerHeight = container.clientHeight;
 
-function randomPosition() {
-    bubbles.forEach((bubble) => {
-        const bubbleWidth = bubble.offsetWidth;
-        const bubbleHeight = bubble.offsetHeight;
-        const x = Math.random() * (containerWidth - bubbleWidth);
-        const y = Math.random() * (containerHeight - bubbleHeight);
-        bubble.style.left = `${x}px`;
-        bubble.style.top = `${y}px`;
-        const speedX = (Math.random() - 0.5) * 2;
-        const speedY = (Math.random() - 0.5) * 2;
-        moveBubble(bubble, speedX, speedY);
-    });
+const activeBubbles = [];
+const inactiveBubbles = [...allBubbles];
+const MAX_ACTIVE_BUBBLES = 10;
+
+function showRandomBubble() {
+    setTimeout(() => {
+        if (
+            inactiveBubbles.length > 0 &&
+            activeBubbles.length < MAX_ACTIVE_BUBBLES
+        ) {
+            const index = Math.floor(Math.random() * inactiveBubbles.length);
+            const bubble = inactiveBubbles.splice(index, 1)[0];
+            activeBubbles.push(bubble);
+            bubble.style.display = "block";
+            bubble.style.opacity = "0";
+            positionBubble(bubble);
+            moveBubble(bubble);
+            setExpirationTimer(bubble);
+
+            setTimeout(() => {
+                bubble.style.opacity = "1";
+                bubble.classList.add("fade-in");
+            }, 10);
+
+            const delay = 2000 + Math.random() * 3000; // 2-5 seconds delay
+            setTimeout(showRandomBubble, delay);
+        }
+    }, 2000 + Math.random() * 3000);
 }
 
-function moveBubble(bubble, speedX, speedY) {
+function positionBubble(bubble) {
+    const bubbleWidth = bubble.offsetWidth;
+    const bubbleHeight = bubble.offsetHeight;
+    const x = Math.random() * (containerWidth - bubbleWidth);
+    const y = Math.random() * (containerHeight - bubbleHeight);
+    bubble.style.left = `${x}px`;
+    bubble.style.top = `${y}px`;
+}
+
+function moveBubble(bubble) {
+    let speedX = (Math.random() - 0.5) * 1.25;
+    let speedY = (Math.random() - 0.5) * 1.25;
     let x = parseFloat(bubble.style.left);
     let y = parseFloat(bubble.style.top);
+    let isHovered = false;
+
+    bubble.addEventListener('mouseenter', () => { isHovered = true; });
+    bubble.addEventListener('mouseleave', () => { isHovered = false; });
 
     function animate() {
-        x += speedX;
-        y += speedY;
+        if (!activeBubbles.includes(bubble)) return;
+
+        const currentSpeedX = isHovered ? speedX * 0.5 : speedX;
+        const currentSpeedY = isHovered ? speedY * 0.5 : speedY;
+
+        x += currentSpeedX;
+        y += currentSpeedY;
         if (x < 0 || x + bubble.offsetWidth > containerWidth) {
             speedX *= -1;
+            x = Math.max(0, Math.min(x, containerWidth - bubble.offsetWidth));
         }
         if (y < 0 || y + bubble.offsetHeight > containerHeight) {
             speedY *= -1;
+            y = Math.max(0, Math.min(y, containerHeight - bubble.offsetHeight));
         }
         bubble.style.left = `${x}px`;
         bubble.style.top = `${y}px`;
@@ -186,9 +223,47 @@ function moveBubble(bubble, speedX, speedY) {
     animate();
 }
 
-randomPosition();
+function setExpirationTimer(bubble) {
+    const expirationTime = 5000 + Math.random() * 25000; // 5-30 seconds
+    let timer = setTimeout(() => {
+        if (activeBubbles.includes(bubble) && !bubble.matches(':hover')) {
+            bubble.classList.add("pop");
+            setTimeout(() => {
+                removeBubble(bubble);
+                showRandomBubble();
+            }, 200); // Wait for pop animation to finish
+        } else if (activeBubbles.includes(bubble)) {
+            // If the bubble is hovered, reset the expiration timer
+            setExpirationTimer(bubble);
+        }
+    }, expirationTime);
 
-bubbles.forEach((bubble) => {
+    bubble.addEventListener('mouseenter', () => {
+        clearTimeout(timer);
+    });
+
+    bubble.addEventListener('mouseleave', () => {
+        setExpirationTimer(bubble);
+    });
+}
+
+function removeBubble(bubble) {
+    const index = activeBubbles.indexOf(bubble);
+    if (index > -1) {
+        activeBubbles.splice(index, 1);
+        inactiveBubbles.push(bubble);
+        bubble.style.display = "none";
+        bubble.classList.remove("pop"); // Remove pop class after hiding
+    }
+}
+
+function initializeBubbles() {
+    for (let i = 0; i < MAX_ACTIVE_BUBBLES; i++) {
+        showRandomBubble();
+    }
+}
+
+allBubbles.forEach((bubble) => {
     bubble.addEventListener("click", () => {
         bubble.classList.add("pop");
         setTimeout(() => {
@@ -196,13 +271,15 @@ bubbles.forEach((bubble) => {
             if (anchor) {
                 goToAndHighlight(anchor);
             }
+            removeBubble(bubble);
+            showRandomBubble();
         }, 200);
-        setTimeout(() => {
-            bubble.style.display = "block";
-            bubble.classList.remove("pop");
-        }, 10000 + Math.random() * 10000);
     });
+    // hide the bubble by default
+    bubble.style.display = "none";
 });
+
+initializeBubbles();
 
 document.addEventListener("DOMContentLoaded", function () {
     const projects = document.querySelectorAll(".project-item");

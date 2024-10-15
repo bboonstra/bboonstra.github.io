@@ -662,8 +662,15 @@ award.co-captain {
 }
 
 .bubble.pop {
-    transform: scale(0);
-    transition: transform 0.2s ease-in-out;
+    transform: scale(1.2);
+    opacity: 0;
+    filter: blur(10px);
+    transition: all 0.3s ease-in-out;
+    animation: popBubble 0.3s ease-out;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
 }
 
 /* contact section (needs update) */
