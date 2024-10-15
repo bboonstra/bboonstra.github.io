@@ -24,6 +24,10 @@ const texts = [
     "API engineer",
     "Unit tester",
     "Command-line interfacer",
+    "Extension extender",
+    "Template templar",
+    "Typescript tyrant",
+    "Syntax synthesizer",
     "code cool stuff",
     "okay thats it",
 ];
