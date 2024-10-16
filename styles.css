@@ -769,3 +769,15 @@ footer {
         min-height: 45vh;
     }
 }
+
+.stats-container {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    column-gap: 20px;
+    width: 90%;
+    margin: 0 auto;
+}

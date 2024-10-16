@@ -196,8 +196,12 @@ function moveBubble(bubble) {
     let y = parseFloat(bubble.style.top);
     let isHovered = false;
 
-    bubble.addEventListener('mouseenter', () => { isHovered = true; });
-    bubble.addEventListener('mouseleave', () => { isHovered = false; });
+    bubble.addEventListener("mouseenter", () => {
+        isHovered = true;
+    });
+    bubble.addEventListener("mouseleave", () => {
+        isHovered = false;
+    });
 
     function animate() {
         if (!activeBubbles.includes(bubble)) return;
@@ -226,7 +230,7 @@ function moveBubble(bubble) {
 function setExpirationTimer(bubble) {
     const expirationTime = 5000 + Math.random() * 25000; // 5-30 seconds
     let timer = setTimeout(() => {
-        if (activeBubbles.includes(bubble) && !bubble.matches(':hover')) {
+        if (activeBubbles.includes(bubble) && !bubble.matches(":hover")) {
             bubble.classList.add("pop");
             setTimeout(() => {
                 removeBubble(bubble);
@@ -238,11 +242,11 @@ function setExpirationTimer(bubble) {
         }
     }, expirationTime);
 
-    bubble.addEventListener('mouseenter', () => {
+    bubble.addEventListener("mouseenter", () => {
         clearTimeout(timer);
     });
 
-    bubble.addEventListener('mouseleave', () => {
+    bubble.addEventListener("mouseleave", () => {
         setExpirationTimer(bubble);
     });
 }
