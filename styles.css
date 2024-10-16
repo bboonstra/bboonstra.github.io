@@ -52,6 +52,11 @@ h3 {
     font-weight: bold;
 }
 
+h2 {
+    padding: 10px;
+    font-size: 2.25rem;
+}
+
 p,
 form input,
 form textarea,
@@ -119,9 +124,7 @@ header:after {
 }
 
 .section-rule {
-    margin: 30px auto 0px auto;
-    padding: 10px;
-    width: 80vw;
+    width: 90vw;
     border: 0px;
     border-top: 3px dotted var(--white);
 }
@@ -189,6 +192,8 @@ section {
     padding: 0.1rem;
     text-align: center;
     transition: opacity 0.5s; /* Smooth transition for opacity change */
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .about-content {
@@ -317,6 +322,7 @@ section {
 
 /* project section */
 #projects {
+    margin-top: 0px;
     margin-bottom: 30px;
 }
 
@@ -629,11 +635,10 @@ award.co-captain {
     align-items: center;
     position: relative;
     height: 60vh;
-    width: 90vw;
-    background: radial-gradient(circle, var(--body2), var(--body1));
+    width: auto;
     margin: 0 auto;
-    box-shadow: 0 0 40px 20px var(--shadow-color);
     border-radius: 20px;
+    border: 1px solid var(--border);
 }
 
 .bubble {
@@ -768,6 +773,11 @@ footer {
     .about-content {
         min-height: 45vh;
     }
+}
+
+#stats {
+    margin-top: 0px;
+    margin-bottom: 20px;
 }
 
 .stats-container {
