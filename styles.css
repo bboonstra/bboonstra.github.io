@@ -791,3 +791,16 @@ footer {
     width: 90%;
     margin: 0 auto;
 }
+
+.under-construction {  
+    border: 5px solid;
+    border-image: repeating-linear-gradient(
+        45deg,
+        var(--accent3),
+        var(--accent3) 20px,
+        var(--body1) 20px,
+        var(--body1) 40px
+    ) 10;
+    position: relative;
+    overflow: hidden;
+}
