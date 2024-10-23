@@ -413,9 +413,10 @@ section {
 }
 
 .guardio-badge {
-    width: 100%;
     height: auto;
+    width: auto;
     margin: 0;
+    object-fit: contain;
 }
 
 .guardio-badge-cta {
@@ -449,6 +450,9 @@ section {
     margin: auto;
 }
 
+#effortless-banner {
+    max-width: 90%;
+}
 .pipembed-container {
     position: relative;
 }
