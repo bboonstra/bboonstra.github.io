@@ -3,65 +3,84 @@ document.addEventListener("DOMContentLoaded", () => {
     const sections = document.querySelectorAll(".section");
     let isOpen = false;
 
-    function calculateSectionPolygon(startAngle, endAngle) {
+    function calculateSectionPolygon(startAngle, endAngle, isCollapsed = true) {
         const start = ((startAngle - 90) * Math.PI) / 180;
         const end = ((endAngle - 90) * Math.PI) / 180;
         const points = [[50, 50]];
 
-        for (let i = 0; i <= 10; i++) {
-            const angle = start + (end - start) * (i / 10);
-            points.push([50 + 50 * Math.cos(angle), 50 + 50 * Math.sin(angle)]);
+        if (isCollapsed) {
+            for (let i = 0; i <= 10; i++) {
+                const angle = start + (end - start) * (i / 10);
+                const x = 50;
+                const y = 50;
+                points.push([x, y]);
+            }
+        } else {
+            for (let i = 0; i <= 10; i++) {
+                const angle = start + (end - start) * (i / 10);
+                points.push([
+                    50 + 50 * Math.cos(angle),
+                    50 + 50 * Math.sin(angle),
+                ]);
+            }
         }
 
-        return points.map(([x, y]) => `${x}% ${y}%`).join(", ");
+        return points.map((point) => `${point[0]}% ${point[1]}%`).join(", ");
     }
 
-    function applyClipPaths() {
-        const sectionCount = sections.length;
-        const anglePerSection = 360 / sectionCount;
+    function initializeSections() {
+        const anglePerSection = 360 / sections.length;
 
         sections.forEach((section, index) => {
             const startAngle = index * anglePerSection;
-            const endAngle = (index + 1) * anglePerSection;
-            const clipPath = `polygon(${calculateSectionPolygon(
+            const endAngle = startAngle + anglePerSection;
+            section.style.clipPath = `polygon(${calculateSectionPolygon(
                 startAngle,
                 endAngle
             )})`;
-            section.style.clipPath = clipPath;
         });
     }
 
-    function swoosh() {
-        const sectionCount = sections.length;
-        const angle = 360 / sectionCount;
+    function animateSections() {
+        const delay = 150;
         isOpen = !isOpen;
 
-        if (isOpen) {
-            // Expand: Start all sections from -90 degrees (pointing left)
-            // and rotate to their final positions
-            sections.forEach((section, index) => {
-                // First set initial position without transition
+        sections.forEach((section, index) => {
+            const timing = isOpen ? index : sections.length - 1 - index;
+            const startAngle = index * (360 / sections.length);
+            const endAngle = startAngle + 360 / sections.length;
+
+            if (isOpen) {
                 section.style.transition = "none";
-                section.style.transform = "rotate(-90deg)";
+                section.style.clipPath = `polygon(${calculateSectionPolygon(
+                    startAngle,
+                    endAngle,
+                    true
+                )})`;
                 section.classList.add("active");
+                section.offsetHeight; // Force reflow
 
-                // Force reflow to ensure the initial position is applied
-                section.offsetHeight;
-
-                // Restore transition and animate to final position
-                section.style.transition = "";
-                const rotation = angle * index;
-                section.style.transform = `rotate(${rotation}deg)`;
-            });
-        } else {
-            // Collapse: Rotate all sections back to -90 degrees
-            sections.forEach((section) => {
-                section.style.transform = "rotate(-90deg)";
-                section.classList.remove("active");
-            });
-        }
+                setTimeout(() => {
+                    section.style.transition = "clip-path 0.5s ease";
+                    section.style.clipPath = `polygon(${calculateSectionPolygon(
+                        startAngle,
+                        endAngle,
+                        false
+                    )})`;
+                }, timing * delay);
+            } else {
+                setTimeout(() => {
+                    section.style.clipPath = `polygon(${calculateSectionPolygon(
+                        startAngle,
+                        endAngle,
+                        true
+                    )})`;
+                    section.classList.remove("active");
+                }, timing * delay);
+            }
+        });
     }
 
-    applyClipPaths();
-    centralIcon.addEventListener("click", swoosh);
+    initializeSections();
+    centralIcon.addEventListener("click", animateSections);
 });

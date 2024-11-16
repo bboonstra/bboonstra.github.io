@@ -111,7 +111,7 @@ body {
   pointer-events: auto;
   opacity: 0;
   transition: opacity 0.5s ease, transform 0.5s ease;
-  transform: rotate(0deg);
+  transform: rotate(0deg) scaleX(1);
 }
 
 /* Add background colors for each section using root variables */
