@@ -1,3 +1,47 @@
+:root {
+  /* Core theme colors - vibrant and techy */
+  --primary-dark: #1e1e1e;
+  --primary-light: #f0f0f0;
+  --accent-neon: #00ff9d;
+  --accent-cyber: #0066ff;
+  --accent-energy: #ff0066;
+
+  /* Modern gradients */
+  --gradient-cyber: linear-gradient(
+    135deg,
+    var(--accent-cyber),
+    var(--accent-neon)
+  );
+  --gradient-energy: linear-gradient(
+    135deg,
+    var(--accent-energy),
+    var(--accent-neon)
+  );
+
+  /* Pie chart segments - bold but harmonious colors */
+  --pie-chart-color1: #ff4757; /* Vibrant red */
+  --pie-chart-color2: #2ed573; /* Fresh green */
+  --pie-chart-color3: #1e90ff; /* Electric blue */
+  --pie-chart-color4: #ffa502; /* Warm orange */
+  --pie-chart-color5: #7bed9f; /* Mint green */
+  --pie-chart-color6: #70a1ff; /* Soft blue */
+  --pie-chart-color7: #ff6b81; /* Coral pink */
+
+  /* Shadows and effects */
+  --glow-effect: 0 0 15px var(--accent-neon);
+  --box-shadow-smooth: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+  /* Spacing and sizing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+
+  /* Typography */
+  --font-main: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-code: "Fira Code", monospace;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -50,10 +94,9 @@ body {
 
 .pie-sections {
   position: absolute;
+  inset: 50%;
   width: 200vmax;
   height: 200vmax;
-  top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
@@ -67,14 +110,31 @@ body {
   transform-origin: 50% 50%;
   pointer-events: auto;
   opacity: 0;
-  transition: all 0.5s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: rotate(0deg);
+}
+
+/* Add background colors for each section using root variables */
+.section.projects {
+  background-color: var(--pie-chart-color1);
+}
+.section.stack-pie {
+  background-color: var(--pie-chart-color2);
+}
+.section.contact {
+  background-color: var(--pie-chart-color3);
+}
+.section.stats {
+  background-color: var(--pie-chart-color4);
+}
+.section.skills {
+  background-color: var(--pie-chart-color5);
 }
 
 .section .content {
   position: absolute;
   bottom: 50%;
   right: 2rem;
-  transform: none;
   color: white;
   text-align: right;
   padding: 1rem;
@@ -82,20 +142,4 @@ body {
 
 .section.active {
   opacity: 1;
-}
-
-.projects {
-  background-color: #ff6b6b;
-}
-.stack-pie {
-  background-color: #4ecdc4;
-}
-.contact {
-  background-color: #45b7d1;
-}
-.stats {
-  background-color: #96ceb4;
-}
-.skills {
-  background-color: #ffeead;
 }
