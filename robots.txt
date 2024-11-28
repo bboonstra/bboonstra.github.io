@@ -4,4 +4,4 @@ Allow: /
 User-agent: DarthVader
 Disallow: /sand
 
-Sitemap: https://bboonstra.github.io/sitemap.xml
+Sitemap: https://bboonstra.dev/sitemap.xml
