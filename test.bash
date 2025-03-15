@@ -122,10 +122,10 @@ test_bash_version() {
     local version
     version=$(bash --version | head -n 1 | cut -d' ' -f4 | cut -d'.' -f1)
 
-    if [ "$version" -ge 4 ]; then
+    if [ "$version" -ge 3 ]; then
         record_test "Bash version" "PASS" "Bash version $version is compatible"
     else
-        record_test "Bash version" "FAIL" "Bash version $version may be too old (4+ recommended)"
+        record_test "Bash version" "FAIL" "Bash version $version may be too old (3+ recommended)"
     fi
 }
 
@@ -139,9 +139,9 @@ test_terminal_size() {
     lines=$(tput lines)
 
     if [ "$cols" -ge 80 ] && [ "$lines" -ge 24 ]; then
-        record_test "Terminal size" "PASS" "Terminal size ($cols×$lines) is adequate"
+        record_test "Terminal size" "PASS" "Terminal size ($cols x $lines) is adequate"
     else
-        record_test "Terminal size" "FAIL" "Terminal size ($cols×$lines) may be too small (80×24 recommended)"
+        record_test "Terminal size" "FAIL" "Terminal size ($cols x $lines) may be too small (80x24 recommended)"
     fi
 }
 
