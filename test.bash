@@ -39,7 +39,7 @@ test_colors() {
     # Display color test
     echo -e "${RED}Red${NC} ${GREEN}Green${NC} ${BLUE}Blue${NC} ${CYAN}Cyan${NC} ${YELLOW}Yellow${NC} ${ITALIC}Italic${NC}"
 
-    read -r -p "Can you see different colors and italic text? (y/n): " color_response
+    read -r -p $'Can you see different colors and italic text?\nType \'y\' if you can, \'n\' if you can\'t: ' color_response
     if [[ "$color_response" =~ ^[Yy]$ ]]; then
         record_test "Color support" "PASS" "Terminal supports ANSI color codes"
     else
@@ -65,11 +65,12 @@ test_clear_screen() {
 # Test 3: Check if sleep command works properly
 test_sleep() {
     echo "Testing sleep command (used for text animation)..."
-    echo -n "This text should appear character by character: "
+    echo -n "The following text should appear character by character: "
+    sleep 2
 
     for char in S l o w " " t e x t; do
         echo -n "$char"
-        sleep 0.5
+        sleep 0.75
     done
     echo
 
@@ -88,10 +89,13 @@ test_random() {
     local num1=$((RANDOM % 10 + 1))
     sleep 1
     local num2=$((RANDOM % 10 + 1))
+    local num3=$((RANDOM % 10 + 1))
 
-    echo "Generated random numbers: $num1 and $num2"
+    echo "Generated random numbers: $num1, $num2, and $num3"
 
-    if [ "$num1" -ne "$num2" ] || [ "$num1" -eq "$num2" ] && [ "$num1" -gt 0 ] && [ "$num1" -le 10 ]; then
+    # Check if numbers are within expected range and at least one is different
+    if [[ "$num1" -ge 1 && "$num1" -le 10 && "$num2" -ge 1 && "$num2" -le 10 && "$num3" -ge 1 && "$num3" -le 10 &&
+        ("$num1" -ne "$num2" || "$num1" -ne "$num3" || "$num2" -ne "$num3") ]]; then
         record_test "Random generation" "PASS" "RANDOM variable works properly"
     else
         record_test "Random generation" "FAIL" "RANDOM variable doesn't work as expected"
@@ -102,7 +106,7 @@ test_random() {
 test_input() {
     echo "Testing input handling..."
 
-    read -r -p "Type anything and press Enter: " user_input
+    read -r -p "Type something in, then press Enter. Anything will do: " user_input
 
     if [ -n "$user_input" ]; then
         record_test "Input handling" "PASS" "read command works properly"
@@ -155,7 +159,7 @@ run_tests() {
 # Display test results
 show_results() {
     clear
-    echo "=== Apocalypse Dating Sim Compatibility Test Results ==="
+    echo "=== Game Compatibility Test Results ==="
     echo
 
     for result in "${test_results[@]}"; do
