@@ -3,6 +3,15 @@
 # Test script for game.bash functionality
 echo "Booting up the test."
 
+# Define colors for test results
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+YELLOW='\033[1;33m'
+ITALIC='\033[3m'
+NC='\033[0m' # No Color
+
 # Variables to track test results
 tests_passed=0
 tests_failed=0
@@ -27,19 +36,10 @@ record_test() {
 test_colors() {
     echo "Testing color support..."
 
-    # Define colors
-    RED='\033[0;31m'
-    GREEN='\033[0;32m'
-    BLUE='\033[0;34m'
-    CYAN='\033[0;36m'
-    YELLOW='\033[1;33m'
-    ITALIC='\033[3m'
-    NC='\033[0m' # No Color
-
     # Display color test
     echo -e "${RED}Red${NC} ${GREEN}Green${NC} ${BLUE}Blue${NC} ${CYAN}Cyan${NC} ${YELLOW}Yellow${NC} ${ITALIC}Italic${NC}"
 
-    read -p "Can you see different colors and italic text? (y/n): " color_response
+    read -r -p "Can you see different colors and italic text? (y/n): " color_response
     if [[ "$color_response" =~ ^[Yy]$ ]]; then
         record_test "Color support" "PASS" "Terminal supports ANSI color codes"
     else
@@ -54,7 +54,7 @@ test_clear_screen() {
     sleep 2
     clear
 
-    read -p "Did the terminal just clear, besides this line? (y/n): " clear_response
+    read -r -p "Did the terminal just clear, besides this line? (y/n): " clear_response
     if [[ "$clear_response" =~ ^[Yy]$ ]]; then
         record_test "Screen clearing" "PASS" "clear command works properly"
     else
@@ -73,7 +73,7 @@ test_sleep() {
     done
     echo
 
-    read -p "Did the text appear character by character with delays? (y/n): " sleep_response
+    read -r -p "Did the text appear character by character with delays? (y/n): " sleep_response
     if [[ "$sleep_response" =~ ^[Yy]$ ]]; then
         record_test "Sleep command" "PASS" "sleep command works properly"
     else
@@ -91,7 +91,7 @@ test_random() {
 
     echo "Generated random numbers: $num1 and $num2"
 
-    if [ $num1 -ne $num2 ] || [ $num1 -eq $num2 -a $num1 -gt 0 -a $num1 -le 10 ]; then
+    if [ "$num1" -ne "$num2" ] || [ "$num1" -eq "$num2" ] && [ "$num1" -gt 0 ] && [ "$num1" -le 10 ]; then
         record_test "Random generation" "PASS" "RANDOM variable works properly"
     else
         record_test "Random generation" "FAIL" "RANDOM variable doesn't work as expected"
@@ -102,7 +102,7 @@ test_random() {
 test_input() {
     echo "Testing input handling..."
 
-    read -p "Type anything and press Enter: " user_input
+    read -r -p "Type anything and press Enter: " user_input
 
     if [ -n "$user_input" ]; then
         record_test "Input handling" "PASS" "read command works properly"
@@ -115,7 +115,8 @@ test_input() {
 test_bash_version() {
     echo "Checking your bash version..."
 
-    local version=$(bash --version | head -n 1 | cut -d' ' -f4 | cut -d'.' -f1)
+    local version
+    version=$(bash --version | head -n 1 | cut -d' ' -f4 | cut -d'.' -f1)
 
     if [ "$version" -ge 4 ]; then
         record_test "Bash version" "PASS" "Bash version $version is compatible"
@@ -128,8 +129,10 @@ test_bash_version() {
 test_terminal_size() {
     echo "Testing terminal size..."
 
-    local cols=$(tput cols)
-    local lines=$(tput lines)
+    local cols
+    local lines
+    cols=$(tput cols)
+    lines=$(tput lines)
 
     if [ "$cols" -ge 80 ] && [ "$lines" -ge 24 ]; then
         record_test "Terminal size" "PASS" "Terminal size ($cols×$lines) is adequate"
@@ -163,9 +166,9 @@ show_results() {
     echo "Summary: $tests_passed tests passed, $tests_failed tests failed"
     echo
 
-    if [ $tests_failed -eq 0 ]; then
+    if [ "$tests_failed" -eq 0 ]; then
         echo -e "${GREEN}All tests passed! Your system should run the game without issues.${NC}"
-    elif [ $tests_failed -le 2 ]; then
+    elif [ "$tests_failed" -le 2 ]; then
         echo -e "${YELLOW}Most tests passed. The game should run, but you might encounter minor issues.${NC}"
     else
         echo -e "${RED}Several tests failed. The game may not run correctly on your system.${NC}"
@@ -178,16 +181,10 @@ show_results() {
 
 # Main function
 main() {
-    # Define colors for test results
-    RED='\033[0;31m'
-    GREEN='\033[0;32m'
-    YELLOW='\033[1;33m'
-    NC='\033[0m' # No Color
-
     echo "This test will check if your system can properly run my game."
     echo "You'll need to answer a few questions during the test."
     echo
-    read -p "Press Enter to begin the test..."
+    read -r -p "Press Enter to begin the test..."
 
     run_tests
     show_results
