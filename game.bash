@@ -190,6 +190,7 @@ research() {
     dialogue "Yeah. I'll try and work some overtime this week." "true" "${NC}" "0.02"
     dialogue "You'd better. Nothing else matters like this does." "true" "${CYAN}" "0.03"
     dialogue "Bzz! Bzz! Bzz!" "true" "${VIOLET}" "0.001"
+    dialogue "Put your phone on silent. It's distracting you." "true" "${CYAN}" "0.03"
     interlude
   fi
 
@@ -207,8 +208,8 @@ research() {
 # Function to interact with violet
 interaction() {
   if [ "$FLAG_violet_left" = true ]; then
-    dialogue "You call Violet." "true" "${NC}" "0.02"
-    dialogue "ring... ring... ring..." "true" "${VIOLET}" "0.06"
+    dialogue "You call \${VIOLET}Violet\${GRAY}." "true" "${GRAY}" "0.02"
+    dialogue "ring... ring... ring..." "true" "${VIOLET}" "0.08"
 
     if [ "$FLAG_violet_secondary" = true ]; then
       dialogue "The caller you're trying to reach is unavailable." "true" "${GRAY}" "0.005"
@@ -224,7 +225,8 @@ interaction() {
       dialogue "Why did you even call?" "true" "${VIOLET}" "0.02"
       dialogue "Because I still love you!" "true" "${NC}" "0.02"
       dialogue "No. I saw the news. You love your work. Now that it's over, I'm your rebound." "true" "${VIOLET}" "0.02"
-      dialogue "*click*" "true" "${GRAY}" "0.01"
+      dialogue "That's no-" "${NC}" "0.01"
+      dialogue "She hung up." "true" "${GRAY}" "0.01"
       interlude
       return
     fi
@@ -316,6 +318,12 @@ get_choice() {
 }
 
 nap() {
+  if [ "$FLAG_solved_the_problem" = true ] && [ "$FLAG_violet_secondary" = true ]; then
+    dialogue "You try to fall asleep, but you feel restless and guilty." "true" "${GRAY}" "0.02"
+    dialogue "Without your work, or her, you are truly alone." "true" "${GRAY}" "0.02"
+    interlude
+    return
+  fi
   local fatigue_loss=$((RANDOM % 2 + 2))
   player_fatigue=$((player_fatigue - fatigue_loss))
 
@@ -403,7 +411,7 @@ daily_actions() {
 }
 
 interlude() {
-  read -r -p "\n• • •\n"
+  read -r -p $'\n• • •\n'
 }
 
 # Function to advance to next day
@@ -433,11 +441,9 @@ date_suffix() {
 
 # Function to check endings
 check_endings() {
-  local won_work=$((solution_progress >= 100))
-  local won_violet=$([[ "$FLAG_violet_left" == false ]] && echo true || echo false)
-  if [ "$won_work" = true ] && [ "$won_violet" = true ]; then
+  if [ "$FLAG_solved_the_problem" = true ] && [ "$FLAG_violet_left" = true ]; then
     echo "sacrifice_love"
-  elif [ "$won_work" = true ] && [ "$won_violet" = false ]; then
+  elif [ "$FLAG_solved_the_problem" = false ] && [ "$FLAG_violet_left" = false ]; then
     echo "sacrifice_world"
   else
     echo "total_failure"
@@ -469,34 +475,48 @@ end_game() {
     dialogue "But at least you have Violet." "true" "${GRAY}" "0.05"
 
   else
-    dialogue "You failed. Your solution remains unfinished, your relationship with" "true" "${GRAY}" "0.05"
-    dialogue "Violet a series of missed connections and growing resentment." "true" "${GRAY}" "0.05"
-    dialogue "As the catastrophe begins, you sit alone in your lab, haunted by" "true" "${GRAY}" "0.05"
-    dialogue "the ghosts of what could have been. Too little intelligence to save" "true" "${GRAY}" "0.05"
-    dialogue "humanity. Too little empathy to save yourself." "true" "${GRAY}" "0.05"
+    dialogue "You failed. Your solution remains unfinished, your relationship with Violet a series of missed connections and growing resentment." "true" "${GRAY}" "0.05"
+    dialogue "As the catastrophe begins, you sit alone in your lab, haunted by the ghosts of what could have been." "true" "${GRAY}" "0.05"
+    dialogue "Too little intelligence to help humanity." "true" "${GRAY}" "0.05"å
+    dialogue "Too little empathy to save her." "true" "${GRAY}" "0.05"
     dialogue "In trying to balance both worlds, you succeeded in neither." "true" "${GRAY}" "0.05"
   fi
 
+  interlude
   dialogue "THE END" "true" "${GRAY}" "0.05"
   local ending_number
   case $ending in
   "sacrifice_love")
-    ending_number=1
-    ;;
-  "sacrifice_world")
     ending_number=2
     ;;
-  "total_failure")
+  "sacrifice_world")
     ending_number=3
+    ;;
+  "total_failure")
+    ending_number=1
     ;;
   *)
     ending_number=0
     ;;
   esac
   dialogue "Ending $ending_number of 3" "true" "${GRAY}" "0.05"
-  echo -e "\nPress Enter to exit..."
+  interlude
+  case $ending_number in
+  1)
+    echo -e "Thanks for playing! I hope you enjoyed your failure."
+    ;;
+  2)
+    echo -e "Thanks for playing! I hope you enjoyed your sacrifice."
+    ;;
+  3)
+    echo -e "Thanks for playing! I hope you enjoyed your sacrifice."
+    ;;
+  *)
+    echo -e "Thanks for playing! I hope you enjoyed."
+    ;;
+  esac
+  echo -e "Press Enter to exit."
   read -r
-  exit 0
 }
 
 # Function to display debug information
@@ -587,7 +607,7 @@ morning_events() {
     esac
     interlude
   fi
-  if [ "$worked_amount" -lt "$expected_work" ]; then
+  if [ "$worked_amount" -lt "$expected_work" ] && [ "$FLAG_solved_the_problem" = false ]; then
     work_neglect_count=$((work_neglect_count + 1))
     case $work_neglect_count in
     1)
@@ -674,14 +694,16 @@ run_game() {
     clear_screen
 
     next_day
+
+    if [ "$player_day" -ge 14 ]; then
+      end_game
+    fi
+
     morning_events
     daily_actions
     clear_screen
     echo -e "${BLUE}After a long day, you finally get to sleep.${NC}"
 
-    if [ "$player_day" -gt 14 ]; then
-      end_game
-    fi
   done
 }
 
