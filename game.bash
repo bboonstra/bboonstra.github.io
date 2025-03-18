@@ -556,7 +556,7 @@ morning_events() {
     1)
       dialogue "Hey, I didn't see you much yesterday!" "true" "${VIOLET}" "0.04"
       dialogue "Whoops! I'm sorry!" "true" "${NC}" "0.03"
-      dialogue "I've been a bit busy with work." "true" "${VIOLET}" "0.03"
+      dialogue "I've been a bit busy with work." "true" "${NC}" "0.03"
       dialogue "Well, I miss you." "true" "${VIOLET}" "0.03"
       dialogue "I'll try to make it up to you today!" "true" "${NC}" "0.04"
       ;;
