@@ -1,8 +1,9 @@
 #!/bin/bash
-# TODO fix this garbage game
+
 # Initialize game variables
 player_intelligence=50
 player_empathy=50
+player_fatigue=0
 player_day=0
 time_of_day="morning"
 worked_amount=0
@@ -103,33 +104,60 @@ dialogue() {
 
 # Function to research solution
 research() {
+  # Base values
   local intelligence_gain=$((RANDOM % 6 + 5))
   local empathy_loss=$((RANDOM % 4))
+
+  # Adjust based on intelligence (smarter = more efficient research)
+  local intelligence_bonus=$((player_intelligence / 20))
+  intelligence_gain=$((intelligence_gain + intelligence_bonus))
+
+  # Adjust based on fatigue (tired = less effective)
+  local fatigue_penalty=$((player_fatigue / 2))
+  intelligence_gain=$((intelligence_gain - fatigue_penalty))
+
+  # Ensure gains don't go below minimum
+  if [ "$intelligence_gain" -lt 2 ]; then intelligence_gain=2; fi
 
   player_intelligence=$((player_intelligence + intelligence_gain))
   player_empathy=$((player_empathy - empathy_loss))
   if [ "$player_empathy" -lt 0 ]; then player_empathy=0; fi
   worked_amount=$((worked_amount + 1))
+  player_fatigue=$((player_fatigue + 1))
 
   echo -e "\n${BLUE}You spend time researching the solution.${NC}"
   echo -e "Intelligence +${GREEN}$intelligence_gain${NC}, Empathy -${RED}$empathy_loss${NC}"
+  echo -e "Fatigue +${RED}1${NC}"
   interlude
 }
 
-# Function to date violet
-date_violet() {
+# Function to interact with violet
+interaction() {
+  # Base values
   local empathy_gain=$((RANDOM % 5 + 1))
   local intelligence_loss=$((RANDOM % 3))
+
+  # Adjust based on empathy (more empathetic = better interactions)
+  local empathy_bonus=$((player_empathy / 20))
+  empathy_gain=$((empathy_gain + empathy_bonus))
+
+  # Adjust based on fatigue (tired = less effective)
+  local fatigue_penalty=$((player_fatigue / 2))
+  empathy_gain=$((empathy_gain - fatigue_penalty))
+
+  # Ensure gains don't go below minimum
+  if [ "$empathy_gain" -lt 1 ]; then empathy_gain=1; fi
 
   violet_affection=$((violet_affection + 1))
   player_empathy=$((player_empathy + empathy_gain))
   player_intelligence=$((player_intelligence - intelligence_loss))
   if [ "$player_intelligence" -lt 0 ]; then player_intelligence=0; fi
+  player_fatigue=$((player_fatigue + 1))
 
-  echo -e "\n${BLUE}You spend time with violet.${NC}"
-  echo -e "violet's affection +${GREEN}1${NC}"
+  echo -e "\n${BLUE}You stay at home with Violet.${NC}"
+  echo -e "Violet's affection +${GREEN}1${NC}"
   echo -e "Empathy +${GREEN}$empathy_gain${NC}, Intelligence -${RED}$intelligence_loss${NC}"
-
+  echo -e "Fatigue +${RED}1${NC}"
   interlude
 }
 
@@ -153,6 +181,13 @@ get_choice() {
   done
 }
 
+nap() {
+  player_fatigue=$((player_fatigue - 1))
+  echo -e "\n${BLUE}You take a nap.${NC}"
+  echo -e "Fatigue -${GREEN}1${NC}"
+  interlude
+}
+
 # Function to handle daily actions
 daily_actions() {
   while [ "$time_of_day" != "end_of_day" ]; do
@@ -169,44 +204,41 @@ daily_actions() {
     # give options based on state
     case $time_of_day in
     morning)
-      get_choice "Take a shift in the lab" "Date violet" "Self-care" "Take a nap"
+      get_choice "Take a shift in the lab" "Stay at home for breakfast" "Take a nap"
       choice=$?
 
       case $choice in
       1) research ;;
-      2) date_violet ;;
-      3) self_care ;;
-      4) time_of_day="afternoon" ;;
+      2) interaction ;;
+      3) nap ;;
       esac
       ;;
     afternoon)
-      get_choice "Take a shift in the lab" "Date violet" "Self-care" "Take a nap"
+      get_choice "Take a shift in the lab" "Stay at home for lunch" "Take a nap"
       choice=$?
 
       case $choice in
       1) research ;;
-      2) date_violet ;;
-      3) self_care ;;
-      4) time_of_day="evening" ;;
+      2) interaction ;;
+      3) nap ;;
       esac
       ;;
     evening)
-      get_choice "Take a shift in the lab" "Date violet" "Self-care" "Go to bed"
+      get_choice "Take a shift in the lab" "Stay at home for dinner" "Take a nap"
       choice=$?
 
       case $choice in
       1) research ;;
-      2) date_violet ;;
-      3) self_care ;;
-      4) time_of_day="end_of_day" ;;
+      2) interaction ;;
+      3) nap ;;
       esac
       ;;
     esac
 
     # increment time of day, or next day
-    if [ "$time_of_day" = "evening" ] && [ "$choice" != 4 ]; then
+    if [ "$time_of_day" = "evening" ]; then
       time_of_day="end_of_day"
-    elif [ "$choice" != 4 ]; then
+    else
       case $time_of_day in
       morning)
         time_of_day="afternoon"
@@ -271,7 +303,7 @@ end_game() {
   if [ "$ending" = "sacrifice_love" ]; then
     echo "You've done it. The solution is complete. Humanity will survive."
     echo "But as you look around your empty lab on the final night, you realize"
-    echo "what it has cost you. violet tried to reach you, but you were too"
+    echo "what it has cost you. Violet tried to reach you, but you were too"
     echo "consumed by your work. The distance between you grew insurmountable."
     echo -e "\nYour name will be remembered in history books, but there will be"
     echo "no one beside you to celebrate. No one who truly knows you."
@@ -281,15 +313,15 @@ end_game() {
     echo "The deadline has arrived. Your solution remains incomplete."
     echo "You abandoned your work weeks ago, drawn to the warmth of violet's love."
     echo -e "\nAs sirens blare outside, you hold each other close. The world may be"
-    echo "ending, but in violet's eyes, you found something real. Something human."
-    echo -e "\n'Was it worth it?' violet whispers."
+    echo "ending, but in Violet's eyes, you found something real. Something human."
+    echo -e "\n'Was it worth it?' Violet whispers."
     echo -e "\nYou don't answer. You don't need to. In these final moments,"
     echo "you've found more meaning than you ever did in your research."
     echo -e "\nThe world ends. But for a brief moment, you truly lived."
 
   else
     echo "You failed. Your solution remains unfinished, your relationship with"
-    echo "violet a series of missed connections and growing resentment."
+    echo "Violet a series of missed connections and growing resentment."
     echo -e "\nAs the catastrophe begins, you sit alone in your lab, haunted by"
     echo "the ghosts of what could have been. Too little intelligence to save"
     echo "humanity. Too little empathy to save yourself."
