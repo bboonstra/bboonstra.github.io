@@ -433,9 +433,11 @@ date_suffix() {
 
 # Function to check endings
 check_endings() {
-  if [ "$solution_progress" -ge 100 ]; then
+  local won_work=$((solution_progress >= 100))
+  local won_violet=$([[ "$FLAG_violet_left" == false ]] && echo true || echo false)
+  if [ "$won_work" = true ] && [ "$won_violet" = true ]; then
     echo "sacrifice_love"
-  elif [ "$violet_affection" -ge 90 ]; then
+  elif [ "$won_work" = true ] && [ "$won_violet" = false ]; then
     echo "sacrifice_world"
   else
     echo "total_failure"
@@ -448,40 +450,50 @@ end_game() {
   local ending
   ending=$(check_endings)
 
+  interlude
   clear_screen
-  echo -e "\n============================================================"
-  echo "THE FINAL DAY HAS ARRIVED"
-  echo -e "============================================================\n"
+  dialogue "The deadline has arrived." "true" "${GRAY}" "0.05"
 
   if [ "$ending" = "sacrifice_love" ]; then
-    echo "You've done it. The solution is complete. Humanity will survive."
-    echo "But as you look around your empty lab on the final night, you realize"
-    echo "what it has cost you. Violet tried to reach you, but you were too"
-    echo "consumed by your work. The distance between you grew insurmountable."
-    echo -e "\nYour name will be remembered in history books, but there will be"
-    echo "no one beside you to celebrate. No one who truly knows you."
-    echo -e "\nYou saved everyone. Everyone except yourself."
+    dialogue "Good job, Alex." "true" "${GRAY}" "0.05"
+    dialogue "You turned your back on those you loved." "true" "${GRAY}" "0.05"
+    dialogue "Those who loved you." "true" "${GRAY}" "0.05"
+    dialogue "Your name might be remembered in history books, but there will be no one to celebrate it." "true" "${GRAY}" "0.05"
+    dialogue "You made the world a better place." "true" "${GRAY}" "0.05"
 
   elif [ "$ending" = "sacrifice_world" ]; then
-    echo "The deadline has arrived. Your solution remains incomplete."
-    echo "You abandoned your work weeks ago, drawn to the warmth of violet's love."
-    echo -e "\nAs sirens blare outside, you hold each other close. The world may be"
-    echo "ending, but in Violet's eyes, you found something real. Something human."
-    echo -e "\n'Was it worth it?' Violet whispers."
-    echo -e "\nYou don't answer. You don't need to. In these final moments,"
-    echo "you've found more meaning than you ever did in your research."
-    echo -e "\nThe world ends. But for a brief moment, you truly lived."
+    dialogue "The deadline has arrived. Your work remains unfinished." "true" "${GRAY}" "0.05"
+    dialogue "Your boss shut down the project." "true" "${GRAY}" "0.05"
+    dialogue "And fired you." "true" "${GRAY}" "0.05"
+    dialogue "The world will never know what you could have done." "true" "${GRAY}" "0.05"
+    dialogue "But at least you have Violet." "true" "${GRAY}" "0.05"
 
   else
-    echo "You failed. Your solution remains unfinished, your relationship with"
-    echo "Violet a series of missed connections and growing resentment."
-    echo -e "\nAs the catastrophe begins, you sit alone in your lab, haunted by"
-    echo "the ghosts of what could have been. Too little intelligence to save"
-    echo "humanity. Too little empathy to save yourself."
-    echo -e "\nIn trying to balance both worlds, you succeeded in neither."
+    dialogue "You failed. Your solution remains unfinished, your relationship with" "true" "${GRAY}" "0.05"
+    dialogue "Violet a series of missed connections and growing resentment." "true" "${GRAY}" "0.05"
+    dialogue "As the catastrophe begins, you sit alone in your lab, haunted by" "true" "${GRAY}" "0.05"
+    dialogue "the ghosts of what could have been. Too little intelligence to save" "true" "${GRAY}" "0.05"
+    dialogue "humanity. Too little empathy to save yourself." "true" "${GRAY}" "0.05"
+    dialogue "In trying to balance both worlds, you succeeded in neither." "true" "${GRAY}" "0.05"
   fi
 
-  echo -e "\nTHE END"
+  dialogue "THE END" "true" "${GRAY}" "0.05"
+  local ending_number
+  case $ending in
+  "sacrifice_love")
+    ending_number=1
+    ;;
+  "sacrifice_world")
+    ending_number=2
+    ;;
+  "total_failure")
+    ending_number=3
+    ;;
+  *)
+    ending_number=0
+    ;;
+  esac
+  dialogue "Ending $ending_number of 3" "true" "${GRAY}" "0.05"
   echo -e "\nPress Enter to exit..."
   read -r
   exit 0
