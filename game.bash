@@ -522,12 +522,56 @@ morning_events() {
     violet_neglect_count=$((violet_neglect_count + 1))
     case $violet_neglect_count in
     1)
-      dialogue "\${VIOLET}Violet\${NC} seems a bit down." "true" "${NC}" "0.02"
-      dialogue "You ask if everything is okay." "true" "${NC}" "0.02"
-      dialogue "\${VIOLET}Violet\${NC} nods, but doesn't say anything." "true" "${NC}" "0.02"
-      dialogue "You can tell she's holding something back." "true" "${NC}" "0.02"
+      dialogue "Hey, I didn't see you much yesterday!" "true" "${VIOLET}" "0.04"
+      dialogue "Whoops! I'm sorry!" "true" "${NC}" "0.03"
+      dialogue "I've been a bit busy with work." "true" "${VIOLET}" "0.03"
+      dialogue "Well, I miss you." "true" "${VIOLET}" "0.03"
+      dialogue "I'll try to make it up to you today!" "true" "${NC}" "0.04"
       ;;
-      # TODO: Add more dialogue options
+    2)
+      dialogue "Missed you again, where were you?" "true" "${VIOLET}" "0.03"
+      dialogue "Oh, work. I'm sorry, I didn't realize." "true" "${NC}" "0.02"
+      dialogue "Try to eat at home with me sometimes." "true" "${VIOLET}" "0.02"
+      dialogue "No problem!" "true" "${NC}" "0.03"
+      ;;
+    3)
+      dialogue "Why have you been ignoring me?" "true" "${VIOLET}" "0.01"
+      dialogue "Well, I'm expected to work two shifts a day, which doesn't leave much time." "true" "${NC}" "0.04"
+      dialogue "oh." "true" "${VIOLET}" "0.08"
+      ;;
+    4)
+      dialogue "\${VIOLET}Violet\${GRAY} left you a note." "true" "${GRAY}" "0.03"
+      dialogue "Headed out early. I didn't think you'd mind." "true" "${VIOLET}" "0.04"
+      ;;
+    5)
+      dialogue "When you wake up, Violet is gone." "true" "${GRAY}" "0.03"
+      dialogue "You check your phone." "true" "${GRAY}" "0.03"
+      dialogue "I'm surprised you even bothered to read this." "true" "${VIOLET}" "0.01"
+      dialogue "Anyways, we're done. I hope you find someone who cares a little less about you." "true" "${VIOLET}" "0.01"
+      dialogue "Someone who's okay being neglected." "true" "${VIOLET}" "0.01"
+      FLAG_violet_left=true
+      ;;
+    6)
+      dialogue "Your bed is cold and empty." "true" "${GRAY}" "0.01"
+      ;;
+    7)
+      dialogue "Your bed is cold and empty." "true" "${GRAY}" "0.01"
+      ;;
+    8)
+      dialogue "Your bed is cold and empty." "true" "${GRAY}" "0.01"
+      ;;
+    9)
+      dialogue "Your bed is cold and empty." "true" "${GRAY}" "0.01"
+      ;;
+    10)
+      dialogue "Your bed is cold and empty." "true" "${GRAY}" "0.01"
+      ;;
+    11)
+      dialogue "Your bed is cold and empty." "true" "${GRAY}" "0.01"
+      ;;
+    12)
+      dialogue "Your bed is cold and empty." "true" "${GRAY}" "0.01"
+      ;;
     esac
     interlude
   fi
@@ -535,9 +579,50 @@ morning_events() {
     work_neglect_count=$((work_neglect_count + 1))
     case $work_neglect_count in
     1)
-      dialogue "You haven't gone to the lab as you were expected." "true" "${NC}" "0.02"
+      dialogue "You haven't worked at the lab for your contracted two shifts per day." "true" "${GRAY}" "0.02"
       ;;
-      # TODO: Add more dialogue options
+    2)
+      dialogue "You have an email from your coworker." "true" "${GRAY}" "0.02"
+      dialogue "hey alex, was wondering why you haven't been in the lab much lately." "true" "${CYAN}" "0.02"
+      dialogue "hope everything is okay!" "true" "${CYAN}" "0.02"
+      ;;
+    3)
+      dialogue "You have an email from your boss." "true" "${GRAY}" "0.02"
+      dialogue "Hey Alex, everything alright? We haven't seen you at the lab for your scheduled shifts." "true" "${GRAY}" "0.02"
+      dialogue "Best, Boss" "true" "${GRAY}" "0.02"
+      ;;
+    4)
+      dialogue "You have an email from your coworker." "true" "${GRAY}" "0.02"
+      dialogue "dude, we need you in the lab. we're running out of time." "true" "${CYAN}" "0.02"
+      ;;
+    5)
+      dialogue "You have an email from your boss." "true" "${GRAY}" "0.02"
+      dialogue "For your absence, you are no longer eligible for your end-of-year bonus." "true" "${GRAY}" "0.02"
+      ;;
+    6)
+      dialogue "You have an email from your coworker." "true" "${GRAY}" "0.02"
+      dialogue "are you trying to get fired??" "true" "${CYAN}" "0.02"
+      ;;
+    7)
+      dialogue "You have an email from your boss." "true" "${GRAY}" "0.02"
+      dialogue "Don't bother coming in anymore." "true" "${GRAY}" "0.02"
+      ;;
+    8)
+      dialogue "You don't have any new emails." "true" "${GRAY}" "0.02"
+      dialogue "Have they forgotten about you already?" "true" "${GRAY}" "0.02"
+      ;;
+    9)
+      dialogue "No new emails." "true" "${GRAY}" "0.02"
+      ;;
+    10)
+      dialogue "No new emails." "true" "${GRAY}" "0.02"
+      ;;
+    11)
+      dialogue "No new emails." "true" "${GRAY}" "0.02"
+      ;;
+    12)
+      dialogue "No new emails." "true" "${GRAY}" "0.02"
+      ;;
     esac
     interlude
   fi
