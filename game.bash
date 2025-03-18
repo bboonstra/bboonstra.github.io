@@ -10,6 +10,11 @@ worked_amount=0
 violet_affection=0
 violet_neglect_count=0
 work_neglect_count=0
+solution_progress=0
+FLAG_learned_the_truth=false
+FLAG_solved_the_problem=false
+FLAG_violet_secondary=false
+FLAG_violet_left=false
 # Game state
 game_over=false
 debug_mode=false
@@ -24,6 +29,7 @@ PURPLE='\033[0;35m'
 VIOLET='\033[1;35m'
 BOLD='\033[1m'
 ITALIC='\033[3m'
+GRAY='\033[0;90m'
 NC='\033[0m' # No Color
 
 # Check for debug flag
@@ -50,7 +56,6 @@ dialogue() {
     echo -en "${color}"
 
     local i=0
-    local current_color="${color}"
     while [ $i -lt ${#text} ]; do
       # Check if we're at a color code
       if [[ "${text:$i:2}" == "\${" ]]; then
@@ -104,16 +109,19 @@ dialogue() {
 
 # Function to research solution
 research() {
+  if [ "$FLAG_solved_the_problem" = true ]; then
+    dialogue "Your boss gave the rest of the week off for your hard work." "true" "${GRAY}" "0.01"
+    echo -e "\n${GRAY}Fatigue reset!${NC}"
+    interlude
+    player_fatigue=0
+    return
+  fi
   # Base values
-  local intelligence_gain=$((RANDOM % 6 + 5))
+  local intelligence_gain=$((RANDOM % 4 + 3))
   local empathy_loss=$((RANDOM % 4))
 
-  # Adjust based on intelligence (smarter = more efficient research)
-  local intelligence_bonus=$((player_intelligence / 20))
-  intelligence_gain=$((intelligence_gain + intelligence_bonus))
-
   # Adjust based on fatigue (tired = less effective)
-  local fatigue_penalty=$((player_fatigue / 2))
+  local fatigue_penalty=$((player_fatigue / 3))
   intelligence_gain=$((intelligence_gain - fatigue_penalty))
 
   # Ensure gains don't go below minimum
@@ -123,41 +131,167 @@ research() {
   player_empathy=$((player_empathy - empathy_loss))
   if [ "$player_empathy" -lt 0 ]; then player_empathy=0; fi
   worked_amount=$((worked_amount + 1))
+  # solution progress is gained based on normalized natural log of player_intelligence
+  local solution_gain=$(((3 + (player_intelligence - 25) / 25) / (1 + fatigue_penalty)))
+  solution_progress=$((solution_progress + solution_gain))
   player_fatigue=$((player_fatigue + 1))
 
+  if [ "$debug_mode" = true ]; then
+    echo -e "Gained $intelligence_gain intelligence"
+    echo -e "Lost $empathy_loss empathy"
+    echo -e "Gained $solution_gain solution progress"
+    echo -e "Fatigue +${RED}1${NC}"
+  fi
+
   echo -e "\n${BLUE}You spend time researching the solution.${NC}"
-  echo -e "Intelligence +${GREEN}$intelligence_gain${NC}, Empathy -${RED}$empathy_loss${NC}"
-  echo -e "Fatigue +${RED}1${NC}"
+  if [ "$intelligence_gain" -le 2 ]; then
+    echo -e "You barely make any progress."
+  elif [ "$intelligence_gain" -le 5 ]; then
+    echo -e "You feel a bit smarter."
+  elif [ "$intelligence_gain" -le 9 ]; then
+    echo -e "You feel much smarter."
+  else
+    echo -e "You're a genius!"
+  fi
+
+  if [ "$empathy_loss" -le 0 ]; then
+    # do nothing
+    :
+  elif [ "$empathy_loss" -le 2 ]; then
+    echo -e "You feel slightly less empathetic."
+  elif [ "$empathy_loss" -le 5 ]; then
+    echo -e "You feel less connected to others."
+  elif [ "$empathy_loss" -le 9 ]; then
+    echo -e "You feel much colder."
+  else
+    echo -e "You feel soulless."
+  fi
+  echo -e "${RED}You grow more fatigued.${NC}"
+  if [ "$solution_gain" -le 5 ]; then
+    echo -e "You make a little progress."
+  elif [ "$solution_gain" -le 6 ]; then
+    echo -e "You make some noticeable progress."
+  elif [ "$solution_gain" -le 8 ]; then
+    echo -e "You make significant progress."
+  else
+    echo -e "You make a lot of progress!"
+  fi
   interlude
+  if [ "$solution_progress" -ge 50 ] && [ "$FLAG_learned_the_truth" = false ]; then
+    FLAG_learned_the_truth=true
+    dialogue "Alex." "true" "${CYAN}" "0.05"
+    dialogue "..." "true" "${NC}" "0.07"
+    dialogue "I've seen the report." "true" "${CYAN}" "0.02"
+    dialogue "It's a disaster." "true" "${CYAN}" "0.07"
+    dialogue "We can still fix this!" "true" "${NC}" "0.02"
+    dialogue "We're barely halfway through, and the deadline is in \${RED}$((14 - $player_day)) days\${CYAN}." "true" "${CYAN}" "0.02"
+    dialogue "It's still too reactive. I'm sure we can stabilize it before then." "true" "${NC}" "0.02"
+    dialogue "And if we can't? Imagine all the good our work could have done, gone if they shut us down." "true" "${CYAN}" "0.02"
+    dialogue "Yeah. I'll try and work some overtime this week." "true" "${NC}" "0.02"
+    dialogue "You'd better. Nothing else matters like this does." "true" "${CYAN}" "0.03"
+    dialogue "Bzz! Bzz! Bzz!" "true" "${VIOLET}" "0.001"
+    interlude
+  fi
+
+  if [ "$solution_progress" -ge 100 ] && [ "$FLAG_solved_the_problem" = false ]; then
+    FLAG_solved_the_problem=true
+    dialogue "Holy crap!" "true" "${CYAN}" "0.01"
+    dialogue "It's stable!" "true" "${CYAN}" "0.01"
+    dialogue "Good job, Alex!" "true" "${CYAN}" "0.01"
+    dialogue "Thanks. I'm glad I could be a part of this." "true" "${NC}" "0.01"
+    dialogue "Your phone is silent." "true" "${GRAY}" "0.001"
+    interlude
+  fi
 }
 
 # Function to interact with violet
 interaction() {
-  # Base values
-  local empathy_gain=$((RANDOM % 5 + 1))
-  local intelligence_loss=$((RANDOM % 3))
+  if [ "$FLAG_violet_left" = true ]; then
+    dialogue "You call Violet." "true" "${NC}" "0.02"
+    dialogue "ring... ring... ring..." "true" "${VIOLET}" "0.06"
 
-  # Adjust based on empathy (more empathetic = better interactions)
-  local empathy_bonus=$((player_empathy / 20))
-  empathy_gain=$((empathy_gain + empathy_bonus))
+    if [ "$FLAG_violet_secondary" = true ]; then
+      dialogue "The caller you're trying to reach is unavailable." "true" "${GRAY}" "0.005"
+      echo -e "${GRAY}She blocked your number.${NC}"
+      interlude
+      return
+    fi
+
+    if [ "$FLAG_solved_the_problem" = true ] && [ "$violet_neglect_count" -gt 5 ]; then
+      FLAG_violet_secondary=true
+      dialogue "Hey." "true" "${VIOLET}" "0.04"
+      dialogue "I didn't think you'd pick up!" "true" "${NC}" "0.02"
+      dialogue "Why did you even call?" "true" "${VIOLET}" "0.02"
+      dialogue "Because I still love you!" "true" "${NC}" "0.02"
+      dialogue "No. I saw the news. You love your work. Now that it's over, I'm your rebound." "true" "${VIOLET}" "0.02"
+      dialogue "*click*" "true" "${GRAY}" "0.01"
+      interlude
+      return
+    fi
+
+    dialogue "After being ignored for a long time, it goes to voicemail." "true" "${GRAY}" "0.005"
+    dialogue "You know she probably won't listen to one anyway." "true" "${GRAY}" "0.005"
+    interlude
+    return
+  fi
+
+  # Base values
+  local empathy_gain=$((RANDOM % 4 + 3))
+  local intelligence_loss=$((RANDOM % 4))
+  local affection_gain=$((RANDOM % 3 + 1))
 
   # Adjust based on fatigue (tired = less effective)
   local fatigue_penalty=$((player_fatigue / 2))
   empathy_gain=$((empathy_gain - fatigue_penalty))
 
   # Ensure gains don't go below minimum
-  if [ "$empathy_gain" -lt 1 ]; then empathy_gain=1; fi
+  if [ "$empathy_gain" -lt 2 ]; then empathy_gain=2; fi
+  if [ "$affection_gain" -lt 1 ]; then affection_gain=1; fi
 
-  violet_affection=$((violet_affection + 1))
   player_empathy=$((player_empathy + empathy_gain))
   player_intelligence=$((player_intelligence - intelligence_loss))
   if [ "$player_intelligence" -lt 0 ]; then player_intelligence=0; fi
+  violet_affection=$((violet_affection + affection_gain))
   player_fatigue=$((player_fatigue + 1))
 
-  echo -e "\n${BLUE}You stay at home with Violet.${NC}"
-  echo -e "Violet's affection +${GREEN}1${NC}"
-  echo -e "Empathy +${GREEN}$empathy_gain${NC}, Intelligence -${RED}$intelligence_loss${NC}"
-  echo -e "Fatigue +${RED}1${NC}"
+  if [ "$debug_mode" = true ]; then
+    echo -e "Gained $empathy_gain empathy"
+    echo -e "Lost $intelligence_loss intelligence"
+    echo -e "Gained $affection_gain affection with Violet"
+    echo -e "Fatigue +${RED}1${NC}"
+  fi
+
+  echo -e "\n${BLUE}You spend time with Violet.${NC}"
+  if [ "$empathy_gain" -le 2 ]; then
+    echo -e "You barely feel more connected."
+  elif [ "$empathy_gain" -le 5 ]; then
+    echo -e "You feel a bit more empathetic."
+  elif [ "$empathy_gain" -le 9 ]; then
+    echo -e "You feel much more empathetic."
+  else
+    echo -e "You're overflowing with compassion!"
+  fi
+
+  if [ "$intelligence_loss" -le 0 ]; then
+    # do nothing
+    :
+  elif [ "$intelligence_loss" -le 2 ]; then
+    echo -e "You feel slightly less focused on your work."
+  elif [ "$intelligence_loss" -le 5 ]; then
+    echo -e "You feel less interested in research."
+  else
+    echo -e "Your mind is far from your work."
+  fi
+  echo -e "${RED}You grow more fatigued.${NC}"
+  if [ "$affection_gain" -le 1 ]; then
+    echo -e "Violet seems a little happier."
+  elif [ "$affection_gain" -le 2 ]; then
+    echo -e "Violet seems noticeably happier with you."
+  elif [ "$affection_gain" -le 3 ]; then
+    echo -e "Violet seems significantly happier with you."
+  else
+    echo -e "Violet is beaming with joy!"
+  fi
   interlude
 }
 
@@ -182,9 +316,18 @@ get_choice() {
 }
 
 nap() {
-  player_fatigue=$((player_fatigue - 1))
-  echo -e "\n${BLUE}You take a nap.${NC}"
-  echo -e "Fatigue -${GREEN}1${NC}"
+  local fatigue_loss=$((RANDOM % 2 + 2))
+  player_fatigue=$((player_fatigue - fatigue_loss))
+
+  if [ "$time_of_day" = "evening" ]; then
+    echo -e "\n${BLUE}You fall asleep early.${NC}"
+  else
+    echo -e "\n${BLUE}You take a nap.${NC}"
+  fi
+  echo -e "Fatigue -${GREEN}$fatigue_loss${NC}"
+  if [ "$player_fatigue" -lt 0 ]; then
+    player_fatigue=0
+  fi
   interlude
 }
 
@@ -199,6 +342,14 @@ daily_actions() {
       echo -e "${BLUE}It's afternoon.${NC}"
     elif [ "$time_of_day" = "evening" ]; then
       echo -e "${YELLOW}It's evening.${NC}"
+    fi
+
+    if [ "$player_fatigue" -le 2 ]; then
+      echo -e "${GREEN}You feel energetic.${NC}"
+    elif [ "$player_fatigue" -le 5 ]; then
+      echo -e "${YELLOW}You feel somewhat fatigued.${NC}"
+    else
+      echo -e "${RED}You are exhausted. Maybe you should nap?${NC}"
     fi
 
     # give options based on state
@@ -224,7 +375,7 @@ daily_actions() {
       esac
       ;;
     evening)
-      get_choice "Take a shift in the lab" "Stay at home for dinner" "Take a nap"
+      get_choice "Take a shift in the lab" "Stay at home for dinner" "Sleep early"
       choice=$?
 
       case $choice in
@@ -252,13 +403,15 @@ daily_actions() {
 }
 
 interlude() {
-  read -r -p "• • •"
+  read -r -p "\n• • •\n"
 }
 
 # Function to advance to next day
 next_day() {
   clear_screen
   player_day=$((player_day + 1))
+  player_fatigue=$((player_fatigue - 1)) # fatigue decreases over time
+  if [ "$player_fatigue" -lt 0 ]; then player_fatigue=0; fi
   time_of_day="morning"
 
   echo -e "You wake up to a new day."
@@ -331,20 +484,23 @@ end_game() {
   echo -e "\nTHE END"
   echo -e "\nPress Enter to exit..."
   read -r
+  exit 0
 }
 
 # Function to display debug information
 display_debug_info() {
   if [ "$debug_mode" = true ]; then
     echo -e "\n${YELLOW}===== DEBUG INFO =====${NC}"
-    echo -e "Day: $player_day"
-    echo -e "Time: $time_of_day"
-    echo -e "Intelligence: $player_intelligence"
-    echo -e "Empathy: $player_empathy"
-    echo -e "Violet Affection: $violet_affection"
-    echo -e "Violet Neglect Count: $violet_neglect_count"
-    echo -e "Work Amount: $worked_amount"
-    echo -e "Work Neglect Count: $work_neglect_count"
+    echo -e "Day: ${CYAN}$player_day${NC}"
+    echo -e "Time: ${CYAN}$time_of_day${NC}"
+    echo -e "Intelligence: ${GREEN}$player_intelligence${NC}"
+    echo -e "Empathy: ${GREEN}$player_empathy${NC}"
+    echo -e "Violet Affection: ${GREEN}$violet_affection${NC}"
+    echo -e "Violet Neglect Count: ${RED}$violet_neglect_count${NC}"
+    echo -e "Work Amount: ${GREEN}$worked_amount${NC}"
+    echo -e "Work Neglect Count: ${RED}$work_neglect_count${NC}"
+    echo -e "Fatigue: ${RED}$player_fatigue${NC}"
+    echo -e "Solution Progress: ${GREEN}$solution_progress${NC}"
     echo -e "${YELLOW}======================${NC}\n"
     read -n 1 -s
   fi
@@ -401,10 +557,10 @@ run_game() {
     dialogue "A clean energy source, at a scale never seen before!" "true" "${CYAN}" "0.02"
     dialogue "Well sure, it's amazing in theory..." "true" "${NC}" "0.05"
     dialogue "It won't be theory for much longer!" "true" "${CYAN}" "0.02"
-    dialogue "Bzz! Bzz! Bzz!" "true" "${YELLOW}" "0.001"
+    dialogue "Bzz! Bzz! Bzz!" "true" "${VIOLET}" "0.001"
     dialogue "It's \${VIOLET}Violet\${NC}, I've got to go." "true" "${NC}" "0.02"
     dialogue "Get some rest, you look exhausted. We'll pick this up tomorrow." "true" "${CYAN}" "0.02"
-    dialogue "Bzz! Bzz! Bzz!" "true" "${YELLOW}" "0.001"
+    dialogue "Bzz! Bzz! Bzz!" "true" "${VIOLET}" "0.001"
     dialogue "Hello?" "true" "${NC}" "0.02"
     dialogue "Hi honey, are you coming home soon?" "true" "${VIOLET}" "0.02"
     dialogue "Yeah, I'm on my way." "true" "${NC}" "0.02"
@@ -424,7 +580,7 @@ run_game() {
     morning_events
     daily_actions
     clear_screen
-    dialogue "After a long day, you finally get to sleep." "true" "${BLUE}" "0.035"
+    echo -e "${BLUE}After a long day, you finally get to sleep.${NC}"
 
     if [ "$player_day" -gt 14 ]; then
       end_game
