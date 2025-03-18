@@ -15,6 +15,7 @@ FLAG_learned_the_truth=false
 FLAG_solved_the_problem=false
 FLAG_violet_secondary=false
 FLAG_violet_left=false
+FLAG_fired=false
 # Game state
 game_over=false
 debug_mode=false
@@ -116,6 +117,11 @@ research() {
     player_fatigue=0
     return
   fi
+  if [ "$FLAG_fired" = true ]; then
+    dialogue "...you're fired. you can't go to the lab." "true" "${GRAY}" "0.03"
+    interlude
+    return
+  fi
   # Base values
   local intelligence_gain=$((RANDOM % 4 + 3))
   local empathy_loss=$((RANDOM % 4))
@@ -143,7 +149,7 @@ research() {
     echo -e "Fatigue +${RED}1${NC}"
   fi
 
-  echo -e "\n${BLUE}You spend time researching the solution.${NC}"
+  echo -e "\n${BLUE}You spend time researching.${NC}"
   if [ "$intelligence_gain" -le 2 ]; then
     echo -e "You barely make any progress."
   elif [ "$intelligence_gain" -le 5 ]; then
@@ -476,8 +482,8 @@ end_game() {
 
   else
     dialogue "You failed. Your solution remains unfinished, your relationship with Violet a series of missed connections and growing resentment." "true" "${GRAY}" "0.05"
-    dialogue "As the catastrophe begins, you sit alone in your lab, haunted by the ghosts of what could have been." "true" "${GRAY}" "0.05"
-    dialogue "Too little intelligence to help humanity." "true" "${GRAY}" "0.05"å
+    dialogue "Now, you sit alone in your apartment, haunted by the ghosts of what could have been." "true" "${GRAY}" "0.05"
+    dialogue "Too little intelligence to help humanity." "true" "${GRAY}" "0.05"
     dialogue "Too little empathy to save her." "true" "${GRAY}" "0.05"
     dialogue "In trying to balance both worlds, you succeeded in neither." "true" "${GRAY}" "0.05"
   fi
@@ -638,6 +644,7 @@ morning_events() {
     7)
       dialogue "You have an email from your boss." "true" "${GRAY}" "0.02"
       dialogue "Don't bother coming in anymore." "true" "${GRAY}" "0.02"
+      FLAG_fired=true
       ;;
     8)
       dialogue "You don't have any new emails." "true" "${GRAY}" "0.02"
