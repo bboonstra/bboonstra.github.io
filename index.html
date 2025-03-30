@@ -40,7 +40,7 @@
         <meta name="twitter:image" content="preview.png" />
 
         <link rel="stylesheet" href="styles.css" />
-
+        <link rel="stylesheet" href="projects.css" />
         <!-- Add language-specific meta tag -->
         <meta http-equiv="content-language" content="en-us" />
 
@@ -128,24 +128,269 @@
         </section>
 
         <section class="projects-container" id="projects">
-            <h2>projects</h2>
+            <h2>Projects</h2>
+            <div class="project-filter">
+                <div class="project-layouts glass-box">
+                    <svg
+                        class="hoverable layout layout-active"
+                        id="layout-1"
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M3 7.8C3 6.11984 3 5.27976 3.32698 4.63803C3.6146 4.07354 4.07354 3.6146 4.63803 3.32698C5.27976 3 6.11984 3 7.8 3H16.2C17.8802 3 18.7202 3 19.362 3.32698C19.9265 3.6146 20.3854 4.07354 20.673 4.63803C21 5.27976 21 6.11984 21 7.8V16.2C21 17.8802 21 18.7202 20.673 19.362C20.3854 19.9265 19.9265 20.3854 19.362 20.673C18.7202 21 17.8802 21 16.2 21H7.8C6.11984 21 5.27976 21 4.63803 20.673C4.07354 20.3854 3.6146 19.9265 3.32698 19.362C3 18.7202 3 17.8802 3 16.2V7.8Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                    <svg
+                        class="hoverable layout"
+                        id="layout-2"
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)"
+                    >
+                        <path
+                            d="M8.4 3H4.6C4.03995 3 3.75992 3 3.54601 3.10899C3.35785 3.20487 3.20487 3.35785 3.10899 3.54601C3 3.75992 3 4.03995 3 4.6V8.4C3 8.96005 3 9.24008 3.10899 9.45399C3.20487 9.64215 3.35785 9.79513 3.54601 9.89101C3.75992 10 4.03995 10 4.6 10H8.4C8.96005 10 9.24008 10 9.45399 9.89101C9.64215 9.79513 9.79513 9.64215 9.89101 9.45399C10 9.24008 10 8.96005 10 8.4V4.6C10 4.03995 10 3.75992 9.89101 3.54601C9.79513 3.35785 9.64215 3.20487 9.45399 3.10899C9.24008 3 8.96005 3 8.4 3Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M19.4 3H15.6C15.0399 3 14.7599 3 14.546 3.10899C14.3578 3.20487 14.2049 3.35785 14.109 3.54601C14 3.75992 14 4.03995 14 4.6V8.4C14 8.96005 14 9.24008 14.109 9.45399C14.2049 9.64215 14.3578 9.79513 14.546 9.89101C14.7599 10 15.0399 10 15.6 10H19.4C19.9601 10 20.2401 10 20.454 9.89101C20.6422 9.79513 20.7951 9.64215 20.891 9.45399C21 9.24008 21 8.96005 21 8.4V4.6C21 4.03995 21 3.75992 20.891 3.54601C20.7951 3.35785 20.6422 3.20487 20.454 3.10899C20.2401 3 19.9601 3 19.4 3Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M19.4 14H15.6C15.0399 14 14.7599 14 14.546 14.109C14.3578 14.2049 14.2049 14.3578 14.109 14.546C14 14.7599 14 15.0399 14 15.6V19.4C14 19.9601 14 20.2401 14.109 20.454C14.2049 20.6422 14.3578 20.7951 14.546 20.891C14.7599 21 15.0399 21 15.6 21H19.4C19.9601 21 20.2401 21 20.454 20.891C20.6422 20.7951 20.7951 20.6422 20.891 20.454C21 20.2401 21 19.9601 21 19.4V15.6C21 15.0399 21 14.7599 20.891 14.546C20.7951 14.3578 20.6422 14.2049 20.454 14.109C20.2401 14 19.9601 14 19.4 14Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M8.4 14H4.6C4.03995 14 3.75992 14 3.54601 14.109C3.35785 14.2049 3.20487 14.3578 3.10899 14.546C3 14.7599 3 15.0399 3 15.6V19.4C3 19.9601 3 20.2401 3.10899 20.454C3.20487 20.6422 3.35785 20.7951 3.54601 20.891C3.75992 21 4.03995 21 4.6 21H8.4C8.96005 21 9.24008 21 9.45399 20.891C9.64215 20.7951 9.79513 20.6422 9.89101 20.454C10 20.2401 10 19.9601 10 19.4V15.6C10 15.0399 10 14.7599 9.89101 14.546C9.79513 14.3578 9.64215 14.2049 9.45399 14.109C9.24008 14 8.96005 14 8.4 14Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                    <svg
+                        class="hoverable layout"
+                        id="layout-3"
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M19 6C19.5523 6 20 5.55228 20 5C20 4.44772 19.5523 4 19 4C18.4477 4 18 4.44772 18 5C18 5.55228 18.4477 6 19 6Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M19 20C19.5523 20 20 19.5523 20 19C20 18.4477 19.5523 18 19 18C18.4477 18 18 18.4477 18 19C18 19.5523 18.4477 20 19 20Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M5 6C5.55228 6 6 5.55228 6 5C6 4.44772 5.55228 4 5 4C4.44772 4 4 4.44772 4 5C4 5.55228 4.44772 6 5 6Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M5 20C5.55228 20 6 19.5523 6 19C6 18.4477 5.55228 18 5 18C4.44772 18 4 18.4477 4 19C4 19.5523 4.44772 20 5 20Z"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </div>
+                <input
+                    type="text"
+                    id="project-search"
+                    placeholder="Search projects..."
+                />
+                <div class="filter-pills">
+                    <button
+                        class="hoverable filter-pill"
+                        data-filter="database"
+                    >
+                        Database
+                    </button>
+                    <button
+                        class="hoverable filter-pill"
+                        data-filter="frontend"
+                    >
+                        Frontend
+                    </button>
+                </div>
+            </div>
             <div class="project-grid">
-                <div class="project">
+                <div class="project glass-box" data-tags="python, databases">
                     <h3>Effortless</h3>
-                    <a href="https://effortless.bboonstra.dev"
-                        ><img
-                            id="effortless-banner"
-                            src="https://effortless.bboonstra.dev/images/bannerlogotextright.png"
-                            alt="Effortless Banner"
-                    /></a>
+                    <img
+                        id="effortless-banner"
+                        src="https://bboonstra.dev/effortless/images/bannerlogotextright.png"
+                        alt="Effortless Banner"
+                    />
                     <p>
-                        A Python database interface designed to be simple and
+                        A Python package designed to make databases simple and
                         intuitive.
                     </p>
+                </div>
+                <div class="project glass-box" data-tags="vscode, django, css">
+                    <h3>Django CSS Templating</h3>
+                    <p>
+                        A Visual Studio Code extension that adds support for
+                        Django templating in CSS files.
+                    </p>
+                </div>
+                <div
+                    class="project glass-box"
+                    data-tags="game, godot, roguelike"
+                >
+                    <h3>Unknown Universe</h3>
+                    <p>
+                        In Unknown Universe, you command a lone spaceship
+                        exploring the depths of space, orbiting strange and
+                        hostile planets in a battle for survival.
+                    </p>
+                </div>
+                <div class="project glass-box" data-tags="python, cli, zsh">
+                    <h3>Idlegame</h3>
+                    <p>
+                        A python package with two missions: entertain you and
+                        teach you. idlegame is ran from the command line, and
+                        uses only real zsh commands to play.
+                    </p>
+                </div>
+                <div class="project glass-box" data-tags="django, api, pypi">
+                    <h3>PipEmbeds</h3>
+                    <p>
+                        A Django API I wrote in a day on a whim because I
+                        couldn't find an API I wanted. Gets PyPi Python package
+                        data and formats it into human-readable and stylish
+                        preview cards.
+                    </p>
+                </div>
+                <div class="project glass-box" data-tags="robotics, java, team">
+                    <h3>Metallum Ultorum Robotics</h3>
+                    <p>
+                        I've been the head of the Waukee Northwest Robotics club
+                        and associated team's programming department through
+                        many years of FTC, placing for the Control (programming)
+                        Award.
+                    </p>
+                </div>
+                <div
+                    class="project glass-box"
+                    data-tags="python, ai, stock market"
+                >
+                    <h3>Guanaco Trade</h3>
+                    <p>
+                        A Python package that uses generative and predictive AI
+                        to make trades in the stock market.
+                    </p>
+                </div>
+                <div
+                    class="project glass-box"
+                    data-tags="game, python, terminal"
+                >
+                    <h3>Deep Dive</h3>
+                    <p>
+                        One of my earliest projects, for the first Game Jam I
+                        ever entered. Tells an immersive
+                        choose-your-own-adventure through purely the Python
+                        terminal.
+                    </p>
+                </div>
+                <div
+                    class="project glass-box"
+                    data-tags="frontend, puzzle, game"
+                >
+                    <h3>Pixel Puzzlebox</h3>
+                    <p>Coming Soon...</p>
+                </div>
+                <div
+                    class="project glass-box"
+                    data-tags="full-stack, web, team"
+                >
+                    <h3>Daughters of Norway Iowa</h3>
+                    <p>Coming Soon...</p>
+                </div>
+                <div
+                    class="project glass-box"
+                    data-tags="typescript, game, solo"
+                >
+                    <h3>Code Tycoon</h3>
+                    <p>Coming Soon...</p>
+                </div>
+                <div
+                    class="project glass-box"
+                    data-tags="frontend, hackathon, team"
+                >
+                    <h3>APEX Hackathon</h3>
+                    <p>Coming Soon...</p>
                 </div>
             </div>
         </section>
         <script src="mouse.js"></script>
+        <script src="projects.js"></script>
         <script src="bg.js"></script>
     </body>
 </html>

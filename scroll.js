@@ -1,4 +1,4 @@
-ådocument.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     const socialIcons = document.querySelector(".social-icons");
 
     // Remove the fixed-socials div as we'll use canvas squares instead

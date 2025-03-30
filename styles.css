@@ -7,6 +7,7 @@
   --vantablack: #181818;
   --text-color: #ffe9dd;
   --standard-radius: 12px;
+  --border-gray: rgba(255, 255, 255, 0.05);
 }
 
 #dot-cursor {
@@ -41,12 +42,13 @@ img {
 body {
   background-color: var(--vantablack);
   color: var(--text-color);
-  font-family: "Hack Nerd Font", monospace;
+  overflow-x: hidden;
 }
 
 body *,
 body button {
   cursor: none !important;
+  font-family: "Hack Nerd Font", monospace;
 }
 
 #bg-canvas {
@@ -58,12 +60,19 @@ body button {
   height: 100vh;
   background: #181818;
   display: block;
+  padding: 0;
+  margin: 0;
 }
 
 section {
-  height: 97vh;
+  min-height: 97vh;
+  width: 100vw;
   padding: 0;
   margin: 0;
+}
+
+section:not(:first-of-type) {
+  padding-top: 75px;
 }
 
 .splash-container {
@@ -95,7 +104,7 @@ section {
   padding: 20px 30px;
   border-radius: var(--standard-radius);
   backdrop-filter: blur(5px);
-  border: 2px solid rgba(255, 255, 255, 0.05);
+  border: 2px solid var(--border-gray);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -117,29 +126,15 @@ section {
   gap: 10px;
 }
 
-.social-icons img {
+.social-icons a {
   width: 30px;
+  border-radius: var(--standard-radius);
   height: 30px;
 }
 
-.projects-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-.project {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.project img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: cover;
+.social-icons img {
+  width: 30px;
+  height: 30px;
 }
 
 .nav-social-icons {
@@ -155,7 +150,7 @@ section {
   padding: 10px 20px;
   border-radius: var(--standard-radius);
   backdrop-filter: blur(5px);
-  border: 2px solid rgba(255, 255, 255, 0.05);
+  border: 2px solid var(--border-gray);
 }
 
 .nav-social-icons a {
@@ -167,12 +162,11 @@ section {
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: var(--standard-radius);
   transition: transform 0.2s, background-color 0.2s;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-gray);
 }
 
 .nav-social-icons a:hover {
-  transform: scale(1.1);
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--border-gray);
 }
 
 .nav-social-icons img {
@@ -213,4 +207,24 @@ section {
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 12px;
+  cursor: none;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(24, 24, 24, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(24, 24, 24, 0.9);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--border-gray);
 }

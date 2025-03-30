@@ -30,7 +30,7 @@ document.addEventListener("mousemove", function (e) {
 
 function updateCursor() {
     if (isMoving) {
-        if (!document.querySelector("a:hover")) {
+        if (!document.querySelector("a:hover, .hoverable:hover")) {
             dot.style.left = `${mouseX}px`;
             dot.style.top = `${mouseY}px`;
         }
@@ -55,7 +55,7 @@ document.addEventListener("mouseenter", function () {
 
 document.addEventListener("mousedown", function (e) {
     // Check if the click is on an anchor element
-    if (e.target.closest("a")) {
+    if (e.target.closest("a, .hoverable")) {
         // Special effect for clicking links
         setDotScale(0.1);
         dot.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
@@ -79,7 +79,7 @@ document.addEventListener("dragend", function () {
     dot.style.display = "block";
 });
 // Handle anchor hover scaling
-document.querySelectorAll("a").forEach((anchor) => {
+document.querySelectorAll("a, .hoverable").forEach((anchor) => {
     let isHovering = false;
     let anchorRect = null;
 
@@ -139,9 +139,9 @@ document.querySelectorAll("a").forEach((anchor) => {
 function updateAnchorCursor(anchor) {
     let anchorRect;
     try {
-        anchorRect = anchor.firstElementChild.getBoundingClientRect();
-    } catch (error) {
         anchorRect = anchor.getBoundingClientRect();
+    } catch (error) {
+        anchorRect = anchor.firstElementChild.getBoundingClientRect();
     }
 
     // Apply smooth transitions for all properties
@@ -190,9 +190,8 @@ function setupSocialNavigation() {
     let isVisible = false;
 
     // Add event listeners to the cloned social icon anchors
-    navSocials.querySelectorAll("a").forEach((anchor) => {
+    navSocials.querySelectorAll("a, .hoverable").forEach((anchor) => {
         let isHovering = false;
-        let anchorRect = null;
 
         anchor.addEventListener("mouseenter", () => {
             isHovering = true;
