@@ -23,8 +23,8 @@ function resetInactivityTimer() {
 
 // 👇 Listen to mousemove and store coords
 document.addEventListener("mousemove", function (e) {
-    mouseX = e.pageX;
-    mouseY = e.pageY;
+    mouseX = e.clientX;
+    mouseY = e.clientY;
     isMoving = true;
     dot.style.display = "block";
     resetInactivityTimer();

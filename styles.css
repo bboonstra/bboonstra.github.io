@@ -8,11 +8,11 @@
   --secondary-color: #000000;
   --accent-color: #000000;
   --background-color: #000000;
-  --text-color: #cefdff;
+  --text-color: #ffe9dd;
 }
 
 #dot-cursor {
-  position: absolute;
+  position: fixed;
   width: 10px;
   height: 10px;
   background-color: white;
@@ -34,6 +34,17 @@ body button {
   cursor: none !important;
 }
 
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  background: #181818;
+  display: block;
+}
+
 section {
   height: 97vh;
   padding: 0;
@@ -42,18 +53,23 @@ section {
 
 .splash-container {
   display: flex;
-  flex-direction: row-reverse;
   align-items: center;
   justify-content: space-around;
-  text-align: left;
-  gap: 20px;
 }
 
-.splash-container img {
+.splash-content {
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+  justify-content: center;
+  gap: 50px;
+}
+
+.splash-content img {
   max-width: 400px;
 }
 
-.splash-container p {
+.splash-content p {
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.5;

@@ -91,34 +91,39 @@
     </head>
     <body>
         <div id="dot-cursor" style="display: none"></div>
+        <canvas id="bg-canvas"></canvas>
         <section class="splash-container">
-            <div class="text-content">
-                <h1>a little bit of everything</h1>
-                <p>
-                    I'm Ben, a high school CS student. I'm a full stack
-                    developer, machine learning engineer, and robotics
-                    programmer. I also hate wasting time, so let my projects
-                    speak for themselves.
-                </p>
-                <div class="social-icons">
-                    <a href="https://linkedin.com/in/bboonstra"
-                        ><img src="images/icons/linkedin.png" alt="LinkedIn"
-                    /></a>
-                    <a href="https://github.com/bboonstra"
-                        ><img
-                            src="https://simpleicons.org/icons/github.svg"
-                            alt="GitHub"
-                            style="filter: invert(1)"
-                    /></a>
-                    <a href="mailto:ben@bboonstra.dev"
-                        ><img
-                            src="https://simpleicons.org/icons/gmail.svg"
-                            alt="Email"
-                            style="filter: invert(1)"
-                    /></a>
+            <div class="splash-content">
+                <img src="/images/headshot.png" alt="headshot" />
+                <div class="text-content">
+                    <h1>a little bit of everything</h1>
+                    <p>
+                        I'm Ben, a high school CS student. I'm a full stack
+                        developer, machine learning engineer, and robotics
+                        programmer. I also hate wasting time, so let my projects
+                        speak for themselves.
+                    </p>
+                    <div class="social-icons">
+                        <a href="https://linkedin.com/in/bboonstra"
+                            ><img
+                                src="images/icons/linkedin.png"
+                                alt="LinkedIn"
+                        /></a>
+                        <a href="https://github.com/bboonstra"
+                            ><img
+                                src="https://simpleicons.org/icons/github.svg"
+                                alt="GitHub"
+                                style="filter: invert(1)"
+                        /></a>
+                        <a href="mailto:ben@bboonstra.dev"
+                            ><img
+                                src="https://simpleicons.org/icons/gmail.svg"
+                                alt="Email"
+                                style="filter: invert(1)"
+                        /></a>
+                    </div>
                 </div>
             </div>
-            <img src="/images/headshot.png" alt="headshot" />
         </section>
 
         <section class="projects-container">
@@ -140,5 +145,6 @@
             </div>
         </section>
         <script src="mouse.js"></script>
+        <script src="bg.js"></script>
     </body>
 </html>
