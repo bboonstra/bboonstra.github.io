@@ -1,5 +1,5 @@
 let inactivityTimer;
-const fadeDuration = 200;
+const fadeDuration = 300;
 const dot = document.getElementById("dot-cursor");
 const inactiveDuration = 3000;
 
@@ -57,7 +57,7 @@ document.addEventListener("mousedown", function (e) {
     // Check if the click is on an anchor element
     if (e.target.closest("a")) {
         // Special effect for clicking links
-        setDotScale(3);
+        setDotScale(0.1);
         dot.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
     } else {
         // Normal click effect for non-links
@@ -150,8 +150,9 @@ function updateAnchorCursor(anchor) {
     // Set the new styles for expansion
     dot.style.width = anchorRect.width + "px";
     dot.style.height = anchorRect.height + "px";
-    dot.style.borderRadius = anchorRect.borderRadius || "0%";
-    dot.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+    dot.style.borderRadius =
+        window.getComputedStyle(anchor).borderRadius || "0%";
+    dot.style.backgroundColor = "rgba(100, 149, 237, 0.7)"; // Light hyperlink blue with transparency
     dot.style.opacity = "0.5";
 
     // Position the dot at the center of the link element
@@ -163,4 +164,102 @@ function setDotScale(scale) {
     // console.log(`Set scale: ${scale}`);
     // console.trace();
     dot.style.transform = `translate(-50%, -50%) scale(${scale})`;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    setupSocialNavigation();
+});
+
+function setupSocialNavigation() {
+    const originalSocials = document.querySelector(".social-icons");
+    const navSocials = originalSocials.cloneNode(true);
+    navSocials.classList.add("nav-social-icons");
+    document.body.appendChild(navSocials);
+
+    // Initialize state
+    navSocials.style.opacity = "0";
+    navSocials.style.pointerEvents = "none";
+
+    let isVisible = false;
+
+    // Add event listeners to the cloned social icon anchors
+    navSocials.querySelectorAll("a").forEach((anchor) => {
+        let isHovering = false;
+        let anchorRect = null;
+
+        anchor.addEventListener("mouseenter", () => {
+            isHovering = true;
+            updateAnchorCursor(anchor);
+        });
+
+        anchor.addEventListener("mouseleave", () => {
+            isHovering = false;
+            anchorRect = null;
+
+            // Reset styles with smooth transition
+            dot.style.transition = `
+                opacity ${fadeDuration * 2}ms,
+                transform ${fadeDuration}ms ease,
+                width ${fadeDuration / 2}ms ease,
+                height ${fadeDuration / 2}ms ease,
+                background-color ${fadeDuration}ms ease,
+                border-radius ${fadeDuration}ms ease
+            `;
+            setDotScale(1);
+            dot.style.width = "10px";
+            dot.style.height = "10px";
+            dot.style.borderRadius = "50%";
+            dot.style.backgroundColor = "#fff";
+            dot.style.opacity = "1";
+            dot.style.padding = "0";
+
+            // Resume normal cursor following
+            isMoving = true;
+        });
+
+        anchor.addEventListener("mousemove", (e) => {
+            if (isHovering) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                isMoving = true;
+                updateAnchorCursor(anchor);
+            }
+        });
+    });
+
+    window.addEventListener("scroll", () => {
+        const socialRect = originalSocials.getBoundingClientRect();
+        const splashSection = document.querySelector(".splash-container");
+        const splashRect = splashSection.getBoundingClientRect();
+
+        // When original socials go off-screen or splash section is not visible
+        if (socialRect.bottom < 0 || splashRect.bottom < 0) {
+            if (!isVisible) {
+                navSocials.classList.remove("hidden");
+                navSocials.classList.add("visible");
+                navSocials.style.opacity = "1";
+                navSocials.style.pointerEvents = "auto";
+                isVisible = true;
+            }
+        } else {
+            if (isVisible) {
+                navSocials.classList.remove("visible");
+                navSocials.classList.add("hidden");
+                // Wait for animation to finish before disabling pointer events
+                setTimeout(() => {
+                    if (!isVisible) {
+                        // Check if state hasn't changed during timeout
+                        navSocials.style.opacity = "0";
+                        navSocials.style.pointerEvents = "none";
+                    }
+                }, 300); // Match animation duration
+                isVisible = false;
+            }
+        }
+
+        // Call updateSocialBoxes to ensure we have the latest positions
+        if (typeof updateSocialBoxes === "function") {
+            updateSocialBoxes();
+        }
+    });
 }
