@@ -91,13 +91,15 @@ document.querySelectorAll("a").forEach((anchor) => {
     anchor.addEventListener("mouseleave", () => {
         isHovering = false;
         anchorRect = null;
+        dot.style.width /= 2;
+        dot.style.height /= 2;
 
         // Reset styles with smooth transition
         dot.style.transition = `
             opacity ${fadeDuration * 2}ms,
             transform ${fadeDuration}ms ease,
-            width ${fadeDuration / 2}ms ease,
-            height ${fadeDuration / 2}ms ease,
+            width ${fadeDuration / 3}ms ease,
+            height ${fadeDuration / 3}ms ease,
             background-color ${fadeDuration}ms ease,
             border-radius ${fadeDuration}ms ease
         `;
@@ -135,7 +137,12 @@ document.querySelectorAll("a").forEach((anchor) => {
 
 // Function to update the cursor when hovering over an anchor
 function updateAnchorCursor(anchor) {
-    const anchorRect = anchor.getBoundingClientRect();
+    let anchorRect;
+    try {
+        anchorRect = anchor.firstElementChild.getBoundingClientRect();
+    } catch (error) {
+        anchorRect = anchor.getBoundingClientRect();
+    }
 
     // Apply smooth transitions for all properties
     dot.style.transition = `
