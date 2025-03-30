@@ -37,6 +37,28 @@ function generateShapes() {
 function drawShapes() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Define the "bb" pattern in the bottom left with stems
+    const numSquaresTall = 10;
+    const size = canvas.height / numSquaresTall;
+    const bbPattern = [
+        { x: 0, y: 5 },
+        { x: 0, y: 6 },
+        { x: 0, y: 7 },
+        { x: 0, y: 8 },
+        { x: 0, y: 9 }, // First "b" stem
+        { x: 1, y: 7 },
+        { x: 1, y: 9 },
+        { x: 2, y: 8 },
+        { x: 4, y: 5 },
+        { x: 4, y: 6 },
+        { x: 4, y: 7 },
+        { x: 4, y: 8 },
+        { x: 4, y: 9 }, // Second "b" stem
+        { x: 5, y: 7 },
+        { x: 5, y: 9 },
+        { x: 6, y: 8 },
+    ];
+
     for (let shape of shapes) {
         const isHovered =
             (mouse.x !== 0 || mouse.y !== 0) &&
@@ -45,9 +67,22 @@ function drawShapes() {
             mouse.y >= shape.y &&
             mouse.y <= shape.y + shape.height &&
             dot.style.opacity != "0";
-        // Smooth transition
-        shape.opacity = isHovered ? 0.25 : shape.opacity;
-        shape.opacity -= 0.01;
+
+        // Check if the shape is part of the "bb" pattern
+        const isBB = bbPattern.some(
+            (bb) =>
+                Math.floor(shape.x / shape.width) === bb.x &&
+                Math.floor(shape.y / shape.height) === bb.y
+        );
+
+        // Adjust opacity and fade rate for "bb" pattern
+        if (isBB) {
+            shape.opacity = isHovered ? 0.5 : shape.opacity;
+            shape.opacity -= 0.002; // Slower fade
+        } else {
+            shape.opacity = isHovered ? 0.25 : shape.opacity;
+            shape.opacity -= 0.01;
+        }
         shape.opacity = Math.max(shape.opacity, 0);
 
         ctx.beginPath();
