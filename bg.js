@@ -129,6 +129,9 @@ function drawShapes() {
     const effectiveWidth = dotWidth * dotScale;
     const effectiveHeight = dotHeight * dotScale;
 
+    // Create a set to store drawn shape coordinates
+    const drawnShapes = new Set();
+
     for (let shape of shapes) {
         // Check for hover based on dot position and size instead of mouse
         const isHovered =
@@ -159,10 +162,17 @@ function drawShapes() {
         }
         shape.opacity = Math.max(shape.opacity, 0);
 
-        ctx.beginPath();
-        ctx.rect(shape.x, shape.y, shape.width, shape.height);
-        ctx.fillStyle = `rgba(255, 255, 255, ${shape.opacity})`;
-        ctx.fill();
+        // Check if the shape at this position has already been drawn
+        const shapeKey = `${shape.x},${shape.y}`;
+        if (!drawnShapes.has(shapeKey)) {
+            ctx.beginPath();
+            ctx.rect(shape.x, shape.y, shape.width, shape.height);
+            ctx.fillStyle = `rgba(255, 255, 255, ${shape.opacity})`;
+            ctx.fill();
+
+            // Add the shape coordinates to the set
+            drawnShapes.add(shapeKey);
+        }
 
         // Add a minimalist border
         ctx.lineWidth = 1; // Set the border width

@@ -14,16 +14,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     filterPills.forEach((pill) => {
         pill.addEventListener("click", () => {
-            // Remove 'filter-pill-active' class from all pills
-            filterPills.forEach((p) =>
-                p.classList.remove("filter-pill-active")
-            );
+            if (pill.classList.contains("filter-pill-active")) {
+                // If the pill is already active, remove the active class and show all projects
+                pill.classList.remove("filter-pill-active");
+                filterProjects("");
+            } else {
+                // Remove 'filter-pill-active' class from all pills
+                filterPills.forEach((p) =>
+                    p.classList.remove("filter-pill-active")
+                );
 
-            // Add 'filter-pill-active' class to the clicked pill
-            pill.classList.add("filter-pill-active");
+                // Add 'filter-pill-active' class to the clicked pill
+                pill.classList.add("filter-pill-active");
 
-            const filter = pill.getAttribute("data-filter");
-            filterProjects(filter);
+                const filter = pill.getAttribute("data-filter");
+                filterProjects(filter);
+            }
         });
     });
 
