@@ -12,6 +12,7 @@
 
 #dot-cursor {
   position: fixed;
+  opacity: 0;
   width: 10px;
   height: 10px;
   background-color: white;
@@ -21,6 +22,7 @@
   transform: translate(-50%, -50%);
   transition: opacity 200ms, transform 200ms, width 200ms ease,
     height 200ms ease, background-color 200ms ease, border-radius 200ms ease;
+  display: none;
 }
 
 .projects-link {

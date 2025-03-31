@@ -25,11 +25,19 @@ function resetInactivityTimer() {
 
 // 👇 Listen to mousemove and store coords
 document.addEventListener("mousemove", function (e) {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    isMoving = true;
-    dot.style.display = "block";
-    resetInactivityTimer();
+    // Only process if not on mobile
+    if (window.innerWidth > 768) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        isMoving = true;
+
+        // Ensure the cursor is visible if it was previously hidden
+        if (dot.style.display !== "block") {
+            dot.style.display = "block";
+        }
+
+        resetInactivityTimer();
+    }
 });
 
 function updateCursor() {
@@ -179,13 +187,27 @@ document.addEventListener("DOMContentLoaded", () => {
         if (isMobile) {
             cursor.style.display = "none";
         } else {
-            cursor.style.display = "block";
+            // On desktop, keep it hidden until mouse movement
+            cursor.style.display = "none";
+            cursor.style.opacity = "0";
         }
     }
 
     // Check on load and on resize
     checkMobile();
     window.addEventListener("resize", checkMobile);
+
+    // Show cursor only on first mouse movement for desktop
+    document.addEventListener("mousemove", function onFirstMouseMove(e) {
+        if (!isMobile) {
+            cursor.style.display = "block";
+            cursor.style.opacity = "1";
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            // After first movement, we can use the regular handler
+            document.removeEventListener("mousemove", onFirstMouseMove);
+        }
+    });
 
     setupSocialNavigation();
 });
