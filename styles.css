@@ -216,26 +216,9 @@ section:not(:first-of-type) > :first-child {
 html {
   scroll-behavior: smooth;
   overscroll-behavior: none;
-}
-
-/* Custom scrollbar styles */
-::-webkit-scrollbar {
-  width: 12px;
-  cursor: none;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(24, 24, 24, 0.9);
-  border: 2px solid rgba(255, 255, 255, 0.05);
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(24, 24, 24, 0.9);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--border-gray);
+  /* For Firefox */
+  scrollbar-width: none;
+  scrollbar-color: transparent transparent;
 }
 
 /* Mobile Responsive Styles */
@@ -261,6 +244,14 @@ html {
     box-sizing: border-box;
   }
 
+  .text-content {
+    text-align: center; /* Center the text inside the box */
+  }
+
+  .social-icons {
+    justify-content: center; /* Center the icons within their container */
+  }
+
   .nav-social-icons {
     gap: 15px;
     padding: 8px 15px;
@@ -281,11 +272,6 @@ html {
   .filter-pills {
     flex-wrap: wrap;
     justify-content: center;
-  }
-
-  /* Adjust scrollbar for mobile */
-  ::-webkit-scrollbar {
-    width: 8px;
   }
 
   /* Adjust project layouts */
