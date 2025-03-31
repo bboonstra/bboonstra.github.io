@@ -22,8 +22,7 @@
   z-index: 1000;
   transform: translate(-50%, -50%);
   transition: opacity 200ms, transform 200ms, width 200ms ease,
-    height 200ms ease, background-color 200ms ease, border-radius 200ms ease;
-  display: none;
+    height 200ms ease, background-image 200ms ease, border-radius 200ms ease;
 }
 
 .projects-link {

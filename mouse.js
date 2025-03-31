@@ -73,6 +73,7 @@ document.addEventListener("mouseup", function () {
     // Reset to normal state after click
     setDotScale(1);
     dot.style.backgroundColor = "#fff";
+    dot.style.backgroundImage = "none"; // Ensure gradient is removed
 });
 
 document.addEventListener("dragstart", function () {
@@ -95,8 +96,8 @@ document.querySelectorAll("a, .hoverable").forEach((anchor) => {
     anchor.addEventListener("mouseleave", () => {
         isHovering = false;
         anchorRect = null;
-        dot.style.width /= 2;
-        dot.style.height /= 2;
+        // dot.style.width /= 2; // Removed this scaling, as setDotScale handles it
+        // dot.style.height /= 2; // Removed this scaling
 
         // Reset styles with smooth transition
         dot.style.transition = `
@@ -105,13 +106,15 @@ document.querySelectorAll("a, .hoverable").forEach((anchor) => {
             width ${fadeDuration / 3}ms ease,
             height ${fadeDuration / 3}ms ease,
             background-color ${fadeDuration}ms ease,
+            background-image ${fadeDuration}ms ease, /* Add transition for gradient */
             border-radius ${fadeDuration}ms ease
         `;
         setDotScale(1);
         dot.style.width = "10px";
         dot.style.height = "10px";
         dot.style.borderRadius = "50%";
-        dot.style.backgroundColor = "#fff";
+        dot.style.backgroundImage = "none"; // Remove gradient
+        dot.style.backgroundColor = "#fff"; // Restore background color
         dot.style.opacity = "1";
         dot.style.padding = "0";
 
@@ -144,9 +147,55 @@ function updateAnchorCursor(anchor) {
     let anchorRect;
     try {
         anchorRect = anchor.getBoundingClientRect();
+        // Ensure width/height are not zero or negative, minimum 1px
+        if (anchorRect.width <= 0 || anchorRect.height <= 0) {
+            if (anchor.firstElementChild) {
+                anchorRect = anchor.firstElementChild.getBoundingClientRect();
+                if (anchorRect.width <= 0 || anchorRect.height <= 0) {
+                    console.warn(
+                        "Could not get valid bounding rect for:",
+                        anchor
+                    );
+                    return; // Exit if still invalid
+                }
+            } else {
+                console.warn("Could not get valid bounding rect for:", anchor);
+                return; // Exit if no child element either
+            }
+        }
     } catch (error) {
-        anchorRect = anchor.firstElementChild.getBoundingClientRect();
+        // Fallback for potential elements without direct bounding box (like SVG wrappers)
+        if (anchor.firstElementChild) {
+            anchorRect = anchor.firstElementChild.getBoundingClientRect();
+            if (anchorRect.width <= 0 || anchorRect.height <= 0) {
+                console.warn(
+                    "Could not get valid bounding rect for child of:",
+                    anchor
+                );
+                return; // Exit if child is invalid
+            }
+        } else {
+            // If no fallback, exit to prevent errors
+            console.warn("Could not get bounding rect for:", anchor, error);
+            return;
+        }
     }
+
+    // Calculate mouse position relative to the element's top-left corner
+    const relativeX = mouseX - anchorRect.left;
+    const relativeY = mouseY - anchorRect.top;
+
+    // Calculate the gradient size
+    const minDimension = Math.max(
+        1,
+        Math.min(anchorRect.width, anchorRect.height)
+    ); // Ensure minDimension is at least 1
+    let gradientSize = minDimension * 0.7; // 70% of the smaller dimension
+    gradientSize = Math.min(gradientSize, 200); // Cap at 200px
+    // Ensure gradientSize is at least a small positive number to avoid rendering issues
+    gradientSize = Math.max(1, gradientSize);
+
+    console.log("Calculated gradient size:", gradientSize);
 
     // Apply smooth transitions for all properties
     dot.style.transition = `
@@ -155,6 +204,7 @@ function updateAnchorCursor(anchor) {
         width ${fadeDuration}ms ease,
         height ${fadeDuration}ms ease,
         background-color ${fadeDuration}ms ease,
+        background-image ${fadeDuration}ms ease, /* Add transition for gradient */
         border-radius ${fadeDuration}ms ease
     `;
 
@@ -162,11 +212,19 @@ function updateAnchorCursor(anchor) {
     dot.style.width = anchorRect.width + "px";
     dot.style.height = anchorRect.height + "px";
     dot.style.borderRadius =
-        window.getComputedStyle(anchor).borderRadius || "0%";
-    dot.style.backgroundColor = "rgba(100, 149, 237, 0.7)"; // Light hyperlink blue with transparency
-    dot.style.opacity = "0.5";
+        window.getComputedStyle(anchor).borderRadius || "0px"; // Use 0px default
+
+    // Apply the radial gradient with calculated size, centered at the relative mouse position
+    const opacityFactor = Math.max(0.1, 1 - gradientSize / 200); // Stronger opacity for smaller gradient sizes
+    dot.style.backgroundImage = `radial-gradient(circle ${gradientSize}px at ${relativeX}px ${relativeY}px, rgba(100, 149, 237, ${opacityFactor}) 0%, rgba(100, 149, 237, ${
+        opacityFactor * 0.5
+    }) 50%, rgba(100, 149, 237, ${opacityFactor * 0.2}) 100%)`;
+    dot.style.backgroundColor = "transparent"; // Make base color transparent to see gradient
+
+    dot.style.opacity = "0.7"; // Adjust opacity as desired for the effect
 
     // Position the dot at the center of the link element
+    // This transform is already handled by translate(-50%, -50%)
     dot.style.left = anchorRect.left + anchorRect.width / 2 + "px";
     dot.style.top = anchorRect.top + anchorRect.height / 2 + "px";
 }
@@ -227,6 +285,7 @@ function setupSocialNavigation() {
     // Add event listeners to the cloned social icon anchors
     navSocials.querySelectorAll("a, .hoverable").forEach((anchor) => {
         let isHovering = false;
+        // let anchorRect = null; // This variable is not used in this scope, can be removed or commented
 
         anchor.addEventListener("mouseenter", () => {
             isHovering = true;
@@ -235,7 +294,7 @@ function setupSocialNavigation() {
 
         anchor.addEventListener("mouseleave", () => {
             isHovering = false;
-            anchorRect = null;
+            // anchorRect = null; // Not needed here either
 
             // Reset styles with smooth transition
             dot.style.transition = `
@@ -244,13 +303,15 @@ function setupSocialNavigation() {
                 width ${fadeDuration / 2}ms ease,
                 height ${fadeDuration / 2}ms ease,
                 background-color ${fadeDuration}ms ease,
+                background-image ${fadeDuration}ms ease, /* Add transition for gradient */
                 border-radius ${fadeDuration}ms ease
             `;
             setDotScale(1);
             dot.style.width = "10px";
             dot.style.height = "10px";
             dot.style.borderRadius = "50%";
-            dot.style.backgroundColor = "#fff";
+            dot.style.backgroundImage = "none"; // Remove gradient
+            dot.style.backgroundColor = "#fff"; // Restore background color
             dot.style.opacity = "1";
             dot.style.padding = "0";
 
@@ -262,7 +323,14 @@ function setupSocialNavigation() {
             if (isHovering) {
                 mouseX = e.clientX;
                 mouseY = e.clientY;
-                isMoving = true;
+                isMoving = true; // Keep this true so the main loop knows to update
+                updateAnchorCursor(anchor); // Update gradient position
+            }
+        });
+
+        // Add scroll event listener specific to these nav icons if needed
+        window.addEventListener("scroll", () => {
+            if (isHovering) {
                 updateAnchorCursor(anchor);
             }
         });
