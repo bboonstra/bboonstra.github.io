@@ -67,6 +67,24 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    // Set initial layout based on screen size
+    function setInitialLayout() {
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            // Set to full width layout on mobile
+            layoutButtons[0].classList.add("layout-active");
+            layoutButtons[1].classList.remove("layout-active");
+            layoutButtons[2].classList.remove("layout-active");
+            setProjectWidth("95%");
+        }
+    }
+
+    // Run on page load
+    setInitialLayout();
+
+    // Update layout on window resize
+    window.addEventListener("resize", setInitialLayout);
+
     layoutButtons.forEach((button, index) => {
         button.addEventListener("click", () => {
             // Remove 'layout-active' class from all buttons
@@ -77,16 +95,24 @@ document.addEventListener("DOMContentLoaded", () => {
             // Add 'layout-active' class to the clicked button
             button.classList.add("layout-active");
 
-            switch (index) {
-                case 0:
-                    setProjectWidth("90%");
-                    break;
-                case 1:
-                    setProjectWidth("40%");
-                    break;
-                case 2:
-                    setProjectWidth("25%");
-                    break;
+            const isMobile = window.innerWidth <= 768;
+
+            if (isMobile) {
+                // Always use full width on mobile
+                setProjectWidth("95%");
+            } else {
+                // On desktop, respect the button clicked
+                switch (index) {
+                    case 0:
+                        setProjectWidth("90%");
+                        break;
+                    case 1:
+                        setProjectWidth("40%");
+                        break;
+                    case 2:
+                        setProjectWidth("25%");
+                        break;
+                }
             }
         });
     });

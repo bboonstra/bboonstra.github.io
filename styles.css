@@ -230,3 +230,63 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--border-gray);
 }
+
+/* Add media queries for mobile responsiveness */
+@media (max-width: 768px) {
+  .splash-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .splash-content img {
+    max-width: 70%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .text-content {
+    padding: 15px;
+  }
+
+  section {
+    padding: 0 10px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  /* Increase touch target sizes for better mobile interaction */
+  .social-icons a {
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+  }
+
+  /* Add extra spacing for better readability on mobile */
+  .projects-container {
+    gap: 15px;
+  }
+
+  .project-grid {
+    gap: 15px;
+  }
+}

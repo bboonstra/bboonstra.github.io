@@ -132,3 +132,31 @@ svg {
   justify-content: center;
   width: 90%;
 }
+
+/* Add mobile responsiveness for project filters */
+@media (max-width: 768px) {
+  .project-filter {
+    flex-direction: column;
+    height: auto;
+    gap: 15px;
+    padding: 15px 0;
+    width: 90%;
+  }
+
+  .project-layouts {
+    display: none;
+  }
+
+  #project-search {
+    width: 90%;
+  }
+
+  .project {
+    width: 95% !important; /* Override any inline width setting from JS */
+  }
+
+  .filter-pills {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

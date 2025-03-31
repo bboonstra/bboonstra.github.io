@@ -25,8 +25,12 @@ window.addEventListener("mousemove", (event) => {
 
 function generateShapes() {
     shapes = [];
-    const numSquaresTall = 10;
-    const size = canvas.height / numSquaresTall; // Calculate size based on height
+
+    // Reduce the number of shapes on mobile for better performance
+    const isMobile = window.innerWidth <= 768;
+    const numSquaresTall = isMobile ? 6 : 10; // Fewer squares on mobile
+
+    const size = canvas.height / numSquaresTall;
 
     // Calculate the number of full columns that fit the canvas width
     const numColumns = Math.floor(canvas.width / size) + 1;
@@ -97,6 +101,45 @@ function updateSocialBoxes() {
 function drawShapes() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Check if on mobile
+    const isMobile = window.innerWidth <= 768;
+
+    // If on mobile, skip easter egg animations
+    if (isMobile) {
+        // Skip the easter egg animation logic
+        for (let shape of shapes) {
+            shape.revealed = true; // Reveal all shapes immediately
+        }
+    } else {
+        // Existing animation logic for desktop
+        // Only process animation if we're past the delay period and not yet complete
+        if (!animationDelayed && !animationComplete) {
+            const animationDuration = 1000; // Animation takes 1 second
+            const elapsedTime = currentTime - animationStartTime;
+            const animationProgress = Math.min(
+                elapsedTime / animationDuration,
+                1
+            );
+
+            if (animationProgress >= 1) {
+                animationComplete = true;
+            }
+
+            // Reveal shapes in a diagonal wave pattern from top-left to bottom-right
+            for (let shape of shapes) {
+                // Calculate when this shape should appear based on its position
+                const positionValue = shape.row + shape.col;
+                const maxPositionValue = numColumns + numSquaresTall - 2; // Maximum possible sum of row+col
+                const normalizedPosition = positionValue / maxPositionValue;
+
+                // Determine if this shape should be revealed yet
+                if (animationProgress >= normalizedPosition) {
+                    shape.revealed = true;
+                }
+            }
+        }
+    }
+
     // Define the "bb" pattern in the bottom left with stems
     const numSquaresTall = 10;
     const size = canvas.height / numSquaresTall;
@@ -153,31 +196,6 @@ function drawShapes() {
             // Delay period is over, start the actual animation
             animationDelayed = false;
             animationStartTime = currentTime; // Reset the start time for the animation itself
-        }
-    }
-
-    // Only process animation if we're past the delay period and not yet complete
-    if (!animationDelayed && !animationComplete) {
-        const animationDuration = 1000; // Animation takes 1 second
-        const elapsedTime = currentTime - animationStartTime;
-        const animationProgress = Math.min(elapsedTime / animationDuration, 1);
-
-        if (animationProgress >= 1) {
-            animationComplete = true;
-        }
-
-        // Reveal shapes in a diagonal wave pattern from top-left to bottom-right
-        for (let shape of shapes) {
-            // Calculate when this shape should appear based on its position
-            // The sum of row and column creates a diagonal wave effect
-            const positionValue = shape.row + shape.col;
-            const maxPositionValue = numColumns + numSquaresTall - 2; // Maximum possible sum of row+col
-            const normalizedPosition = positionValue / maxPositionValue;
-
-            // Determine if this shape should be revealed yet
-            if (animationProgress >= normalizedPosition) {
-                shape.revealed = true;
-            }
         }
     }
 
