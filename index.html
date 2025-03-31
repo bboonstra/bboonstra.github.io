@@ -108,18 +108,20 @@
                         speak for themselves.
                     </p>
                     <div class="social-icons">
-                        <a href="https://linkedin.com/in/bboonstra26"
+                        <a
+                            href="https://linkedin.com/in/bboonstra26"
+                            target="_blank"
                             ><img
                                 src="images/icons/linkedin.png"
                                 alt="LinkedIn"
                         /></a>
-                        <a href="https://github.com/bboonstra"
+                        <a href="https://github.com/bboonstra" target="_blank"
                             ><img
                                 src="https://simpleicons.org/icons/github.svg"
                                 alt="GitHub"
                                 style="filter: invert(1)"
                         /></a>
-                        <a href="mailto:ben@bboonstra.dev"
+                        <a href="mailto:ben@bboonstra.dev" target="_blank"
                             ><img
                                 src="https://simpleicons.org/icons/gmail.svg"
                                 alt="Email"
@@ -271,15 +273,33 @@
                 <div class="filter-pills">
                     <button
                         class="hoverable pill filter-pill"
-                        data-filter="database"
-                    >
-                        Database
-                    </button>
-                    <button
-                        class="hoverable pill filter-pill"
                         data-filter="frontend"
                     >
                         Frontend
+                    </button>
+                    <button
+                        class="hoverable pill filter-pill"
+                        data-filter="backend"
+                    >
+                        Backend
+                    </button>
+                    <button
+                        class="hoverable pill filter-pill"
+                        data-filter="game"
+                    >
+                        Games
+                    </button>
+                    <button
+                        class="hoverable pill filter-pill"
+                        data-filter="awards"
+                    >
+                        Awards
+                    </button>
+                    <button
+                        class="hoverable pill filter-pill"
+                        data-filter="community"
+                    >
+                        Community
                     </button>
                 </div>
                 <div class="project-stats-toggle">
@@ -287,7 +307,11 @@
                 </div>
             </div>
             <div class="project-grid">
-                <div class="project glass-box" data-tags="python, databases">
+                <div
+                    class="project glass-box"
+                    data-tags="python, database, databases, pypi, 
+                    github, docs, open source, pip, unit tests, documentation, packages"
+                >
                     <h3>Effortless</h3>
                     <img
                         id="effortless-banner"
@@ -345,16 +369,73 @@
                         /></a>
                     </div>
                 </div>
-                <div class="project glass-box" data-tags="vscode, django, css">
-                    <h3>Django CSS Templating</h3>
+                <div
+                    class="project glass-box"
+                    data-tags="full-stack, web, team, frontend, backend, 
+                    django, css, html, javascript, github, distribution, 
+                    always-available, configurable, community, client-side, server-side"
+                >
+                    <h3>Daughters of Norway Iowa</h3>
                     <p>
-                        A Visual Studio Code extension that adds support for
-                        Django templating in CSS files.
+                        A website for the Daughters of Norway Iowa chapter,
+                        featuring a calendar, events, and resources.
                     </p>
+                    <a
+                        href="https://www.doniowa.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img
+                            src="https://www.doniowa.com/static/logo.png"
+                            alt="Daughters of Norway Iowa"
+                        />
+                    </a>
                 </div>
                 <div
                     class="project glass-box"
-                    data-tags="game, godot, roguelike"
+                    data-tags="vscode, django, css, extension, open source,
+                    distribution, marketplace"
+                >
+                    <h3>Django CSS Templating</h3>
+                    <p>
+                        A Visual Studio Code extension that adds Intellisense
+                        for the Django templating syntax in CSS files.
+                    </p>
+                    <a
+                        href="https://marketplace.visualstudio.com/items?itemName=bboonstra.django-css-templating"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <div
+                            class="repo-card"
+                            data-repo="bboonstra/django-css-templating"
+                            data-theme="dark-theme"
+                        ></div>
+                    </a>
+                    <div class="stats">
+                        <a
+                            href="https://github.com/bboonstra/django-css-templating/blob/main/LICENSE"
+                        >
+                            <img
+                                class="guardio-badge"
+                                alt="GitHub license"
+                                src="https://img.shields.io/github/license/bboonstra/django-css-templating"
+                            />
+                        </a>
+                        <a
+                            href="https://marketplace.visualstudio.com/items?itemName=bboonstra.django-css-templating"
+                        >
+                            <img
+                                class="guardio-badge"
+                                alt="VS Marketplace Installs"
+                                src="https://img.shields.io/visual-studio-marketplace/i/bboonstra.django-css-templating?color=blue"
+                            />
+                        </a>
+                    </div>
+                </div>
+                <div
+                    class="project glass-box"
+                    data-tags="game, godot, rogue-like, itch.io, game jam, video game, sfx, music"
                 >
                     <h3>Unknown Universe</h3>
                     <p>
@@ -362,16 +443,41 @@
                         exploring the depths of space, orbiting strange and
                         hostile planets in a battle for survival.
                     </p>
+                    <iframe
+                        frameborder="0"
+                        src="https://itch.io/embed/2988328?bg_color=0a0a0a&amp;fg_color=d1f3fa&amp;link_color=474ced&amp;border_color=6b636e"
+                        width="80%"
+                        height="fit-content"
+                        style="padding: 3px; max-width: 600px"
+                    >
+                        <a
+                            href="https://bboonstra.itch.io/unknown-universe"
+                            target="_blank"
+                        >
+                            Unknown Universe by bboonstra, Cyn_1
+                        </a>
+                    </iframe>
                 </div>
-                <div class="project glass-box" data-tags="python, cli, zsh">
+                <div
+                    class="project glass-box"
+                    data-tags="python, cli, zsh, bash, scripting, terminal, game"
+                >
                     <h3>Idlegame</h3>
                     <p>
                         A python package with two missions: entertain you and
                         teach you. idlegame is ran from the command line, and
                         uses only real zsh commands to play.
                     </p>
+                    <iframe
+                        class="pipembed"
+                        src="https://pipembeds.onrender.com/html/idlegame/?theme=dark&amp;text_color=%23fff&amp;border_color=%23444&amp;background_color=%231E1E1E"
+                    ></iframe>
                 </div>
-                <div class="project glass-box" data-tags="django, api, pypi">
+                <div
+                    class="project glass-box"
+                    data-tags="django, api, pypi, frontend, backend, full-stack, open source, 
+                    css, html, javascript, github, pip, iframe, embed, pipembeds, render, python, packages"
+                >
                     <h3>PipEmbeds</h3>
                     <p>
                         A Django API I wrote in a day on a whim because I
@@ -379,29 +485,71 @@
                         data and formats it into human-readable and stylish
                         preview cards.
                     </p>
-                </div>
-                <div class="project glass-box" data-tags="robotics, java, team">
-                    <h3>Metallum Ultorum Robotics</h3>
-                    <p>
-                        I've been the head of the Waukee Northwest Robotics club
-                        and associated team's programming department through
-                        many years of FTC, placing for the Control (programming)
-                        Award.
-                    </p>
+                    <a
+                        href="https://pipembeds.onrender.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <div
+                            class="repo-card"
+                            data-repo="bboonstra/pipembeds"
+                            data-theme="dark-theme"
+                        ></div>
+                    </a>
                 </div>
                 <div
                     class="project glass-box"
-                    data-tags="python, ai, stock market"
+                    data-tags="robotics, java, team, collaboration, scrum, ftc, 
+                    awards, gradle, android studio, android, app, app development,
+                    OOP, object-oriented programming, leadership, captain, management, mentoring, coaching,
+                    "
+                >
+                    <h3>Ragnarok Robotics</h3>
+                    <p>
+                        I've been the head of the Waukee Northwest Robotics team
+                        and associated club's programming department through
+                        many years of FTC, placing second for the Control
+                        (programming) Award at the State Championship and first
+                        in our league for the 2024-2025 season.
+                    </p>
+                    <a
+                        href="https://github.com/24358-ragnarok"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <div
+                            class="repo-card"
+                            data-repo="24358-ragnarok/IntoTheDeep"
+                            data-theme="dark-theme"
+                        ></div>
+                    </a>
+                </div>
+                <div
+                    class="project glass-box"
+                    data-tags="python, ai, stock market, real-time, trading, alpaca, 
+                    api, trading, python, pip, distribution, open source"
                 >
                     <h3>Guanaco Trade</h3>
                     <p>
                         A Python package that uses generative and predictive AI
                         to make trades in the stock market.
                     </p>
+                    <a
+                        href="https://github.com/bboonstra/guanaco-trade"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <div
+                            class="repo-card"
+                            data-repo="bboonstra/guanaco-trade"
+                            data-theme="dark-theme"
+                        ></div>
+                    </a>
                 </div>
                 <div
                     class="project glass-box"
-                    data-tags="game, python, terminal"
+                    data-tags="game, python, terminal, ansi, adventure, choose-your-own-adventure, 
+                    interactive, game jam, responsive, replit, awards"
                 >
                     <h3>Deep Dive</h3>
                     <p>
@@ -410,19 +558,19 @@
                         choose-your-own-adventure through purely the Python
                         terminal.
                     </p>
+                    <iframe
+                        id="dd-embed"
+                        src="https://replit.com/@IceFire03/Deep-Dive?embed=true"
+                        width="90%"
+                        style="max-width: 600px; min-width: 300px"
+                        height="300px"
+                    ></iframe>
                 </div>
                 <div
                     class="project glass-box"
                     data-tags="frontend, puzzle, game"
                 >
                     <h3>Pixel Puzzlebox</h3>
-                    <p>Coming Soon...</p>
-                </div>
-                <div
-                    class="project glass-box"
-                    data-tags="full-stack, web, team"
-                >
-                    <h3>Daughters of Norway Iowa</h3>
                     <p>Coming Soon...</p>
                 </div>
                 <div
@@ -445,6 +593,7 @@
         <script src="projects.js"></script>
         <script src="bg.js"></script>
         <script src="scroll-prompt.js"></script>
+        <script src="https://tarptaeya.github.io/repo-card/repo-card.js"></script>
 
         <!-- Scroll Down Prompt -->
         <div id="scroll-prompt" class="scroll-prompt">

@@ -370,3 +370,19 @@ function setupSocialNavigation() {
         }
     });
 }
+
+// Function to hide the cursor
+function hideCursor() {
+    setDotScale(0);
+}
+
+// Function to show the cursor
+function showCursor() {
+    setDotScale(1);
+}
+
+// Add event listeners to all iframes
+document.querySelectorAll("iframe").forEach((iframe) => {
+    iframe.addEventListener("mouseenter", hideCursor);
+    iframe.addEventListener("mouseleave", showCursor);
+});

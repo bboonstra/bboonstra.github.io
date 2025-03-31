@@ -35,7 +35,12 @@
   color: var(--bluestra);
 }
 
+*:visited {
+  text-decoration: none;
+}
+
 a {
+  text-decoration: none;
   border-radius: var(--standard-radius);
 }
 img {
@@ -50,6 +55,8 @@ body {
   color: var(--text-color);
   overflow-x: hidden;
   overscroll-behavior: none;
+  padding: 0;
+  margin: 0;
 }
 
 body *,
