@@ -6,33 +6,6 @@ const inactiveDuration = 3000;
 let mouseX = 0;
 let mouseY = 0;
 let isMoving = false;
-// Detect if the device is touch-capable
-const isTouchDevice =
-    "ontouchstart" in window ||
-    navigator.maxTouchPoints > 0 ||
-    navigator.msMaxTouchPoints > 0;
-
-if (isTouchDevice) {
-    // Hide the custom cursor on touch devices
-    dot.style.display = "none";
-
-    // Remove the "cursor: none" style from all elements
-    document.querySelectorAll("*").forEach((element) => {
-        if (getComputedStyle(element).cursor === "none") {
-            element.style.cursor = "auto";
-        }
-    });
-
-    // Override the body * cursor style
-    const styleSheet = document.createElement("style");
-    styleSheet.textContent = `
-        body * {
-            cursor: auto !important;
-        }
-    `;
-    document.head.appendChild(styleSheet);
-    return;
-}
 
 function resetInactivityTimer() {
     clearTimeout(inactivityTimer);
@@ -215,34 +188,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("resize", checkMobile);
 
     setupSocialNavigation();
-
-    // Detect if the device is touch-capable
-    const isTouchDevice =
-        "ontouchstart" in window ||
-        navigator.maxTouchPoints > 0 ||
-        navigator.msMaxTouchPoints > 0;
-
-    if (isTouchDevice) {
-        // Hide the custom cursor on touch devices
-        dot.style.display = "none";
-
-        // Remove the "cursor: none" style from all elements
-        document.querySelectorAll("*").forEach((element) => {
-            if (getComputedStyle(element).cursor === "none") {
-                element.style.cursor = "auto";
-            }
-        });
-
-        // Override the body * cursor style
-        const styleSheet = document.createElement("style");
-        styleSheet.textContent = `
-            body * {
-                cursor: auto !important;
-            }
-        `;
-        document.head.appendChild(styleSheet);
-        return;
-    }
 });
 
 function setupSocialNavigation() {
