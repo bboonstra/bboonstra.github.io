@@ -308,3 +308,55 @@ window.addEventListener("touchend", () => {
         window.lastTouchY = 0;
     }, 300);
 });
+
+function favi() {
+    // Create a new div element for the background
+    const backgroundDiv = document.createElement("div");
+    const size = 100; // Size of the square
+    const backgroundSize = size * 2; // Background is 2x the size
+
+    backgroundDiv.style.width = `${backgroundSize}px`;
+    backgroundDiv.style.height = `${backgroundSize}px`;
+    backgroundDiv.style.position = "fixed";
+    backgroundDiv.style.top = "50%";
+    backgroundDiv.style.left = "50%";
+    backgroundDiv.style.transform = "translate(-50%, -50%)";
+    backgroundDiv.style.zIndex = "9998"; // Ensure it's behind the canvas
+    backgroundDiv.style.backgroundColor = "rgba(24, 24, 24, 1)";
+    backgroundDiv.style.borderRadius = "24px"; // Double the radius for the larger div
+
+    // Create a new canvas element
+    const canvas = document.createElement("canvas");
+    canvas.width = size;
+    canvas.height = size;
+    canvas.style.position = "fixed";
+    canvas.style.top = "50%";
+    canvas.style.left = "50%";
+    canvas.style.transform = "translate(-50%, -50%)";
+    canvas.style.zIndex = "9999"; // Ensure it's on top
+    canvas.style.borderRadius = "12px"; // Standard radius
+
+    // Get the context and draw the square
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "rgba(24, 24, 24, 1)"; // Background color
+    ctx.fillRect(0, 0, size, size);
+
+    // Create a new p element for the text
+    const textElement = document.createElement("p");
+    textElement.textContent = "bb";
+    textElement.style.position = "fixed";
+    textElement.style.top = "50%";
+    textElement.style.left = "50%";
+    textElement.style.transform = "translate(-50%, -50%)";
+    textElement.style.zIndex = "10000"; // Ensure it's on top of everything
+    textElement.style.fontFamily = '"Hack Nerd Font", monospace';
+    textElement.style.fontSize = "32px";
+    textElement.style.color = "#ffe9dd";
+    textElement.style.margin = "0"; // Remove default margin
+
+    // Append the elements to the body
+    document.body.appendChild(backgroundDiv);
+    document.body.appendChild(canvas);
+    document.body.appendChild(textElement);
+}
+window.favi = favi;
