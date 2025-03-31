@@ -170,6 +170,23 @@ function setDotScale(scale) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    const cursor = document.getElementById("dot-cursor");
+    let isMobile = window.innerWidth <= 768;
+
+    // Function to update mobile status
+    function checkMobile() {
+        isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            cursor.style.display = "none";
+        } else {
+            cursor.style.display = "block";
+        }
+    }
+
+    // Check on load and on resize
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
     setupSocialNavigation();
 });
 

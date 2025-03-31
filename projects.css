@@ -58,14 +58,9 @@
   height: 100%;
 }
 
-/* Add styles for stats elements */
-.stats {
-  display: none;
-}
-
 /* Style for when stats toggle is active */
 .stats-active {
-  display: block;
+  display: block !important;
 }
 
 .filter-pill-active {
@@ -126,9 +121,53 @@ svg {
 }
 
 .stats {
-  display: flex;
+  display: none;
   flex-wrap: wrap;
   gap: 0px;
   justify-content: center;
   width: 90%;
+}
+
+/* Mobile responsive styles */
+@media screen and (max-width: 768px) {
+  .project-filter {
+    width: 90%;
+    flex-direction: column;
+    height: auto;
+    justify-content: center;
+    row-gap: 10px;
+    align-items: center;
+  }
+
+  .project-layouts {
+    display: none;
+  }
+
+  .layout {
+    width: 24px;
+    height: 24px;
+  }
+
+  #project-search {
+    width: 80%;
+    height: 40px;
+    gap: 10px;
+  }
+
+  .pill {
+    padding: 8px 15px;
+  }
+
+  .project {
+    width: 95%;
+  }
+
+  .project img {
+    max-width: 90%;
+  }
+
+  .stats {
+    flex-direction: column;
+    align-items: center;
+  }
 }

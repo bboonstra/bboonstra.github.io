@@ -25,7 +25,10 @@ window.addEventListener("mousemove", (event) => {
 
 function generateShapes() {
     shapes = [];
-    const numSquaresTall = 10;
+    const isMobile = window.innerWidth <= 768;
+
+    // Use fewer squares for mobile
+    const numSquaresTall = isMobile ? 5 : 10;
     const size = canvas.height / numSquaresTall; // Calculate size based on height
 
     // Calculate the number of full columns that fit the canvas width
@@ -97,27 +100,31 @@ function updateSocialBoxes() {
 function drawShapes() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Define the "bb" pattern in the bottom left with stems
-    const numSquaresTall = 10;
+    const isMobile = window.innerWidth <= 768;
+    const numSquaresTall = isMobile ? 5 : 10;
     const size = canvas.height / numSquaresTall;
-    const bbPattern = [
-        { x: 0, y: 5 },
-        { x: 0, y: 6 },
-        { x: 0, y: 7 },
-        { x: 0, y: 8 },
-        { x: 0, y: 9 }, // First "b" stem
-        { x: 1, y: 7 },
-        { x: 1, y: 9 },
-        { x: 2, y: 8 },
-        { x: 4, y: 5 },
-        { x: 4, y: 6 },
-        { x: 4, y: 7 },
-        { x: 4, y: 8 },
-        { x: 4, y: 9 }, // Second "b" stem
-        { x: 5, y: 7 },
-        { x: 5, y: 9 },
-        { x: 6, y: 8 },
-    ];
+
+    // Only implement the "bb" pattern on desktop
+    const bbPattern = !isMobile
+        ? [
+              { x: 0, y: 5 },
+              { x: 0, y: 6 },
+              { x: 0, y: 7 },
+              { x: 0, y: 8 },
+              { x: 0, y: 9 }, // First "b" stem
+              { x: 1, y: 7 },
+              { x: 1, y: 9 },
+              { x: 2, y: 8 },
+              { x: 4, y: 5 },
+              { x: 4, y: 6 },
+              { x: 4, y: 7 },
+              { x: 4, y: 8 },
+              { x: 4, y: 9 }, // Second "b" stem
+              { x: 5, y: 7 },
+              { x: 5, y: 9 },
+              { x: 6, y: 8 },
+          ]
+        : [];
 
     // Calculate the same offset used in generateShapes
     const numColumns = Math.floor(canvas.width / size) + 1;
@@ -181,59 +188,134 @@ function drawShapes() {
         }
     }
 
-    for (let shape of shapes) {
-        // Skip shapes that haven't been revealed yet during the initial animation
-        // Also skip all shapes during the delay period
-        if (animationDelayed || (!animationComplete && !shape.revealed)) {
-            continue;
+    // On mobile, use touch position instead of dot cursor for hover detection
+    let touchX = 0;
+    let touchY = 0;
+
+    if (isMobile) {
+        // Get the last known touch position
+        if (
+            window.lastTouchX !== undefined &&
+            window.lastTouchY !== undefined
+        ) {
+            touchX = window.lastTouchX;
+            touchY = window.lastTouchY;
         }
 
-        // Check for hover based on dot position and size instead of mouse
-        const isHovered =
-            dotElement.style.opacity != "0" &&
-            (dotX !== 0 || dotY !== 0) &&
-            Math.abs(dotX - (shape.x + shape.width / 2)) <
-                effectiveWidth / 2 + shape.width / 2 &&
-            Math.abs(dotY - (shape.y + shape.height / 2)) <
-                effectiveHeight / 2 + shape.height / 2 &&
-            effectiveWidth <= shape.width * 2 && // Only hover if cursor is not wider than 2 boxes
-            effectiveHeight <= shape.height * 2; // Only hover if cursor is not taller than 2 boxes
+        for (let shape of shapes) {
+            // Skip shapes that haven't been revealed yet during the initial animation
+            if (animationDelayed || (!animationComplete && !shape.revealed)) {
+                continue;
+            }
 
-        // Check if the shape is part of the "bb" pattern
-        // Adjust for offset when checking pattern
-        const isBB = bbPattern.some(
-            (bb) =>
-                Math.floor((shape.x - offsetX) / shape.width) === bb.x &&
-                Math.floor(shape.y / shape.height) === bb.y
-        );
+            // Check for touch/tap based hover
+            const isTouched =
+                touchX !== 0 &&
+                touchY !== 0 &&
+                touchX > shape.x &&
+                touchX < shape.x + shape.width &&
+                touchY > shape.y &&
+                touchY < shape.y + shape.height;
 
-        // Adjust opacity and fade rate for "bb" pattern
-        if (isBB) {
-            shape.opacity = isHovered ? 0.5 : shape.opacity;
-            shape.opacity -= 0.002; // Slower fade
-        } else {
-            shape.opacity = isHovered ? 0.25 : shape.opacity;
-            shape.opacity -= 0.01;
+            if (isTouched) {
+                shape.opacity = 0.25;
+            } else {
+                shape.opacity -= 0.01;
+            }
+
+            shape.opacity = Math.max(shape.opacity, 0);
+
+            // Check if the shape is part of the "bb" pattern
+            // Adjust for offset when checking pattern
+            const isBB = bbPattern.some(
+                (bb) =>
+                    Math.floor((shape.x - offsetX) / shape.width) === bb.x &&
+                    Math.floor(shape.y / shape.height) === bb.y
+            );
+
+            // Adjust opacity and fade rate for "bb" pattern
+            if (isBB) {
+                shape.opacity = isTouched ? 0.5 : shape.opacity;
+                shape.opacity -= 0.002; // Slower fade
+            } else {
+                shape.opacity = isTouched ? 0.25 : shape.opacity;
+                shape.opacity -= 0.01;
+            }
+            shape.opacity = Math.max(shape.opacity, 0);
+
+            // Check if the shape at this position has already been drawn
+            const shapeKey = `${shape.x},${shape.y}`;
+
+            if (!drawnShapes.has(shapeKey)) {
+                ctx.beginPath();
+                ctx.rect(shape.x, shape.y, shape.width, shape.height);
+                ctx.fillStyle = `rgba(255, 255, 255, ${shape.opacity})`;
+                ctx.fill();
+
+                // Add the shape coordinates to the set
+                drawnShapes.add(shapeKey);
+            }
+
+            // Add a minimalist border
+            ctx.lineWidth = 1; // Set the border width
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.05)"; // Set the border color and opacity
+            ctx.strokeRect(shape.x, shape.y, shape.width, shape.height);
         }
-        shape.opacity = Math.max(shape.opacity, 0);
+    } else {
+        // Keep existing desktop hover behavior
+        for (let shape of shapes) {
+            // Skip shapes that haven't been revealed yet during the initial animation
+            if (animationDelayed || (!animationComplete && !shape.revealed)) {
+                continue;
+            }
 
-        // Check if the shape at this position has already been drawn
-        const shapeKey = `${shape.x},${shape.y}`;
+            // Check for hover based on dot position and size instead of mouse
+            const isHovered =
+                dotElement.style.opacity != "0" &&
+                (dotX !== 0 || dotY !== 0) &&
+                Math.abs(dotX - (shape.x + shape.width / 2)) <
+                    effectiveWidth / 2 + shape.width / 2 &&
+                Math.abs(dotY - (shape.y + shape.height / 2)) <
+                    effectiveHeight / 2 + shape.height / 2 &&
+                effectiveWidth <= shape.width * 2 && // Only hover if cursor is not wider than 2 boxes
+                effectiveHeight <= shape.height * 2; // Only hover if cursor is not taller than 2 boxes
 
-        if (!drawnShapes.has(shapeKey)) {
-            ctx.beginPath();
-            ctx.rect(shape.x, shape.y, shape.width, shape.height);
-            ctx.fillStyle = `rgba(255, 255, 255, ${shape.opacity})`;
-            ctx.fill();
+            // Check if the shape is part of the "bb" pattern
+            // Adjust for offset when checking pattern
+            const isBB = bbPattern.some(
+                (bb) =>
+                    Math.floor((shape.x - offsetX) / shape.width) === bb.x &&
+                    Math.floor(shape.y / shape.height) === bb.y
+            );
 
-            // Add the shape coordinates to the set
-            drawnShapes.add(shapeKey);
+            // Adjust opacity and fade rate for "bb" pattern
+            if (isBB) {
+                shape.opacity = isHovered ? 0.5 : shape.opacity;
+                shape.opacity -= 0.002; // Slower fade
+            } else {
+                shape.opacity = isHovered ? 0.25 : shape.opacity;
+                shape.opacity -= 0.01;
+            }
+            shape.opacity = Math.max(shape.opacity, 0);
+
+            // Check if the shape at this position has already been drawn
+            const shapeKey = `${shape.x},${shape.y}`;
+
+            if (!drawnShapes.has(shapeKey)) {
+                ctx.beginPath();
+                ctx.rect(shape.x, shape.y, shape.width, shape.height);
+                ctx.fillStyle = `rgba(255, 255, 255, ${shape.opacity})`;
+                ctx.fill();
+
+                // Add the shape coordinates to the set
+                drawnShapes.add(shapeKey);
+            }
+
+            // Add a minimalist border
+            ctx.lineWidth = 1; // Set the border width
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.05)"; // Set the border color and opacity
+            ctx.strokeRect(shape.x, shape.y, shape.width, shape.height);
         }
-
-        // Add a minimalist border
-        ctx.lineWidth = 1; // Set the border width
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.05)"; // Set the border color and opacity
-        ctx.strokeRect(shape.x, shape.y, shape.width, shape.height);
     }
 
     // Draw social boxes when they should be visible
@@ -282,3 +364,29 @@ function drawShapes() {
 
 generateShapes();
 drawShapes();
+
+// Add touch event handling for mobile
+window.lastTouchX = 0;
+window.lastTouchY = 0;
+
+window.addEventListener("touchstart", (event) => {
+    if (event.touches.length > 0) {
+        window.lastTouchX = event.touches[0].clientX;
+        window.lastTouchY = event.touches[0].clientY;
+    }
+});
+
+window.addEventListener("touchmove", (event) => {
+    if (event.touches.length > 0) {
+        window.lastTouchX = event.touches[0].clientX;
+        window.lastTouchY = event.touches[0].clientY;
+    }
+});
+
+window.addEventListener("touchend", () => {
+    // Reset after a delay to allow for shape lighting up
+    setTimeout(() => {
+        window.lastTouchX = 0;
+        window.lastTouchY = 0;
+    }, 300);
+});
