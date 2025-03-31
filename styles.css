@@ -8,6 +8,7 @@
   --text-color: #ffe9dd;
   --standard-radius: 12px;
   --border-gray: rgba(255, 255, 255, 0.05);
+  --bluestra: #698eff;
 }
 
 #dot-cursor {
@@ -28,7 +29,11 @@
 .projects-link {
   text-decoration: underline dotted;
   font-weight: bold !important;
-  color: #8095ff;
+  color: var(--bluestra);
+}
+
+.projects-link:visited {
+  color: var(--bluestra);
 }
 
 a {
