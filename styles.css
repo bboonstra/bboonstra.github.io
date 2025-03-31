@@ -293,3 +293,38 @@ html {
     width: 90% !important; /* Override any JS setting */
   }
 }
+
+/* Scroll Prompt Styles */
+.scroll-prompt {
+  position: fixed;
+  bottom: 20px; /* Position slightly above the bottom edge */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.5s ease-in-out;
+  z-index: 99; /* Below cursor/nav but above most content */
+  color: var(--text-color); /* Use existing text color */
+  animation: bounce 2s infinite ease-in-out; /* Subtle bounce */
+  pointer-events: none; /* Prevent interaction */
+}
+
+.scroll-prompt.visible {
+  opacity: 0.7; /* Make it slightly transparent */
+}
+
+/* Bounce animation for the prompt */
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
