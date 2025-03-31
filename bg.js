@@ -310,53 +310,103 @@ window.addEventListener("touchend", () => {
 });
 
 function favi() {
-    // Create a new div element for the background
+    const size = 128; // Display size of the square
+    const resolutionMultiplier = 1.5; // Increase this for higher resolution
+    const highResSize = size * resolutionMultiplier; // High-resolution size
+    const backgroundSize = size * 2; // Size of the background
+
+    // Create and style background div
     const backgroundDiv = document.createElement("div");
-    const size = 100; // Size of the square
-    const backgroundSize = size * 2; // Background is 2x the size
+    Object.assign(backgroundDiv.style, {
+        width: `${backgroundSize}px`,
+        height: `${backgroundSize}px`,
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        zIndex: "9998",
+        backgroundColor: "rgba(24, 24, 24, 1)",
+        borderRadius: "24px",
+    });
 
-    backgroundDiv.style.width = `${backgroundSize}px`;
-    backgroundDiv.style.height = `${backgroundSize}px`;
-    backgroundDiv.style.position = "fixed";
-    backgroundDiv.style.top = "50%";
-    backgroundDiv.style.left = "50%";
-    backgroundDiv.style.transform = "translate(-50%, -50%)";
-    backgroundDiv.style.zIndex = "9998"; // Ensure it's behind the canvas
-    backgroundDiv.style.backgroundColor = "rgba(24, 24, 24, 1)";
-    backgroundDiv.style.borderRadius = "24px"; // Double the radius for the larger div
-
-    // Create a new canvas element
-    const canvas = document.createElement("canvas");
-    canvas.width = size;
-    canvas.height = size;
-    canvas.style.position = "fixed";
-    canvas.style.top = "50%";
-    canvas.style.left = "50%";
-    canvas.style.transform = "translate(-50%, -50%)";
-    canvas.style.zIndex = "9999"; // Ensure it's on top
-    canvas.style.borderRadius = "12px"; // Standard radius
-
-    // Get the context and draw the square
-    const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "rgba(24, 24, 24, 1)"; // Background color
-    ctx.fillRect(0, 0, size, size);
-
-    // Create a new p element for the text
+    // Create and style text element
     const textElement = document.createElement("p");
     textElement.textContent = "bb";
-    textElement.style.position = "fixed";
-    textElement.style.top = "50%";
-    textElement.style.left = "50%";
-    textElement.style.transform = "translate(-50%, -50%)";
-    textElement.style.zIndex = "10000"; // Ensure it's on top of everything
-    textElement.style.fontFamily = '"Hack Nerd Font", monospace';
-    textElement.style.fontSize = "32px";
-    textElement.style.color = "#ffe9dd";
-    textElement.style.margin = "0"; // Remove default margin
+    Object.assign(textElement.style, {
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        zIndex: "10000",
+        fontFamily: '"Hack Nerd Font", monospace',
+        fontSize: "64px",
+        color: "#ffe9dd",
+        margin: "0",
+        padding: "1px",
+    });
 
-    // Append the elements to the body
+    // Append text element to body to measure its bounding box
+    document.body.appendChild(textElement);
+
+    // Measure the bounding box of the text element
+    const textRect = textElement.getBoundingClientRect();
+    const textX = textRect.left - (window.innerWidth - size) / 2;
+    const textY = textRect.top - (window.innerHeight - size) / 2;
+    const textWidth = textRect.width;
+    const textHeight = textRect.height;
+
+    // Create and style high-resolution canvas
+    const canvas = document.createElement("canvas");
+    canvas.width = highResSize;
+    canvas.height = highResSize;
+    Object.assign(canvas.style, {
+        width: `${size}px`, // Display size
+        height: `${size}px`, // Display size
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        zIndex: "9999",
+        borderRadius: "12px",
+        padding: "0px",
+    });
+
+    // Draw on high-resolution canvas
+    const ctx = canvas.getContext("2d");
+    ctx.scale(resolutionMultiplier, resolutionMultiplier); // Scale context for high resolution
+    ctx.fillStyle = "rgba(24, 24, 24, 1)";
+    ctx.fillRect(0, 0, size, size);
+
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+    ctx.lineWidth = 2 / resolutionMultiplier; // Adjust line width for high resolution
+
+    // Draw lines from the edges of the text box to the edges of the canvas
+    // Top line
+    ctx.beginPath();
+    ctx.moveTo(0, textY);
+    ctx.lineTo(size, textY);
+    ctx.stroke();
+
+    // Bottom line
+    ctx.beginPath();
+    ctx.moveTo(0, textY + textHeight);
+    ctx.lineTo(size, textY + textHeight);
+    ctx.stroke();
+
+    // Left line
+    ctx.beginPath();
+    ctx.moveTo(textX, 0);
+    ctx.lineTo(textX, size);
+    ctx.stroke();
+
+    // Right line
+    ctx.beginPath();
+    ctx.moveTo(textX + textWidth, 0);
+    ctx.lineTo(textX + textWidth, size);
+    ctx.stroke();
+
+    // Append elements to body
     document.body.appendChild(backgroundDiv);
     document.body.appendChild(canvas);
-    document.body.appendChild(textElement);
 }
 window.favi = favi;

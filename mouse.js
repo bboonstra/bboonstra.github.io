@@ -195,8 +195,6 @@ function updateAnchorCursor(anchor) {
     // Ensure gradientSize is at least a small positive number to avoid rendering issues
     gradientSize = Math.max(1, gradientSize);
 
-    console.log("Calculated gradient size:", gradientSize);
-
     // Apply smooth transitions for all properties
     dot.style.transition = `
         opacity ${fadeDuration * 2}ms ease,
