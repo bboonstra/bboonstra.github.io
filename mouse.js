@@ -14,8 +14,12 @@ function resetInactivityTimer() {
         setDotScale(1);
     }
     inactivityTimer = setTimeout(() => {
-        dot.style.opacity = "0";
-        setDotScale(0);
+        if (document.querySelector("a:hover, .hoverable:hover")) {
+            resetInactivityTimer();
+        } else {
+            dot.style.opacity = "0";
+            setDotScale(0);
+        }
     }, inactiveDuration);
 }
 
@@ -54,15 +58,7 @@ document.addEventListener("mouseenter", function () {
 });
 
 document.addEventListener("mousedown", function (e) {
-    // Check if the click is on an anchor element
-    if (e.target.closest("a, .hoverable")) {
-        // Special effect for clicking links
-        setDotScale(0.1);
-        dot.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
-    } else {
-        // Normal click effect for non-links
-        setDotScale(2.5);
-    }
+    setDotScale(0.5);
 });
 
 document.addEventListener("mouseup", function () {

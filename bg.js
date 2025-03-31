@@ -3,6 +3,10 @@ const ctx = canvas.getContext("2d");
 let shapes = [];
 let mouse = { x: 0, y: 0 };
 let socialBoxes = [];
+let animationComplete = false; // Flag to track if the initial animation is complete
+let animationStartTime = null; // Track when the animation started
+let animationDelayed = true; // Flag to track if we're still in the delay period
+const initialDelay = 700; // delay before animation starts
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -38,9 +42,17 @@ function generateShapes() {
                 width: size,
                 height: size,
                 opacity: 0,
+                col: col, // Store column for animation sequencing
+                row: row, // Store row for animation sequencing
+                revealed: false, // Track if this shape has been revealed in the animation
             });
         }
     }
+
+    // Set up for delayed animation
+    animationComplete = false;
+    animationDelayed = true;
+    animationStartTime = performance.now();
 
     // Generate social boxes
     updateSocialBoxes();
@@ -132,7 +144,50 @@ function drawShapes() {
     // Create a set to store drawn shape coordinates
     const drawnShapes = new Set();
 
+    // Handle the initial loading animation with delay
+    const currentTime = performance.now();
+
+    // Check if we need to wait for the initial delay
+    if (animationDelayed) {
+        if (currentTime - animationStartTime >= initialDelay) {
+            // Delay period is over, start the actual animation
+            animationDelayed = false;
+            animationStartTime = currentTime; // Reset the start time for the animation itself
+        }
+    }
+
+    // Only process animation if we're past the delay period and not yet complete
+    if (!animationDelayed && !animationComplete) {
+        const animationDuration = 1000; // Animation takes 1 second
+        const elapsedTime = currentTime - animationStartTime;
+        const animationProgress = Math.min(elapsedTime / animationDuration, 1);
+
+        if (animationProgress >= 1) {
+            animationComplete = true;
+        }
+
+        // Reveal shapes in a diagonal wave pattern from top-left to bottom-right
+        for (let shape of shapes) {
+            // Calculate when this shape should appear based on its position
+            // The sum of row and column creates a diagonal wave effect
+            const positionValue = shape.row + shape.col;
+            const maxPositionValue = numColumns + numSquaresTall - 2; // Maximum possible sum of row+col
+            const normalizedPosition = positionValue / maxPositionValue;
+
+            // Determine if this shape should be revealed yet
+            if (animationProgress >= normalizedPosition) {
+                shape.revealed = true;
+            }
+        }
+    }
+
     for (let shape of shapes) {
+        // Skip shapes that haven't been revealed yet during the initial animation
+        // Also skip all shapes during the delay period
+        if (animationDelayed || (!animationComplete && !shape.revealed)) {
+            continue;
+        }
+
         // Check for hover based on dot position and size instead of mouse
         const isHovered =
             dotElement.style.opacity != "0" &&
@@ -164,6 +219,7 @@ function drawShapes() {
 
         // Check if the shape at this position has already been drawn
         const shapeKey = `${shape.x},${shape.y}`;
+
         if (!drawnShapes.has(shapeKey)) {
             ctx.beginPath();
             ctx.rect(shape.x, shape.y, shape.width, shape.height);

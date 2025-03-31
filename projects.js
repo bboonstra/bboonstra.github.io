@@ -3,6 +3,38 @@ document.addEventListener("DOMContentLoaded", () => {
     const filterPills = document.querySelectorAll(".filter-pill");
     const projects = document.querySelectorAll(".project");
     const layoutButtons = document.querySelectorAll(".layout");
+    // Add the stats toggle button
+    const statsToggle = document.querySelector(".project-stats-toggle .pill");
+    const statsElements = document.querySelectorAll(".stats");
+
+    // Add event listener for the Effortless banner
+    const effortlessBanner = document.getElementById("effortless-banner");
+    if (effortlessBanner) {
+        effortlessBanner.addEventListener("click", () => {
+            window.location.href = "https://bboonstra.dev/effortless/";
+        });
+    }
+
+    // Add event listener for the Stats for Nerds toggle
+    if (statsToggle) {
+        statsToggle.addEventListener("click", () => {
+            const isActive =
+                statsToggle.classList.contains("filter-pill-active");
+
+            // Ensure all toggles are in sync
+            if (isActive) {
+                statsToggle.classList.remove("filter-pill-active");
+                statsElements.forEach((stat) => {
+                    stat.classList.remove("stats-active");
+                });
+            } else {
+                statsToggle.classList.add("filter-pill-active");
+                statsElements.forEach((stat) => {
+                    stat.classList.add("stats-active");
+                });
+            }
+        });
+    }
 
     searchInput.addEventListener("input", () => {
         const query = searchInput.value.toLowerCase();
@@ -19,6 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 pill.classList.remove("filter-pill-active");
                 filterProjects("");
             } else {
+                // Clear text in the input
+                searchInput.value = "";
                 // Remove 'filter-pill-active' class from all pills
                 filterPills.forEach((p) =>
                     p.classList.remove("filter-pill-active")

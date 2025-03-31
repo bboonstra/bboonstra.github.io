@@ -38,6 +38,7 @@
   border: 1px solid white;
   color: var(--text-color);
   background-color: var(--vantablack);
+  outline-color: var(--border-gray);
 }
 
 .filter-pills {
@@ -46,7 +47,7 @@
   gap: 5px;
 }
 
-.filter-pill {
+.pill {
   background-color: rgba(255, 255, 255, 0.1);
   padding: 5px 10px;
   transition: background-color 0.2s;
@@ -54,6 +55,17 @@
   border: 1px solid var(--text-color);
   color: var(--text-color);
   background-color: var(--vantablack);
+  height: 100%;
+}
+
+/* Add styles for stats elements */
+.stats {
+  display: none;
+}
+
+/* Style for when stats toggle is active */
+.stats-active {
+  display: block;
 }
 
 .filter-pill-active {
@@ -96,12 +108,27 @@ svg {
   height: min-content;
   gap: 10px;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .project img {
   max-width: 80%;
+  width: auto;
+  border-radius: var(--standard-radius);
 }
 
-a {
-  display: inline-block;
+.stats * {
+  text-decoration: none !important;
+  margin: 0;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0px;
+  justify-content: center;
+  width: 90%;
 }
