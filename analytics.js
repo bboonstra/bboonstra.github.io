@@ -37,9 +37,19 @@ document.addEventListener("DOMContentLoaded", () => {
             category: "social_link",
         });
     }
+
     console.log("Analytics state:");
     console.log("window.pathing:", window.pathing);
-    console.log("window.pathing.init:", window.pathing.init);
-    console.log("window.pathing.link:", window.pathing.link);
-    console.log("window.pathing.link.button:", window.pathing.link.button);
+
+    // Access the pathing property through the getter
+    const pathingObj = window.pathing.pathing;
+    console.log("window.pathing.pathing:", pathingObj);
+
+    if (pathingObj) {
+        console.log("pathingObj.init:", pathingObj.init);
+        console.log("pathingObj.link:", pathingObj.link);
+        if (pathingObj.link) {
+            console.log("pathingObj.link.button:", pathingObj.link.button);
+        }
+    }
 });
