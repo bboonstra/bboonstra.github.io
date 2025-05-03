@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Get the actual pathing object
+    const pathingObj = window.pathing?.pathing;
+
     // Initialize pathing if needed
-    if (window.pathing && typeof window.pathing.init === "function") {
-        window.pathing.init(
-            "pk_927a2c5c19ef6b96d7ab99cea62a9e64aa2785e3c896283d"
-        );
+    if (pathingObj && typeof pathingObj.init === "function") {
+        pathingObj.init("pk_927a2c5c19ef6b96d7ab99cea62a9e64aa2785e3c896283d");
     }
 
     // Set up analytics tracking for social links
@@ -12,8 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const emailLink = document.getElementById("email-link");
 
     // LinkedIn tracking
-    if (linkedinLink && window.pathing && window.pathing.link) {
-        window.pathing.link.button(linkedinLink, {
+    if (linkedinLink && pathingObj && pathingObj.link) {
+        pathingObj.link.button(linkedinLink, {
             location: "homepage",
             action: "linkedin_click",
             category: "social_link",
@@ -21,8 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // GitHub tracking
-    if (githubLink && window.pathing && window.pathing.link) {
-        window.pathing.link.button(githubLink, {
+    if (githubLink && pathingObj && pathingObj.link) {
+        pathingObj.link.button(githubLink, {
             location: "homepage",
             action: "github_click",
             category: "social_link",
@@ -30,26 +31,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Email tracking
-    if (emailLink && window.pathing && window.pathing.link) {
-        window.pathing.link.button(emailLink, {
+    if (emailLink && pathingObj && pathingObj.link) {
+        pathingObj.link.button(emailLink, {
             location: "homepage",
             action: "email_click",
             category: "social_link",
         });
-    }
-
-    console.log("Analytics state:");
-    console.log("window.pathing:", window.pathing);
-
-    // Access the pathing property through the getter
-    const pathingObj = window.pathing.pathing;
-    console.log("window.pathing.pathing:", pathingObj);
-
-    if (pathingObj) {
-        console.log("pathingObj.init:", pathingObj.init);
-        console.log("pathingObj.link:", pathingObj.link);
-        if (pathingObj.link) {
-            console.log("pathingObj.link.button:", pathingObj.link.button);
-        }
     }
 });
