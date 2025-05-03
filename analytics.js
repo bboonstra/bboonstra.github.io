@@ -37,4 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
             category: "social_link",
         });
     }
+    console.log("Analytics state:");
+    console.log("window.pathing:", window.pathing);
+    console.log("window.pathing.init:", window.pathing.init);
+    console.log("window.pathing.link:", window.pathing.link);
+    console.log("window.pathing.link.button:", window.pathing.link.button);
 });
