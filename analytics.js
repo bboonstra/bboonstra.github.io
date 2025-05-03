@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log(pathing);
-
     // Set up analytics tracking for social links
     const linkedinLink = document.getElementById("linkedin-link");
     const githubLink = document.getElementById("github-link");
@@ -8,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // LinkedIn tracking
     if (linkedinLink) {
-        pathing.link.button(linkedinLink, {
+        window.pathing.link.button(linkedinLink, {
             location: "homepage",
             action: "linkedin_click",
             category: "social_link",
@@ -17,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // GitHub tracking
     if (githubLink) {
-        pathing.link.button(githubLink, {
+        window.pathing.link.button(githubLink, {
             location: "homepage",
             action: "github_click",
             category: "social_link",
@@ -26,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Email tracking
     if (emailLink) {
-        pathing.link.button(emailLink, {
+        window.pathing.link.button(emailLink, {
             location: "homepage",
             action: "email_click",
             category: "social_link",
