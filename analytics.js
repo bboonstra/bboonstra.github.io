@@ -1,5 +1,5 @@
 // Import pathing from the script
-import { pathing } from "https://www.pathing.cc/pathing.js";
+import pathing from "https://www.pathing.cc/pathing.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     // Initialize pathing if needed
