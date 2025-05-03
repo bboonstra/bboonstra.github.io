@@ -1,7 +1,3 @@
-import pathing from "https://www.pathing.cc/pathing.js";
-
-pathing.init("pk_927a2c5c19ef6b96d7ab99cea62a9e64aa2785e3c896283d");
-
 document.addEventListener("DOMContentLoaded", () => {
     // Set up analytics tracking for social links
     const linkedinLink = document.getElementById("linkedin-link");
