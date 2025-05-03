@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+    console.log(pathing);
+
     // Set up analytics tracking for social links
     const linkedinLink = document.getElementById("linkedin-link");
     const githubLink = document.getElementById("github-link");
